@@ -105,4 +105,3 @@ class TokenCard(Card):
 
     def get_damage(self):
         return self.damage
-
