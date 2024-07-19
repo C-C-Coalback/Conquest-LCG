@@ -1,5 +1,5 @@
 class Card:
-    def __init__(self, name, text, traits, cost, faction, loyalty, shields):
+    def __init__(self, name, text, traits, cost, faction, loyalty, shields, card_type, unique):
         self.name = name
         self.text = text
         self.traits = traits
@@ -7,6 +7,8 @@ class Card:
         self.faction = faction
         self.loyalty = loyalty
         self.shields = shields
+        self.card_type = card_type
+        self.unique = unique
 
     def get_name(self):
         return self.name
@@ -29,10 +31,16 @@ class Card:
     def get_shields(self):
         return self.shields
 
+    def get_card_type(self):
+        return self.card_type
+
+    def get_unique(self):
+        return self.unique
+
 
 class WarlordCard(Card):
     def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text):
-        super().__init__(name, text, traits, -1, faction, "Signature", 0)
+        super().__init__(name, text, traits, -1, faction, "Signature", 0, "Warlord", False)
         self.attack = attack
         self.health = health
         self.damage = 0
@@ -60,8 +68,8 @@ class WarlordCard(Card):
 
 
 class ArmyCard(Card):
-    def __init__(self, name, text, traits, cost, faction, loyalty, attack, health, command):
-        super().__init__(name, text, traits, cost, faction, loyalty, 0)
+    def __init__(self, name, text, traits, cost, faction, loyalty, attack, health, command, unique):
+        super().__init__(name, text, traits, cost, faction, loyalty, 0, "Army", unique)
         self.attack = attack
         self.health = health
         self.damage = 0
@@ -81,18 +89,23 @@ class ArmyCard(Card):
 
 
 class EventCard(Card):
-    def __init__(self, name, text, traits, cost, faction, loyalty, shields):
-        super().__init__(name, text, traits, cost, faction, loyalty, shields)
+    def __init__(self, name, text, traits, cost, faction, loyalty, shields, unique):
+        super().__init__(name, text, traits, cost, faction, loyalty, shields, "Event", unique)
 
 
 class AttachmentCard(Card):
-    def __init__(self, name, text, traits, cost, faction, loyalty, shields):
-        super().__init__(name, text, traits, cost, faction, loyalty, shields)
+    def __init__(self, name, text, traits, cost, faction, loyalty, shields, unique):
+        super().__init__(name, text, traits, cost, faction, loyalty, shields, "Attachment", unique)
+
+
+class SupportCard(Card):
+    def __init__(self, name, text, traits, cost, faction, loyalty, unique):
+        super().__init__(name, text, traits, cost, faction, loyalty, 0, "Support", unique)
 
 
 class TokenCard(Card):
     def __init__(self, name, text, traits, faction, attack, health):
-        super().__init__(name, text, traits, -1, faction, "Common", 0)
+        super().__init__(name, text, traits, -1, faction, "Common", 0, "Token", False)
         self.attack = attack
         self.health = health
         self.damage = 0
