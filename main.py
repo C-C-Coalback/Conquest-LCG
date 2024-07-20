@@ -2,6 +2,31 @@
 
 import CardClasses
 
+# Planet cards
+
+plannum = CardClasses.PlanetCard("Plannum",
+                                 "Battle Ability: Move a non-warlord unit you control to a planet of your choice.",
+                                 1, 1, False, True, True)
+atrox_prime = CardClasses.PlanetCard("Atrox Prime", "Battle Ability: Deal 1 damage "
+                                                    "to each enemy unit at a target HQ or adjacent planet.",
+                                     1, 1, True, True, False)
+barlus = CardClasses.PlanetCard("Barlus", "Battle Ability: Discard 1 card at random from your opponent's hand.",
+                                2, 0, False, False, True)
+elouith = CardClasses.PlanetCard("Elouith", "Battle Ability: Search the top 3 cards of your deck for a card. "
+                                            "Add it to your hand, and place the remaining cards "
+                                            "on the bottom of your deck in any order.", 2, 0, False, True, False)
+carnath = CardClasses.PlanetCard("Carnath", "Battle Ability: Trigger the Battle ability of another planet in play",
+                                 1, 1, True, True, False)
+tarrus = CardClasses.PlanetCard("Tarrus", "Battle Ability: If you control fewer units than your opponent, "
+                                          "gain 3 resources or draw 3 cards.", 1, 1, True, False, True)
+osus_iv = CardClasses.PlanetCard("Osus IV", "Battle Ability: "
+                                            "Take 1 resource from your opponent.", 0, 2, False, False, True)
+ferrin = CardClasses.PlanetCard("Ferrin", "Battle Ability: Rout a target non-warlord unit.", 0, 2, True, False, False)
+yvarn = CardClasses.PlanetCard("Y'varn", "Battle Ability: Each player puts a unit into play from his hand at his HQ.",
+                               0, 1, True, True, True)
+iridial = CardClasses.PlanetCard("Iridial", "Battle Ability: Remove all damage from a target unit.",
+                                 1, 0, True, True, True)
+
 # Orks core cards
 
 
@@ -66,4 +91,4 @@ tellyporta_pad = CardClasses.SupportCard("Tellyporta Pad", "Combat Action: Exhau
                                          "Location.", 2, "Orks", "Common", False)
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1)
 
-print(tankbusta_bommaz.get_command())
+print(ferrin.get_red())

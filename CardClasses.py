@@ -118,3 +118,36 @@ class TokenCard(Card):
 
     def get_damage(self):
         return self.damage
+
+
+class PlanetCard:
+    def __init__(self, name, text, cards, resources, red, blue, green):
+        self.name = name
+        self.text = text
+        self.cards = cards
+        self.resources = resources
+        self.red = red
+        self.blue = blue
+        self.green = green
+
+    def get_name(self):
+        return self.name
+
+    def get_text(self):
+        return self.text
+
+    def get_resources(self):
+        return self.resources
+
+    def get_cards(self):
+        return self.cards
+
+    def get_red(self):
+        return self.red
+
+    def get_blue(self):
+        return self.blue
+
+    def get_green(self):
+        return self.green
+
