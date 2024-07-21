@@ -44,6 +44,7 @@ class WarlordCard(Card):
         self.attack = attack
         self.health = health
         self.damage = 0
+        self.bloodied = False
         self.bloodied_attack = bloodied_attack
         self.bloodied_health = bloodied_health
         self.bloodied_text = bloodied_text
@@ -57,6 +58,9 @@ class WarlordCard(Card):
     def get_damage(self):
         return self.damage
 
+    def get_bloodied_state(self):
+        return self.bloodied
+
     def get_bloodied_attack(self):
         return self.bloodied_attack
 
@@ -65,6 +69,20 @@ class WarlordCard(Card):
 
     def get_bloodied_text(self):
         return self.bloodied_text
+
+    def print_info(self):
+        if self.unique:
+            print("Name: *", self.name)
+        else:
+            print("Name:", self.name)
+        print("Type:", self.card_type)
+        print("Faction:", self.faction)
+        print("Traits:", self.traits)
+        if not self.bloodied:
+            print("Text:", self.text, "\nStats:", self.attack, "Attack,", self.health, "Health")
+        else:
+            print("Text:", self.bloodied_text, "\nStats:", self.bloodied_attack, "Attack,",
+                  self.bloodied_health, "Health")
 
 
 class ArmyCard(Card):
@@ -87,20 +105,71 @@ class ArmyCard(Card):
     def get_command(self):
         return self.command
 
+    def print_info(self):
+        if self.unique:
+            print("Name: *", self.name)
+        else:
+            print("Name:", self.name)
+        print("Type:", self.card_type)
+        print("Faction:", self.faction)
+        print("Cost:", self.cost)
+        print("Traits:", self.traits)
+        print("Loyalty:", self.loyalty)
+        print("Text:", self.text, "\nStats:", self.attack, "Attack,", self.health, "Health,", self.command, "Command")
+
 
 class EventCard(Card):
     def __init__(self, name, text, traits, cost, faction, loyalty, shields, unique):
         super().__init__(name, text, traits, cost, faction, loyalty, shields, "Event", unique)
+
+    def print_info(self):
+        if self.unique:
+            print("Name: *", self.name)
+        else:
+            print("Name:", self.name)
+        print("Type:", self.card_type)
+        print("Faction:", self.faction)
+        print("Cost:", self.cost)
+        print("Traits:", self.traits)
+        print("Loyalty:", self.loyalty)
+        print("Shields:", self.shields)
+        print("Text:", self.text)
 
 
 class AttachmentCard(Card):
     def __init__(self, name, text, traits, cost, faction, loyalty, shields, unique):
         super().__init__(name, text, traits, cost, faction, loyalty, shields, "Attachment", unique)
 
+    def print_info(self):
+        if self.unique:
+            print("Name: *", self.name)
+        else:
+            print("Name:", self.name)
+        print("Type:", self.card_type)
+        print("Faction:", self.faction)
+        print("Cost:", self.cost)
+        print("Traits:", self.traits)
+        print("Loyalty:", self.loyalty)
+        print("Shields:", self.shields)
+        print("Text:", self.text)
+
 
 class SupportCard(Card):
     def __init__(self, name, text, traits, cost, faction, loyalty, unique):
         super().__init__(name, text, traits, cost, faction, loyalty, 0, "Support", unique)
+
+    def print_info(self):
+        if self.unique:
+            print("Name: *", self.name)
+        else:
+            print("Name:", self.name)
+        print("Type:", self.card_type)
+        print("Faction:", self.faction)
+        print("Cost:", self.cost)
+        print("Traits:", self.traits)
+        print("Loyalty:", self.loyalty)
+        print("Shields:", self.shields)
+        print("Text:", self.text)
 
 
 class TokenCard(Card):
@@ -118,6 +187,15 @@ class TokenCard(Card):
 
     def get_damage(self):
         return self.damage
+
+    def print_info(self):
+        print("Name:", self.name)
+        print("Type:", self.card_type)
+        print("Faction:", self.faction)
+        print("Cost:", self.cost)
+        print("Traits:", self.traits)
+        print("Loyalty:", self.loyalty)
+        print("Text:", self.text, "\nStats:", self.attack, "Attack,", self.health, "Health")
 
 
 class PlanetCard:
@@ -150,4 +228,16 @@ class PlanetCard:
 
     def get_green(self):
         return self.green
+
+    def print_info(self):
+        print("Name:", self.name)
+        print("Text:", self.text)
+        print("Command:", self.resources, "resource(s),", self.cards, "card(s)")
+        print("Icons:")
+        if self.red:
+            print("Red")
+        if self.blue:
+            print("Blue")
+        if self.green:
+            print("Green")
 
