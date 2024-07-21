@@ -240,4 +240,3 @@ class PlanetCard:
             print("Blue")
         if self.green:
             print("Green")
-
