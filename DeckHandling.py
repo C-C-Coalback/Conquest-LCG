@@ -39,8 +39,8 @@ def create_deck():
         print(deck_to_write)
     required_faction = "Orks"
     cards_added_array = []
-    card_count = 8
-    while card_count < 13:  # set to 50 in a real case
+    deck_size = 8
+    while deck_size < 13:  # set to 50 in a real case
         card_to_add = input("Enter a card: ")
         card_object = FindCard.find_card(card_to_add)
         if FindCard.check_faction(card_object, required_faction):
@@ -66,7 +66,7 @@ def create_deck():
                         while copies_to_add != 0:
                             deck_to_write += "#"
                             deck_to_write += card_object.get_name()
-                            card_count = card_count + 1
+                            deck_size = deck_size + 1
                             copies_to_add = copies_to_add - 1
                         cards_added_array.append(card_object.get_name())
     write_deck_into_file(deck_to_write)
