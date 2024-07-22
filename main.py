@@ -41,13 +41,6 @@ def print_info_card():
             print_info_card()
 
 
-def write_deck_into_file(deck_string):
-    file = open("deck_storage.txt", "a")
-    file.write(deck_string)
-    file.write("\n")
-    file.close()
-
-
 DeckHandling.create_deck()
 
 # print_info_card()

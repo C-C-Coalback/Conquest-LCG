@@ -37,4 +37,13 @@ def create_deck():
         deck_to_write += "#Bigga is Betta"
         deck_to_write += "#Cybork Body"
         print(deck_to_write)
+    required_faction = "Orks"
+    card_count = 8
+    while card_count < 13:  # set to 50 in a real case
+        card_to_add = input("Enter a card: ")
+        card_object = FindCard.find_card(card_to_add)
+        if FindCard.check_faction(card_object, required_faction):
+            deck_to_write += "#"
+            deck_to_write += card_object.get_name()
+            card_count = card_count + 1
     write_deck_into_file(deck_to_write)

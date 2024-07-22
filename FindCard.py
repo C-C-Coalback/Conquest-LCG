@@ -11,16 +11,25 @@ def find_card(card_to_find):
             return orks_card_array[i]
         else:
             i = i + 1
-    retry = input("Card not found. Retry? (y/n)")
-    if retry == "y":
-        card_name = input("Enter card name: ")
-        return find_card(card_name)
-    else:
-        return orks_card_array[i]
+    return orks_card_array[i]
 
 
 def check_card_type(card_object, required_type):
     if card_object.get_card_type() == required_type:
+        return True
+    else:
+        return False
+
+
+def check_loyalty(card_object, required_loyalty):
+    if card_object.get_loyalty() == required_loyalty:
+        return True
+    else:
+        return False
+
+
+def check_faction(card_object, required_faction):
+    if card_object.get_faction() == required_faction:
         return True
     else:
         return False
