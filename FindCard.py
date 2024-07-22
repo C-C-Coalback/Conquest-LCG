@@ -33,4 +33,3 @@ def check_faction(card_object, required_faction):
         return True
     else:
         return False
-
