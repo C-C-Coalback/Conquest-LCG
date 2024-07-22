@@ -38,12 +38,35 @@ def create_deck():
         deck_to_write += "#Cybork Body"
         print(deck_to_write)
     required_faction = "Orks"
+    cards_added_array = []
     card_count = 8
     while card_count < 13:  # set to 50 in a real case
         card_to_add = input("Enter a card: ")
         card_object = FindCard.find_card(card_to_add)
         if FindCard.check_faction(card_object, required_faction):
-            deck_to_write += "#"
-            deck_to_write += card_object.get_name()
-            card_count = card_count + 1
+            if FindCard.check_loyalty(card_object, "Signature"):
+                print("Card is a signature card, may not be added.")
+            else:
+                already_added = False
+                for cards_added in cards_added_array:
+                    if cards_added == card_object.get_name():
+                        already_added = True
+                if already_added:
+                    print("At least one copy of this card has already been added.")
+                else:
+                    copies_to_add = int(input("Enter how many copies you want to add: "))
+                    if copies_to_add > 3:
+                        print("Can only add a maximum of 3 copies of a card to a deck.")
+                    elif copies_to_add < 0:
+                        print("Invalid number entered.")
+                    elif copies_to_add == 0:
+                        print("Card not added.")
+                    else:
+                        print("Adding", copies_to_add, "copies of", card_object.get_name())
+                        while copies_to_add != 0:
+                            deck_to_write += "#"
+                            deck_to_write += card_object.get_name()
+                            card_count = card_count + 1
+                            copies_to_add = copies_to_add - 1
+                        cards_added_array.append(card_object.get_name())
     write_deck_into_file(deck_to_write)
