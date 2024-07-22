@@ -3,13 +3,15 @@
 import CardClasses
 import PlanetCardsInit
 import OrksCardsInit
+import FindCard
+import DeckHandling
 
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1)
 
 orks_card_array = OrksCardsInit.orks_cards_init()
 planet_array = PlanetCardsInit.planet_cards_init()
-
-# print(planet_array[0].get_text())
+faction_wheel = ["Astra Militarum", "Space Marines", "Tau", "Eldar",
+                 "Dark Eldar", "Chaos", "Orks", "Astra Militarum", "Space Marines"]
 
 
 def print_info_planet():
@@ -30,20 +32,24 @@ def print_info_planet():
 
 def print_info_card():
     card_to_find = input("Select Card: ")
-    i = 0
-    found = False
-    while orks_card_array[i].get_shields() != -1 and not found:
-        if card_to_find == orks_card_array[i].get_name():
-            orks_card_array[i].print_info()
-            found = True
-        else:
-            i = i + 1
-    if not found:
+    card_object = FindCard.find_card(card_to_find)
+    if card_object.get_shields() != -1:
+        card_object.print_info()
+    else:
         retry = input("Card not found. Retry? (y/n)")
         if retry == "y":
             print_info_card()
 
 
-print_info_card()
+def write_deck_into_file(deck_string):
+    file = open("deck_storage.txt", "a")
+    file.write(deck_string)
+    file.write("\n")
+    file.close()
+
+
+DeckHandling.create_deck()
+
+# print_info_card()
 
 # print_info_planet()
