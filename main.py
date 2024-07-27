@@ -5,6 +5,7 @@ import PlanetCardsInit
 import OrksCardsInit
 import FindCard
 import DeckHandling
+import FindDeck
 
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1)
 
@@ -41,7 +42,10 @@ def print_info_card():
             print_info_card()
 
 
-DeckHandling.create_deck()
+holder = input("Create_deck?")
+if holder == "y":
+    DeckHandling.create_deck()
+
 
 # print_info_card()
 
@@ -57,3 +61,29 @@ class Player:
         self.headquarters = []
         self.deck = []
 
+    def get_resources(self):
+        return self.resources
+
+    def get_cards(self):
+        return self.cards
+
+    def get_victory_display(self):
+        return self.victory_display
+
+    def get_icons_gained(self):
+        return self.icons_gained
+
+    def get_headquarters(self):
+        return self.headquarters
+
+    def get_deck(self):
+        return self.deck
+
+    def add_card_to_deck(self, card_name):
+        self.deck.append(card_name)
+
+
+player_one = Player()
+
+deck_name = FindDeck.find_deck()
+print(deck_name)
