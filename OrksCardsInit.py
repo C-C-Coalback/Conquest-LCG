@@ -4,7 +4,7 @@ import CardClasses
 def orks_cards_init():
     orks_card_array = [CardClasses.WarlordCard("Nazdreg",
                                                "Each other unit you control at this planet gains Brutal. ",
-                                               "Warrior. Warboss.", "Orks", 2, 7, 2, 5, "Bloodied."),
+                                               "Warrior. Warboss.", "Orks", 2, 7, 2, 5, "Bloodied.", 7, 7),
                        CardClasses.ArmyCard("Nazdreg's Flash Gitz",
                                             "Combat Action: Deal this unit 1 damage to ready it. "
                                             "(Limit once per phase.)",

@@ -39,7 +39,8 @@ class Card:
 
 
 class WarlordCard(Card):
-    def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text):
+    def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text,
+                 starting_resources, starting_cards):
         super().__init__(name, text, traits, -1, faction, "Signature", 0, "Warlord", False)
         self.attack = attack
         self.health = health
@@ -48,6 +49,8 @@ class WarlordCard(Card):
         self.bloodied_attack = bloodied_attack
         self.bloodied_health = bloodied_health
         self.bloodied_text = bloodied_text
+        self.starting_resources = starting_resources
+        self.starting_cards = starting_cards
 
     def get_attack(self):
         return self.attack
@@ -70,6 +73,12 @@ class WarlordCard(Card):
     def get_bloodied_text(self):
         return self.bloodied_text
 
+    def get_starting_resources(self):
+        return self.starting_resources
+
+    def get_starting_cards(self):
+        return self.starting_cards
+
     def print_info(self):
         if self.unique:
             print("Name: *", self.name)
@@ -78,6 +87,7 @@ class WarlordCard(Card):
         print("Type:", self.card_type)
         print("Faction:", self.faction)
         print("Traits:", self.traits)
+        print("Resources:", self.starting_resources, "\nCards:", self.starting_cards)
         if not self.bloodied:
             print("Text:", self.text, "\nStats:", self.attack, "Attack,", self.health, "Health")
         else:

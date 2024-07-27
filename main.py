@@ -46,3 +46,14 @@ DeckHandling.create_deck()
 # print_info_card()
 
 # print_info_planet()
+
+
+class Player:
+    def __init__(self):
+        self.resources = 0
+        self.cards = []
+        self.victory_display = []
+        self.icons_gained = [0, 0, 0]
+        self.headquarters = []
+        self.deck = []
+
