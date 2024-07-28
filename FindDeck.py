@@ -30,3 +30,17 @@ def read_deck(pos):
         deck_contents += file_text[pos]
         pos += 1
     return deck_contents
+
+
+def load_deck(deck_string, player_object):
+    print(deck_string)
+    deck_string += "#"
+    current_name = ""
+    position = 1
+    while position < len(deck_string):
+        while deck_string[position] != "#":
+            current_name += deck_string[position]
+            position += 1
+        player_object.add_card_to_deck(current_name)
+        current_name = ""
+        position += 1

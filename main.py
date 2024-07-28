@@ -82,8 +82,13 @@ class Player:
     def add_card_to_deck(self, card_name):
         self.deck.append(card_name)
 
+    def print_deck(self):
+        for i in range(len(self.deck)):
+            print(self.deck[i])
+
 
 player_one = Player()
 
-deck_name = FindDeck.find_deck()
-print(deck_name)
+deck_string = FindDeck.find_deck()
+FindDeck.load_deck(deck_string, player_one)
+player_one.print_deck()
