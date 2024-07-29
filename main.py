@@ -43,18 +43,27 @@ def print_info_card():
             print_info_card()
 
 
-holder = input("Create_deck?")
-if holder == "y":
-    DeckHandling.create_deck()
+player_one = PlayerClass.Player()
 
+holder = input("Enter: ")
+if holder == "c":
+    DeckHandling.create_deck()
+elif holder == "l":
+    deck_string = FindDeck.find_deck()
+    FindDeck.load_deck(deck_string, player_one)
+    player_one.shuffle_deck()
+    player_one.print_deck()
+elif holder == "":
+    FindDeck.load_deck("#Nazdreg#Nazdreg's Flash Gitz#Nazdreg's Flash Gitz#Nazdreg's Flash Gitz"
+                       "#Nazdreg's Flash Gitz#Kraktoof Hall#Bigga is Betta"
+                       "#Bigga is Betta#Cybork Body", player_one)
+    player_one.shuffle_deck()
+    player_one.draw_card()
+    player_one.draw_card()
+    player_one.draw_card()
+    player_one.draw_card()
+    player_one.print_hand()
 
 # print_info_card()
 
 # print_info_planet()
-
-player_one = PlayerClass.Player()
-
-deck_string = FindDeck.find_deck()
-FindDeck.load_deck(deck_string, player_one)
-player_one.shuffle_deck()
-player_one.print_deck()

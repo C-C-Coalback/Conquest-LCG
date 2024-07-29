@@ -34,6 +34,17 @@ class Player:
     def add_to_hq(self, card_name):
         self.headquarters.append(card_name)
 
+    def draw_card(self):
+        if not self.deck:
+            print("Deck is empty, you lose!")
+        else:
+            self.cards.append(self.deck[0])
+            del self.deck[0]
+
+    def print_hand(self):
+        for i in range(len(self.cards)):
+            print(self.cards[i])
+
     def print_deck(self):
         for i in range(len(self.deck)):
             print(self.deck[i])
