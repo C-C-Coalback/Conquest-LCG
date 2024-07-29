@@ -9,6 +9,7 @@ class Card:
         self.shields = shields
         self.card_type = card_type
         self.unique = unique
+        self.ready = True
 
     def get_name(self):
         return self.name
@@ -36,6 +37,9 @@ class Card:
 
     def get_unique(self):
         return self.unique
+
+    def get_ready(self):
+        return self.ready
 
 
 class WarlordCard(Card):
