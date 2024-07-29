@@ -51,3 +51,19 @@ class Player:
 
     def shuffle_deck(self):
         random.shuffle(self.deck)
+
+    def add_resources(self, amount):
+        if amount > 0:
+            self.resources += amount
+            return 0
+        else:
+            print("Attempted to add", amount, "resources, may be an error")
+            return -1
+
+    def spend_resources(self, amount):
+        if amount > self.resources:
+            print("Attempted to spend more resources than you have.")
+            return -1
+        else:
+            self.resources -= amount
+            return 0
