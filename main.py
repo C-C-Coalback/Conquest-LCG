@@ -6,6 +6,7 @@ import OrksCardsInit
 import FindCard
 import DeckHandling
 import FindDeck
+import random
 
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1)
 
@@ -82,13 +83,20 @@ class Player:
     def add_card_to_deck(self, card_name):
         self.deck.append(card_name)
 
+    def add_to_hq(self, card_name):
+        self.headquarters.append(card_name)
+
     def print_deck(self):
         for i in range(len(self.deck)):
             print(self.deck[i])
+
+    def shuffle_deck(self):
+        random.shuffle(self.deck)
 
 
 player_one = Player()
 
 deck_string = FindDeck.find_deck()
 FindDeck.load_deck(deck_string, player_one)
+player_one.shuffle_deck()
 player_one.print_deck()
