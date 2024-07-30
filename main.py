@@ -7,6 +7,7 @@ import FindCard
 import DeckHandling
 import FindDeck
 import PlayerClass
+import random
 
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1)
 
@@ -43,6 +44,18 @@ def print_info_card():
             print_info_card()
 
 
+def create_planets(planet_array_objects):
+    planet_names = []
+    for i in range(10):
+        string = planet_array_objects[i].get_name()
+        planet_names.append(string)
+    random.shuffle(planet_names)
+    planets_in_play_return = []
+    for i in range(7):
+        planets_in_play_return.append(planet_names[i])
+    return planets_in_play_return
+
+
 player_one = PlayerClass.Player()
 
 holder = input("Enter: ")
@@ -58,11 +71,9 @@ elif holder == "":
                        "#Nazdreg's Flash Gitz#Kraktoof Hall#Bigga is Betta"
                        "#Bigga is Betta#Cybork Body", player_one)
     player_one.shuffle_deck()
-    player_one.draw_card()
-    player_one.draw_card()
-    player_one.draw_card()
-    player_one.draw_card()
-    player_one.print_hand()
+    planets_in_play = create_planets(planet_array)
+    print(planets_in_play)
+
 
 # print_info_card()
 
