@@ -57,6 +57,7 @@ def create_planets(planet_array_objects):
 
 
 player_one = PlayerClass.Player()
+cards_in_play_player_one = [[] for i in range(8)]
 
 holder = input("Enter: ")
 if holder == "c":
@@ -71,9 +72,14 @@ elif holder == "":
                        "#Nazdreg's Flash Gitz#Kraktoof Hall#Bigga is Betta"
                        "#Bigga is Betta#Cybork Body", player_one)
     player_one.shuffle_deck()
+    player_one.draw_card()
     planets_in_play = create_planets(planet_array)
     print(planets_in_play)
-
+    for j in range(len(planets_in_play)):
+        cards_in_play_player_one[0].append(planets_in_play[j])
+        print(cards_in_play_player_one[0])
+    cards_in_play_player_one[1].append(player_one.get_cards()[0])
+    print(cards_in_play_player_one[1])
 
 # print_info_card()
 
