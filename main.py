@@ -58,7 +58,7 @@ def create_planets(planet_array_objects):
 
 
 def play_card(player, card_to_play, planet_id, cards_at_planet_array):
-    if FindCard.check_card_type(card_to_play, "No"):
+    if FindCard.check_card_type(card_to_play, "Army"):
         print(player.get_resources())
         if player.spend_resources(card_to_play.get_cost()) == 0:
             cards_at_planet_array[planet_id].append(copy.deepcopy(card_to_play))
@@ -67,7 +67,7 @@ def play_card(player, card_to_play, planet_id, cards_at_planet_array):
         else:
             print("Insufficient resources.")
             return cards_at_planet_array
-    elif FindCard.check_card_type(card_to_play, "Army"):
+    elif FindCard.check_card_type(card_to_play, "Support"):
         print(player.get_resources())
         if player.spend_resources(card_to_play.get_cost()) == 0:
             player.add_to_hq(card_to_play)

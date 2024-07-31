@@ -1,3 +1,6 @@
+import FindCard
+
+
 def find_deck():
     file_to_read = open("deck_storage.txt", "r")
     deck_name = input("Enter deck name: ")
@@ -43,7 +46,7 @@ def load_deck(deck_string, player_object):
             current_name += deck_string[position]
             position += 1
         if first_card:
-            player_object.add_to_hq(current_name)
+            player_object.add_to_hq(FindCard.find_card(current_name))
             first_card = False
         else:
             player_object.add_card_to_deck(current_name)
