@@ -8,6 +8,7 @@ import DeckHandling
 import FindDeck
 import PlayerClass
 import random
+import copy
 
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1)
 
@@ -78,8 +79,11 @@ elif holder == "":
     for j in range(len(planets_in_play)):
         cards_in_play_player_one[0].append(planets_in_play[j])
         print(cards_in_play_player_one[0])
-    cards_in_play_player_one[1].append(player_one.get_cards()[0])
-    print(cards_in_play_player_one[1])
+    # cards_in_play_player_one[1].append(player_one.get_cards()[0])
+    temp_object = FindCard.find_card(player_one.get_cards()[0])
+    print(temp_object.get_name())
+    cards_in_play_player_one[1].append(copy.deepcopy(temp_object))
+    print(cards_in_play_player_one[1][0].get_name())
 
 # print_info_card()
 
