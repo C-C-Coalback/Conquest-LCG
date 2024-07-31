@@ -1,4 +1,5 @@
 import random
+import copy
 
 
 class Player:
@@ -31,8 +32,8 @@ class Player:
     def add_card_to_deck(self, card_name):
         self.deck.append(card_name)
 
-    def add_to_hq(self, card_name):
-        self.headquarters.append(card_name)
+    def add_to_hq(self, card_object):
+        self.headquarters.append(copy.deepcopy(card_object))
 
     def draw_card(self):
         if not self.deck:
