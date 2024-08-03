@@ -64,8 +64,7 @@ def init_player(player):
         print("Success in adding resources", player_one.get_resources())
     for i in range(warlord.get_starting_cards()):
         player.draw_card()
-        print(i)
-    print(player.get_cards())
+    return player
 
 
 player_one = PlayerClass.Player()
@@ -82,7 +81,8 @@ elif holder == "":
     FindDeck.load_deck("#Nazdreg#Nazdreg's Flash Gitz#Nazdreg's Flash Gitz#Nazdreg's Flash Gitz"
                        "#Nazdreg's Flash Gitz#Kraktoof Hall#Bigga is Betta"
                        "#Bigga is Betta#Cybork Body", player_one)
-    init_player(player_one)
+    player_one = init_player(player_one)
+    print(player_one.get_cards())
     '''
     player_one.shuffle_deck()
     player_one.draw_card()
