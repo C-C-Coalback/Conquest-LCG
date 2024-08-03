@@ -56,6 +56,18 @@ def create_planets(planet_array_objects):
     return planets_in_play_return
 
 
+def init_player(player):
+    warlord = player.get_headquarters()[0]
+    player.shuffle_deck()
+    print(warlord.get_starting_resources(), warlord.get_starting_cards())
+    if player.add_resources(warlord.get_starting_resources()) == 0:
+        print("Success in adding resources", player_one.get_resources())
+    for i in range(warlord.get_starting_cards()):
+        player.draw_card()
+        print(i)
+    print(player.get_cards())
+
+
 player_one = PlayerClass.Player()
 
 holder = input("Enter: ")
@@ -70,6 +82,8 @@ elif holder == "":
     FindDeck.load_deck("#Nazdreg#Nazdreg's Flash Gitz#Nazdreg's Flash Gitz#Nazdreg's Flash Gitz"
                        "#Nazdreg's Flash Gitz#Kraktoof Hall#Bigga is Betta"
                        "#Bigga is Betta#Cybork Body", player_one)
+    init_player(player_one)
+    '''
     player_one.shuffle_deck()
     player_one.draw_card()
     if player_one.add_resources(7) == 0:
@@ -81,7 +95,7 @@ elif holder == "":
     print(temp_object.get_name())
     return_value = player_one.play_card(temp_object, planet_id_temp)
     player_one.print_cards_in_play()
-
+'''
 # print_info_card()
 
 # print_info_planet()
