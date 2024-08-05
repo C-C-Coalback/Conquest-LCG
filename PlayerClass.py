@@ -35,6 +35,9 @@ class Player:
     def get_discard(self):
         return self.discard
 
+    def get_cards_in_play(self):
+        return self.cards_in_play
+
     def init_planets_in_game(self, planets_in_game):
         for j in range(len(planets_in_game)):
             self.cards_in_play[0].append(planets_in_game[j])
@@ -87,6 +90,11 @@ class Player:
         else:
             print("Not an army/support card")
             return -1
+
+    def remove_card_from_play(self, planet_num, card_pos):
+        # card_object = self.cards_in_play[planet_num + 1][card_pos]
+        # self.discard_object(card_object)
+        del self.cards_in_play[planet_num + 1][card_pos]
 
     def discard_card(self, card_name):
         self.discard.append(card_name)

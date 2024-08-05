@@ -131,6 +131,39 @@ class ArmyCard(Card):
         print("Loyalty:", self.loyalty)
         print("Text:", self.text, "\nStats:", self.attack, "Attack,", self.health, "Health,", self.command, "Command")
 
+    def damage_card(self, amount):
+        amount = self.shield_window(amount)
+        self.assign_damage(amount)
+        if self.check_health():
+            print("Card still standing")
+            return 0
+        else:
+            print("Damage exceeds health")
+            return 1
+
+    def shield_window(self, amount):
+        print(self.get_name(), "taking", amount, "damage. Shields:")
+        shield = input()
+        if shield == 0:
+            print("No shields used")
+        else:
+            print("shield value:", shield)
+            amount = int(amount)
+            shield = int(shield)
+            amount = amount - shield
+            if amount < 0:
+                amount = 0
+        return amount
+
+    def assign_damage(self, amount):
+        self.damage = self.damage + amount
+
+    def check_health(self):
+        if self.health > self.damage:
+            return 1
+        else:
+            return 0
+
 
 class EventCard(Card):
     def __init__(self, name, text, traits, cost, faction, loyalty, shields, unique):

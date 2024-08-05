@@ -98,6 +98,15 @@ elif holder == "":
             player_one.print_hand()
             player_one.remove_card_from_hand(return_value)
             player_one.print_hand()
+            print("New bit:", player_one.get_cards_in_play()[planet_position + 1][0].get_name())
+            damage = input("How much damage to deal:")
+            if player_one.get_cards_in_play()[planet_position + 1][0].damage_card(damage):
+                player_one.print_cards_in_play()
+                stupid_object_holder = player_one.get_cards_in_play()[planet_position + 1][0].get_name()
+                player_one.discard_card(stupid_object_holder)
+                player_one.remove_card_from_play(planet_position, 0)
+                player_one.print_cards_in_play()
+                player_one.print_discard()
 
     '''
     player_one.shuffle_deck()
