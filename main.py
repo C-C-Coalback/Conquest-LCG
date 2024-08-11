@@ -56,6 +56,35 @@ def create_planets(planet_array_objects):
     return planets_in_play_return
 
 
+def deploy_phase(round_number):
+    print("deploy:", round_number)
+
+
+def command_phase(round_number):
+    print("command:", round_number)
+
+
+def combat_phase(round_number):
+    print("combat:", round_number)
+
+
+def hq_phase(round_number):
+    print("hq:", round_number)
+
+
+def game_round(round_number):
+    deploy_phase(round_number)
+    command_phase(round_number)
+    combat_phase(round_number)
+    hq_phase(round_number)
+
+
+def play_game(p_one):
+    deck_s = FindDeck.find_deck()
+    FindDeck.load_deck(deck_s, p_one)
+    player_one.shuffle_deck()
+
+
 def init_player(player):
     warlord = player.get_headquarters()[0]
     player.shuffle_deck()
@@ -77,6 +106,8 @@ elif holder == "l":
     FindDeck.load_deck(deck_string, player_one)
     player_one.shuffle_deck()
     player_one.print_deck()
+elif holder == "p":
+    play_game(player_one)
 elif holder == "":
     planets_in_play = create_planets(planet_array)
     player_one.init_planets_in_game(planets_in_play)

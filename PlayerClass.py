@@ -123,6 +123,10 @@ class Player:
         for i in range(len(self.deck)):
             print(self.deck[i])
 
+    def print_headquarters(self):
+        for i in range(len(self.headquarters)):
+            print(self.headquarters[i].get_name())
+
     def print_discard(self):
         for i in range(len(self.discard)):
             print(self.discard[i])
