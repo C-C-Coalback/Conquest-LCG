@@ -56,33 +56,60 @@ def create_planets(planet_array_objects):
     return planets_in_play_return
 
 
-def deploy_phase(round_number):
+def deploy_phase(round_number, p_one):
+    passed = False
     print("deploy:", round_number)
+    print("Hand of p_one:")
+    p_one.print_hand()
+    while not passed:
+        play_card = input("Play card? 'y' or 'p' to play, 'pass' to pass")
+        if play_card == "p" or play_card == "y":
+            card_name = input("Enter card name to play:")
+            card_position = p_one.find_card_in_hand(card_name)
+            if card_position == -1:
+                print("Card not found in hand.")
+            else:
+                planet_name = input("Enter planet name to play card at:")
+                pos = p_one.search_planets_in_game(planet_name)
+                if pos == -1:
+                    print("Planet not found.")
+                else:
+                    print("Planet found.")
+                    print("Attempting to play card.")
+                    object_holder = FindCard.find_card(p_one.get_cards()[card_position])
+                    p_one.play_card(object_holder, pos + 1)
+                    p_one.print_cards_in_play()
+        elif play_card == "pass":
+            passed = True
 
 
-def command_phase(round_number):
+def command_phase(round_number, p_one):
     print("command:", round_number)
 
 
-def combat_phase(round_number):
+def combat_phase(round_number, p_one):
     print("combat:", round_number)
 
 
-def hq_phase(round_number):
+def hq_phase(round_number, p_one):
     print("hq:", round_number)
 
 
-def game_round(round_number):
-    deploy_phase(round_number)
-    command_phase(round_number)
-    combat_phase(round_number)
-    hq_phase(round_number)
+def game_round(round_number, p_one):
+    deploy_phase(round_number, p_one)
+    command_phase(round_number, p_one)
+    combat_phase(round_number, p_one)
+    hq_phase(round_number, p_one)
 
 
 def play_game(p_one):
     deck_s = FindDeck.find_deck()
     FindDeck.load_deck(deck_s, p_one)
-    player_one.shuffle_deck()
+    p_one.shuffle_deck()
+    planets_in_play_list = create_planets(planet_array)
+    player_one.init_planets_in_game(planets_in_play_list)
+    init_player(p_one)
+    game_round(1, p_one)
 
 
 def init_player(player):
