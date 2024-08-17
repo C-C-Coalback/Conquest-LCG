@@ -55,6 +55,7 @@ class WarlordCard(Card):
         self.bloodied_text = bloodied_text
         self.starting_resources = starting_resources
         self.starting_cards = starting_cards
+        self.command = 999
 
     def get_attack(self):
         return self.attack
@@ -64,6 +65,9 @@ class WarlordCard(Card):
 
     def get_damage(self):
         return self.damage
+
+    def get_command(self):
+        return self.command
 
     def get_bloodied_state(self):
         return self.bloodied
@@ -225,6 +229,7 @@ class TokenCard(Card):
         self.attack = attack
         self.health = health
         self.damage = 0
+        self.command = 0
 
     def get_attack(self):
         return self.attack
@@ -234,6 +239,9 @@ class TokenCard(Card):
 
     def get_damage(self):
         return self.damage
+
+    def get_command(self):
+        return self.command
 
     def print_info(self):
         print("Name:", self.name)

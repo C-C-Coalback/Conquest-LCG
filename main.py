@@ -83,8 +83,53 @@ def deploy_phase(round_number, p_one):
             passed = True
 
 
+def resolve_command_struggle(planet_num, p_one):
+    player_one_command = p_one.count_command_at_planet(planet_num)
+    player_two_command = 0
+    if player_one_command > player_two_command:
+        print(player_one_command, "greater than",
+              player_two_command, "at planet no", planet_num, "player one wins command")
+        return 1
+    elif player_two_command > player_one_command:
+        print(player_two_command, "greater than",
+              player_one_command, "at planet no", planet_num, "player two wins command")
+        return 2
+    else:
+        print("command is equal")
+        return 0
+    pass
+
+
 def command_phase(round_number, p_one):
+    planet_array2 = PlanetCardsInit.planet_cards_init()
     print("command:", round_number)
+    planet_num = round_number
+    planets_counted = 0
+    c_res = [0, 0, 0, 0]
+    while planet_num < 7 and planets_counted < 5:
+        result = resolve_command_struggle(planet_num, p_one)
+        print("Test", result)
+        if result == 1:
+            planet_name = p_one.get_planet_name_given_position(planet_num - 1)
+            print("Planet name:", planet_name)
+            for i in range(len(planet_array2)):
+                if planet_name == planet_array2[i].get_name():
+                    print("Resources of", planet_name, planet_array2[i].get_resources())
+                    print("Cards of", planet_name, planet_array2[i].get_cards())
+                    c_res[0] += planet_array2[i].get_resources()
+                    c_res[1] += planet_array2[i].get_cards()
+                    print("test", c_res[0])
+        planets_counted += 1
+        planet_num += 1
+    print(c_res[0], c_res[1], c_res[2], c_res[3])
+    print("Player one gets", c_res[0], "resources from command struggle")
+    p_one.add_resources(c_res[0])
+    print("Player one gets", c_res[1], "cards from command struggle")
+    for i in range(c_res[1]):
+        p_one.draw_card()
+    # player two will need the same idea but with c_res[2] and c_res[3]
+    print(p_one.get_resources())
+    print(p_one.get_cards())
 
 
 def combat_phase(round_number, p_one):

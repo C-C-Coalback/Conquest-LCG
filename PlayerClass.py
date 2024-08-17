@@ -38,6 +38,9 @@ class Player:
     def get_cards_in_play(self):
         return self.cards_in_play
 
+    def get_planet_name_given_position(self, planet_id):
+        return self.cards_in_play[0][planet_id]
+
     def init_planets_in_game(self, planets_in_game):
         for j in range(len(planets_in_game)):
             self.cards_in_play[0].append(planets_in_game[j])
@@ -60,6 +63,13 @@ class Player:
             for j in range(len(self.cards_in_play[i + 1])):
                 print(self.cards_in_play[i + 1][j].get_name())
 
+    def count_command_at_planet(self, planet_id):
+        command = 0
+        for i in range(len(self.cards_in_play[planet_id])):
+            print(self.cards_in_play[planet_id][i].get_command())
+            command += self.cards_in_play[planet_id][i].get_command()
+        return command
+
     def find_card_in_hand(self, card_name_to_find):
         for i in range(len(self.cards)):
             if self.cards[i] == card_name_to_find:
@@ -72,6 +82,7 @@ class Player:
         if FindCard.check_card_type(card_to_play, "Army"):
             if self.spend_resources(card_to_play.get_cost()) == 0:
                 self.cards_in_play[planet_id].append(copy.deepcopy(card_to_play))
+                self.cards.remove(card_to_play.get_name())
                 print("Played card")
                 return 0
             else:
