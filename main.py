@@ -187,6 +187,7 @@ elif holder == "":
                        "#Nazdreg's Flash Gitz#Kraktoof Hall#Bigga is Betta"
                        "#Bigga is Betta#Cybork Body", player_one)
     player_one = init_player(player_one)
+    player_one.print_hand()
     card_name_to_find = input("Enter card name to play:")
     return_value = player_one.find_card_in_hand(card_name_to_find)
     if return_value != -1:
@@ -198,8 +199,6 @@ elif holder == "":
             print("Planet", planet_to_play_card, "is at position", planet_position)
             player_one.play_card(temp_object, planet_position + 1)
             player_one.print_cards_in_play()
-            player_one.print_hand()
-            player_one.remove_card_from_hand(return_value)
             player_one.print_hand()
             print("New bit:", player_one.get_cards_in_play()[planet_position + 1][0].get_name())
             damage = input("How much damage to deal:")

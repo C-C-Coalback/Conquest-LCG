@@ -127,6 +127,7 @@ class Player:
         del self.cards[card_pos]
 
     def print_hand(self):
+        print("Cards in hand:")
         for i in range(len(self.cards)):
             print(self.cards[i])
 
