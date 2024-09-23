@@ -102,6 +102,14 @@ def resolve_command_struggle(planet_num, p_one):
 
 def command_phase(round_number, p_one):
     planet_array2 = PlanetCardsInit.planet_cards_init()
+    planet_name = input("Choose a planet to send the Warlord to:")
+    pos = p_one.search_planets_in_game(planet_name)
+    if pos == -1:
+        print("Planet not found")
+    else:
+        print("Attempting to move Warlord")
+        p_one.move_warlord_to_planet(pos + 1)
+    p_one.print_cards_in_play()
     print("command:", round_number)
     planet_num = round_number
     planets_counted = 0

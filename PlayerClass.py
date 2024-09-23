@@ -78,6 +78,16 @@ class Player:
         print("Card not found")
         return -1
 
+    def move_warlord_to_planet(self, planet_id):
+        headquarters_list = self.get_headquarters()
+        for i in range(len(headquarters_list)):
+            if headquarters_list[i].get_card_type() == "Warlord":
+                print(headquarters_list[i].get_name())
+                self.cards_in_play[planet_id].append(copy.deepcopy(headquarters_list[i]))
+                print("Warlord moved")
+                return 0
+        return -1
+
     def play_card(self, card_to_play, planet_id):
         if FindCard.check_card_type(card_to_play, "Army"):
             if self.spend_resources(card_to_play.get_cost()) == 0:
