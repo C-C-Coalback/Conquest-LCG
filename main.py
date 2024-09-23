@@ -110,6 +110,7 @@ def command_phase(round_number, p_one):
         print("Attempting to move Warlord")
         p_one.move_warlord_to_planet(pos + 1)
     p_one.print_cards_in_play()
+    p_one.print_headquarters()
     print("command:", round_number)
     planet_num = round_number
     planets_counted = 0

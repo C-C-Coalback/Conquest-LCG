@@ -84,6 +84,7 @@ class Player:
             if headquarters_list[i].get_card_type() == "Warlord":
                 print(headquarters_list[i].get_name())
                 self.cards_in_play[planet_id].append(copy.deepcopy(headquarters_list[i]))
+                self.headquarters.remove(headquarters_list[i])
                 print("Warlord moved")
                 return 0
         return -1
@@ -146,6 +147,7 @@ class Player:
             print(self.deck[i])
 
     def print_headquarters(self):
+        print("Headquarters:")
         for i in range(len(self.headquarters)):
             print(self.headquarters[i].get_name())
 
