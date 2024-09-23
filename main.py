@@ -9,6 +9,8 @@ import FindDeck
 import PlayerClass
 import random
 
+#from PlayerClass import Player
+
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1)
 
 orks_card_array = OrksCardsInit.orks_cards_init()
@@ -56,7 +58,7 @@ def create_planets(planet_array_objects):
     return planets_in_play_return
 
 
-def deploy_phase(round_number, p_one):
+def deploy_phase(round_number, p_one, p_two):
     passed = False
     print("deploy:", round_number)
     print("Hand of p_one:")
@@ -83,7 +85,7 @@ def deploy_phase(round_number, p_one):
             passed = True
 
 
-def resolve_command_struggle(planet_num, p_one):
+def resolve_command_struggle(planet_num, p_one, p_two):
     player_one_command = p_one.count_command_at_planet(planet_num)
     player_two_command = 0
     if player_one_command > player_two_command:
@@ -100,7 +102,7 @@ def resolve_command_struggle(planet_num, p_one):
     pass
 
 
-def command_phase(round_number, p_one):
+def command_phase(round_number, p_one, p_two):
     planet_array2 = PlanetCardsInit.planet_cards_init()
     planet_name = input("Choose a planet to send the Warlord to:")
     pos = p_one.search_planets_in_game(planet_name)
@@ -116,7 +118,7 @@ def command_phase(round_number, p_one):
     planets_counted = 0
     c_res = [0, 0, 0, 0]
     while planet_num < 7 and planets_counted < 5:
-        result = resolve_command_struggle(planet_num, p_one)
+        result = resolve_command_struggle(planet_num, p_one, p_two)
         print("Test", result)
         if result == 1:
             planet_name = p_one.get_planet_name_given_position(planet_num - 1)
@@ -141,29 +143,34 @@ def command_phase(round_number, p_one):
     print(p_one.get_cards())
 
 
-def combat_phase(round_number, p_one):
+def combat_phase(round_number, p_one, p_two):
     print("combat:", round_number)
 
 
-def hq_phase(round_number, p_one):
+def hq_phase(round_number, p_one, p_two):
     print("hq:", round_number)
 
 
-def game_round(round_number, p_one):
-    deploy_phase(round_number, p_one)
-    command_phase(round_number, p_one)
-    combat_phase(round_number, p_one)
-    hq_phase(round_number, p_one)
+def game_round(round_number, p_one, p_two):
+    deploy_phase(round_number, p_one, p_two)
+    command_phase(round_number, p_one, p_two)
+    combat_phase(round_number, p_one, p_two)
+    hq_phase(round_number, p_one, p_two)
 
 
-def play_game(p_one):
+def play_game(p_one, p_two):
     deck_s = FindDeck.find_deck()
     FindDeck.load_deck(deck_s, p_one)
     p_one.shuffle_deck()
+    deck_s = FindDeck.find_deck()
+    FindDeck.load_deck(deck_s, p_two)
+    p_two.shuffle_deck()
     planets_in_play_list = create_planets(planet_array)
     player_one.init_planets_in_game(planets_in_play_list)
+    player_two.init_planets_in_game(planets_in_play_list)
     init_player(p_one)
-    game_round(1, p_one)
+    init_player(p_two)
+    game_round(1, p_one, p_two)
 
 
 def init_player(player):
@@ -178,6 +185,7 @@ def init_player(player):
 
 
 player_one = PlayerClass.Player()
+player_two = PlayerClass.Player()
 
 holder = input("Enter: ")
 if holder == "c":
@@ -188,7 +196,7 @@ elif holder == "l":
     player_one.shuffle_deck()
     player_one.print_deck()
 elif holder == "p":
-    play_game(player_one)
+    play_game(player_one, player_two)
 elif holder == "":
     planets_in_play = create_planets(planet_array)
     player_one.init_planets_in_game(planets_in_play)
