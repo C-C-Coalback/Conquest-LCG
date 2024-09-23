@@ -59,30 +59,53 @@ def create_planets(planet_array_objects):
 
 
 def deploy_phase(round_number, p_one, p_two):
-    passed = False
+    p_one_passed = False
+    p_two_passed = False
     print("deploy:", round_number)
     print("Hand of p_one:")
     p_one.print_hand()
-    while not passed:
-        play_card = input("Play card? 'y' or 'p' to play, 'pass' to pass")
-        if play_card == "p" or play_card == "y":
-            card_name = input("Enter card name to play:")
-            card_position = p_one.find_card_in_hand(card_name)
-            if card_position == -1:
-                print("Card not found in hand.")
-            else:
-                planet_name = input("Enter planet name to play card at:")
-                pos = p_one.search_planets_in_game(planet_name)
-                if pos == -1:
-                    print("Planet not found.")
+    while not p_one_passed or not p_two_passed:
+        if not p_one_passed:
+            play_card = input("Play card? 'y' or 'p' to play, 'pass' to pass")
+            if play_card == "p" or play_card == "y":
+                card_name = input("Enter card name to play:")
+                card_position = p_one.find_card_in_hand(card_name)
+                if card_position == -1:
+                    print("Card not found in hand.")
                 else:
-                    print("Planet found.")
-                    print("Attempting to play card.")
-                    object_holder = FindCard.find_card(p_one.get_cards()[card_position])
-                    p_one.play_card(object_holder, pos + 1)
-                    p_one.print_cards_in_play()
-        elif play_card == "pass":
-            passed = True
+                    planet_name = input("Enter planet name to play card at:")
+                    pos = p_one.search_planets_in_game(planet_name)
+                    if pos == -1:
+                        print("Planet not found.")
+                    else:
+                        print("Planet found.")
+                        print("Attempting to play card.")
+                        object_holder = FindCard.find_card(p_one.get_cards()[card_position])
+                        p_one.play_card(object_holder, pos + 1)
+                        p_one.print_cards_in_play()
+            elif play_card == "pass":
+                p_one_passed = True
+
+        if not p_two_passed:
+            play_card = input("Play card? 'y' or 'p' to play, 'pass' to pass")
+            if play_card == "p" or play_card == "y":
+                card_name = input("Enter card name to play:")
+                card_position = p_two.find_card_in_hand(card_name)
+                if card_position == -1:
+                    print("Card not found in hand.")
+                else:
+                    planet_name = input("Enter planet name to play card at:")
+                    pos = p_two.search_planets_in_game(planet_name)
+                    if pos == -1:
+                        print("Planet not found.")
+                    else:
+                        print("Planet found.")
+                        print("Attempting to play card.")
+                        object_holder = FindCard.find_card(p_two.get_cards()[card_position])
+                        p_two.play_card(object_holder, pos + 1)
+                        p_two.print_cards_in_play()
+            elif play_card == "pass":
+                p_two_passed = True
 
 
 def resolve_command_struggle(planet_num, p_one, p_two):
