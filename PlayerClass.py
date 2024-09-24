@@ -63,6 +63,10 @@ class Player:
             for j in range(len(self.cards_in_play[i + 1])):
                 print(self.cards_in_play[i + 1][j].get_name())
 
+    def print_cards_at_planet(self, planet_id):
+        for j in range(len(self.cards_in_play[planet_id + 1])):
+            print(self.cards_in_play[planet_id + 1][j].get_name())
+
     def check_for_warlord(self, planet_id):
         print("Looking for warlord at:", self.cards_in_play[0][planet_id])
         if not self.cards_in_play[planet_id + 1]:
@@ -79,6 +83,13 @@ class Player:
         print("Warlord is not present")
         return 0
 
+    def check_if_units_present(self, planet_id):
+        print("Checking for cards at:", self.cards_in_play[0][planet_id])
+        if not self.cards_in_play[planet_id + 1]:
+            print("No cards present.")
+            return 0
+        print("Cards present.")
+        return 1
 
     def count_command_at_planet(self, planet_id):
         command = 0

@@ -191,16 +191,36 @@ def command_phase(round_number, p_one, p_two):
     print(p_two.get_resources())
     print(p_two.get_cards())
 
+def resolve_battle(p_one, p_two, planet_id, first_planet):
+    planet_name = p_two.get_planet_name_given_position(planet_id - 1)
+    player_one_check = p_one.check_if_units_present(planet_id)
+    player_two_check = p_two.check_if_units_present(planet_id)
+    if player_one_check and player_two_check:
+        print("Both have units present. Combat begins at:", planet_name)
+        print("Player one units:")
+        player_one.print_cards_at_planet(planet_id)
+        print("Player two units:")
+        player_two.print_cards_at_planet(planet_id)
+    elif player_one_check and not player_two_check:
+        print("First player has units, second player doesn't")
+    elif not player_one_check and player_two_check:
+        print("Second player has units, first player doesn't")
+    elif not player_one_check and not player_two_check:
+        print("Neither player has units")
+
 def check_for_battle(p_one, p_two, planet_id, first_planet):
     planet_name = p_two.get_planet_name_given_position(planet_id - 1)
     if first_planet:
         print("First planet. Resolve battle at:", planet_name)
+        resolve_battle(p_one, p_two, planet_id - 1, first_planet)
     elif not first_planet:
         print("Not first planet. Check for Warlords at:", planet_name)
         if p_one.check_for_warlord(planet_id - 1):
             print("Battle is resolved at:", planet_name)
+            resolve_battle(p_one, p_two, planet_id - 1, first_planet)
         elif p_two.check_for_warlord(planet_id - 1):
             print("Battle is resolved at:", planet_name)
+            resolve_battle(p_one, p_two, planet_id - 1, first_planet)
 
 def combat_phase(round_number, p_one, p_two):
     print("combat:", round_number)
