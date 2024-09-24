@@ -191,9 +191,27 @@ def command_phase(round_number, p_one, p_two):
     print(p_two.get_resources())
     print(p_two.get_cards())
 
+def check_for_battle(p_one, p_two, planet_id, first_planet):
+    planet_name = p_two.get_planet_name_given_position(planet_id - 1)
+    if first_planet:
+        print("First planet. Resolve battle at:", planet_name)
+    elif not first_planet:
+        print("Not first planet. Check for Warlords at:", planet_name)
+        if p_one.check_for_warlord(planet_id - 1):
+            print("Battle is resolved at:", planet_name)
+        elif p_two.check_for_warlord(planet_id - 1):
+            print("Battle is resolved at:", planet_name)
 
 def combat_phase(round_number, p_one, p_two):
     print("combat:", round_number)
+    index = round_number
+    planets_counted = 0
+    first_planet = True
+    while planets_counted < 5 and index < 7:
+        check_for_battle(p_one, p_two, index, first_planet)
+        first_planet = False
+        index += 1
+        planets_counted += 1
 
 
 def hq_phase(round_number, p_one, p_two):
