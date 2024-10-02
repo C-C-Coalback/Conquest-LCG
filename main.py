@@ -203,8 +203,14 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
         player_two.print_cards_at_planet(planet_id)
     elif player_one_check and not player_two_check:
         print("First player has units, second player doesn't")
+        print("First player wins the battle")
+        if first_planet:
+            player_one.capture_planet(planet_id)
     elif not player_one_check and player_two_check:
         print("Second player has units, first player doesn't")
+        print("Second player wins the battle")
+        if first_planet:
+            player_two.capture_planet(planet_id)
     elif not player_one_check and not player_two_check:
         print("Neither player has units")
 
