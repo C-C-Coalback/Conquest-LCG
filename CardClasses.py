@@ -41,6 +41,12 @@ class Card:
     def get_ready(self):
         return self.ready
 
+    def ready_card(self):
+        self.ready = True
+
+    def exhaust_card(self):
+        self.ready = False
+
 
 class WarlordCard(Card):
     def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text,
