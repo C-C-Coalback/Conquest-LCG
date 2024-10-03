@@ -115,6 +115,18 @@ class Player:
                 i += 1
         return -1
 
+    def retreat_unit(self, planet_id, unit_id):
+        print("Name of card:", self.cards_in_play[planet_id + 1][unit_id].get_name())
+        input("Hold")
+        self.headquarters.append(copy.deepcopy(self.cards_in_play[planet_id + 1][unit_id]))
+        del self.cards_in_play[planet_id + 1][unit_id]
+
+    def retreat_all_at_planet(self, planet_id):
+        while self.cards_in_play[planet_id + 1]:
+            self.retreat_unit(planet_id, 0)
+        self.print_cards_at_planet(planet_id + 1)
+        self.print_headquarters()
+
     def print_victory_display(self):
         print("Cards in victory display:")
         for i in range(len(self.victory_display)):
@@ -210,7 +222,11 @@ class Player:
     def print_headquarters(self):
         print("Headquarters:")
         for i in range(len(self.headquarters)):
-            print(self.headquarters[i].get_name())
+            try:
+                print(self.headquarters[i].get_name())
+            except AttributeError:
+                print("Attribute error")
+                print(self.headquarters[i])
 
     def print_discard(self):
         for i in range(len(self.discard)):
