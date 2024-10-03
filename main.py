@@ -204,14 +204,15 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
     elif player_one_check and not player_two_check:
         print("First player has units, second player doesn't")
         print("First player wins the battle")
-        player_one.retreat_all_at_planet(planet_id)
-        input("Hold, retreat")
         if first_planet:
+            input("Hold, retreat")
+            player_one.retreat_all_at_planet(planet_id)
             player_one.capture_planet(planet_id)
     elif not player_one_check and player_two_check:
         print("Second player has units, first player doesn't")
         print("Second player wins the battle")
         if first_planet:
+            player_two.retreat_all_at_planet(planet_id)
             player_two.capture_planet(planet_id)
     elif not player_one_check and not player_two_check:
         print("Neither player has units")
@@ -240,6 +241,10 @@ def combat_phase(round_number, p_one, p_two):
         first_planet = False
         index += 1
         planets_counted += 1
+    p_one.retreat_warlord()
+    p_two.retreat_warlord()
+    p_one.print_headquarters()
+    p_two.print_headquarters()
 
 
 def hq_phase(round_number, p_one, p_two):

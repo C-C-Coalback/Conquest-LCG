@@ -127,6 +127,16 @@ class Player:
         self.print_cards_at_planet(planet_id + 1)
         self.print_headquarters()
 
+    def retreat_warlord(self):
+        for i in range(len(self.cards_in_play[0])):
+            if not self.cards_in_play[i + 1]:
+                pass
+            print("Look for Warlord at:", self.cards_in_play[0][i])
+            for j in range(len(self.cards_in_play[i + 1])):
+                print(self.cards_in_play[i + 1][j].get_card_type())
+                if self.cards_in_play[i + 1][j].get_card_type() == "Warlord":
+                    self.retreat_unit(i, j)
+
     def print_victory_display(self):
         print("Cards in victory display:")
         for i in range(len(self.victory_display)):
