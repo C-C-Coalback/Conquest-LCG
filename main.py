@@ -195,9 +195,15 @@ def combat_turn(attacker, defender, planet_id):
     attacker_name = input("Enter unit to attack with")
     pos = attacker.search_card_at_planet(attacker_name, planet_id)
     print("position of unit:", pos)
+    #return to decide if player passed
+    return True
 
 def battle(p_one, p_two, planet_id):
-    combat_turn(p_one, p_two, planet_id)
+    p_one_passed = False
+    p_two_passed = False
+    while p_one_passed == False and p_two_passed == False:
+        p_one_passed = combat_turn(p_one, p_two, planet_id)
+        p_two_passed = combat_turn(p_two, p_one, planet_id)
 
 def resolve_battle(p_one, p_two, planet_id, first_planet):
     planet_name = p_two.get_planet_name_given_position(planet_id - 1)
