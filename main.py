@@ -191,6 +191,14 @@ def command_phase(round_number, p_one, p_two):
     print(p_two.get_resources())
     print(p_two.get_cards())
 
+def combat_turn(attacker, defender, planet_id):
+    attacker_name = input("Enter unit to attack with")
+    pos = attacker.search_card_at_planet(attacker_name, planet_id)
+    print("position of unit:", pos)
+
+def battle(p_one, p_two, planet_id):
+    combat_turn(p_one, p_two, planet_id)
+
 def resolve_battle(p_one, p_two, planet_id, first_planet):
     planet_name = p_two.get_planet_name_given_position(planet_id - 1)
     player_one_check = p_one.check_if_units_present(planet_id)
@@ -201,6 +209,7 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
         player_one.print_cards_at_planet(planet_id)
         print("Player two units:")
         player_two.print_cards_at_planet(planet_id)
+        battle(player_one, player_two, planet_id)
     elif player_one_check and not player_two_check:
         print("First player has units, second player doesn't")
         print("First player wins the battle")

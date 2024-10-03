@@ -116,8 +116,7 @@ class Player:
         return -1
 
     def retreat_unit(self, planet_id, unit_id):
-        print("Name of card:", self.cards_in_play[planet_id + 1][unit_id].get_name())
-        input("Hold")
+        #print("Name of card:", self.cards_in_play[planet_id + 1][unit_id].get_name())
         self.headquarters.append(copy.deepcopy(self.cards_in_play[planet_id + 1][unit_id]))
         del self.cards_in_play[planet_id + 1][unit_id]
 
@@ -131,9 +130,7 @@ class Player:
         for i in range(len(self.cards_in_play[0])):
             if not self.cards_in_play[i + 1]:
                 pass
-            print("Look for Warlord at:", self.cards_in_play[0][i])
             for j in range(len(self.cards_in_play[i + 1])):
-                print(self.cards_in_play[i + 1][j].get_card_type())
                 if self.cards_in_play[i + 1][j].get_card_type() == "Warlord":
                     self.retreat_unit(i, j)
 
@@ -161,6 +158,18 @@ class Player:
         print("Card not found")
         return -1
 
+    def search_card_at_planet(self, card_name, planet_id):
+        for i in range(len(self.cards_in_play[planet_id + 1])):
+            if self.cards_in_play[planet_id + 1][i].get_name() == card_name:
+                print("Card found:", self.cards_in_play[planet_id + 1][i].get_name(),
+                      "position:", i)
+                confirm = input("Confirm card selection.(y/n)")
+                if confirm == "y":
+                    return i
+        return -1
+
+
+
     def move_warlord_to_planet(self, planet_id):
         headquarters_list = self.get_headquarters()
         for i in range(len(headquarters_list)):
@@ -168,7 +177,6 @@ class Player:
                 print(headquarters_list[i].get_name())
                 self.cards_in_play[planet_id].append(copy.deepcopy(headquarters_list[i]))
                 self.headquarters.remove(headquarters_list[i])
-                print("Warlord moved")
                 return 0
         return -1
 
