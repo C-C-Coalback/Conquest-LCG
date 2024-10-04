@@ -196,7 +196,10 @@ def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
     damage_too_great = defe.assign_damage_to_pos(planet_id, defe_pos, attack_value)
     if damage_too_great:
         print("Card must be discarded")
+        input("Hold attack")
+        return 1
     input("Hold attack")
+    return 0
 
 def combat_turn(attacker, defender, planet_id):
     attacker_name = input("Enter unit to attack with or 'p' to pass")
@@ -212,8 +215,13 @@ def combat_turn(attacker, defender, planet_id):
         if pos_defender != -1:
             defender.print_state_of_unit(planet_id, pos_defender)
             input("hold")
-            unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender)
+            unit_dead = unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender)
             defender.print_state_of_unit(planet_id, pos_defender)
+            if unit_dead == 1:
+                defender.add_card_name_to_discard(defender_name)
+                defender.remove_card_from_play(planet_id, pos_defender)
+                defender.print_cards_at_planet(planet_id)
+                defender.print_discard()
             input("hold")
             return False
 

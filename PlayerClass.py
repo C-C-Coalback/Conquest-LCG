@@ -226,7 +226,7 @@ class Player:
         # self.discard_object(card_object)
         del self.cards_in_play[planet_num + 1][card_pos]
 
-    def discard_card(self, card_name):
+    def add_card_name_to_discard(self, card_name):
         self.discard.append(card_name)
 
     def add_card_to_deck(self, card_name):
