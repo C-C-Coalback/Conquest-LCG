@@ -199,7 +199,9 @@ def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
     input("Hold attack")
 
 def combat_turn(attacker, defender, planet_id):
-    attacker_name = input("Enter unit to attack with")
+    attacker_name = input("Enter unit to attack with or 'p' to pass")
+    if attacker_name == "p":
+        return True
     pos_attacker = attacker.search_card_at_planet(attacker_name, planet_id)
     print("position of unit:", pos_attacker)
     if pos_attacker != -1:
@@ -213,6 +215,7 @@ def combat_turn(attacker, defender, planet_id):
             unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender)
             defender.print_state_of_unit(planet_id, pos_defender)
             input("hold")
+            return False
 
     #return to decide if player passed
     return True
@@ -331,47 +334,3 @@ elif holder == "l":
     player_one.print_deck()
 elif holder == "p":
     play_game(player_one, player_two)
-elif holder == "":
-    planets_in_play = create_planets(planet_array)
-    player_one.init_planets_in_game(planets_in_play)
-    FindDeck.load_deck("#Nazdreg#Nazdreg's Flash Gitz#Nazdreg's Flash Gitz#Nazdreg's Flash Gitz"
-                       "#Nazdreg's Flash Gitz#Kraktoof Hall#Bigga is Betta"
-                       "#Bigga is Betta#Cybork Body", player_one)
-    player_one = init_player(player_one)
-    player_one.print_hand()
-    card_name_to_find = input("Enter card name to play:")
-    return_value = player_one.find_card_in_hand(card_name_to_find)
-    if return_value != -1:
-        print("Card found at position:", return_value)
-        temp_object = FindCard.find_card(player_one.get_cards()[return_value])
-        planet_to_play_card = input("Select planet to play the card at:")
-        planet_position = player_one.search_planets_in_game(planet_to_play_card)
-        if planet_position != -1:
-            print("Planet", planet_to_play_card, "is at position", planet_position)
-            player_one.play_card(temp_object, planet_position + 1)
-            player_one.print_cards_in_play()
-            player_one.print_hand()
-            print("New bit:", player_one.get_cards_in_play()[planet_position + 1][0].get_name())
-            damage = input("How much damage to deal:")
-            if player_one.get_cards_in_play()[planet_position + 1][0].damage_card(damage):
-                player_one.print_cards_in_play()
-                stupid_object_holder = player_one.get_cards_in_play()[planet_position + 1][0].get_name()
-                player_one.discard_card(stupid_object_holder)
-                player_one.remove_card_from_play(planet_position, 0)
-                player_one.print_cards_in_play()
-                player_one.print_discard()
-
-    '''
-    player_one.shuffle_deck()
-    player_one.draw_card()
-    if player_one.add_resources(7) == 0:
-        print("Success in adding resources", player_one.get_resources())
-    planet_id_temp = 4
-    temp_object = FindCard.find_card(player_one.get_cards()[0])
-    print(temp_object.get_name())
-    return_value = player_one.play_card(temp_object, planet_id_temp)
-    player_one.print_cards_in_play()
-'''
-# print_info_card()
-
-# print_info_planet()
