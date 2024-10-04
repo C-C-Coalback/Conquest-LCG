@@ -220,7 +220,7 @@ def combat_turn(attacker, defender, planet_id):
     #return to decide if player passed
     return True
 
-def battle(p_one, p_two, planet_id):
+def combat_round(p_one, p_two, planet_id):
     p_one_passed = False
     p_two_passed = False
     while p_one_passed == False and p_two_passed == False:
@@ -237,7 +237,7 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
         player_one.print_cards_at_planet(planet_id)
         print("Player two units:")
         player_two.print_cards_at_planet(planet_id)
-        battle(player_one, player_two, planet_id)
+        combat_round(player_one, player_two, planet_id)
     elif player_one_check and not player_two_check:
         print("First player has units, second player doesn't")
         print("First player wins the battle")
