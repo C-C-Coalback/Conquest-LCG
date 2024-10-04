@@ -231,14 +231,16 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
     planet_name = p_two.get_planet_name_given_position(planet_id - 1)
     player_one_check = p_one.check_if_units_present(planet_id)
     player_two_check = p_two.check_if_units_present(planet_id)
-    if player_one_check and player_two_check:
-        print("Both have units present. Combat begins at:", planet_name)
+    while player_one_check and player_two_check:
+        print("Both have units present. Combat round begins at:", planet_name)
         print("Player one units:")
         player_one.print_cards_at_planet(planet_id)
         print("Player two units:")
         player_two.print_cards_at_planet(planet_id)
         combat_round(player_one, player_two, planet_id)
-    elif player_one_check and not player_two_check:
+        player_one_check = p_one.check_if_units_present(planet_id)
+        player_two_check = p_two.check_if_units_present(planet_id)
+    if player_one_check and not player_two_check:
         print("First player has units, second player doesn't")
         print("First player wins the battle")
         if first_planet:
