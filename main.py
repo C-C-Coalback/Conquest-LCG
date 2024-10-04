@@ -250,6 +250,8 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
         combat_round(player_one, player_two, planet_id)
         player_one_check = p_one.check_if_units_present(planet_id)
         player_two_check = p_two.check_if_units_present(planet_id)
+        player_one.ready_all_at_planet(planet_id)
+        player_two.ready_all_at_planet(planet_id)
     if player_one_check and not player_two_check:
         print("First player has units, second player doesn't")
         print("First player wins the battle")
