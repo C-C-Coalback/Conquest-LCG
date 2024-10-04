@@ -195,6 +195,9 @@ def combat_turn(attacker, defender, planet_id):
     attacker_name = input("Enter unit to attack with")
     pos = attacker.search_card_at_planet(attacker_name, planet_id)
     print("position of unit:", pos)
+    if pos != -1:
+        attacker.exhaust_given_pos(planet_id, pos)
+        attacker.print_state_of_unit(planet_id, pos)
     #return to decide if player passed
     return True
 

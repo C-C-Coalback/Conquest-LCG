@@ -168,7 +168,15 @@ class Player:
                     return i
         return -1
 
+    def exhaust_given_pos(self, planet_id, unit_id):
+        self.cards_in_play[planet_id + 1][unit_id].exhaust_card()
 
+    def print_state_of_unit(self, planet_id, unit_id):
+        print("Name:", self.cards_in_play[planet_id + 1][unit_id].get_name())
+        if self.cards_in_play[planet_id + 1][unit_id].get_ready():
+            print("Ready")
+        else:
+            print("Exhausted")
 
     def move_warlord_to_planet(self, planet_id):
         headquarters_list = self.get_headquarters()
