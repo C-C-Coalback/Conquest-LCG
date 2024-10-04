@@ -171,6 +171,9 @@ class Player:
     def exhaust_given_pos(self, planet_id, unit_id):
         self.cards_in_play[planet_id + 1][unit_id].exhaust_card()
 
+    def check_ready_pos(self, planet_id, unit_id):
+        return self.cards_in_play[planet_id + 1][unit_id].get_ready()
+
     def get_attack_given_pos(self, planet_id, unit_id):
         attack_value = self.cards_in_play[planet_id + 1][unit_id].get_attack()
         return attack_value

@@ -208,25 +208,27 @@ def combat_turn(attacker, defender, planet_id):
     pos_attacker = attacker.search_card_at_planet(attacker_name, planet_id)
     print("position of unit:", pos_attacker)
     if pos_attacker != -1:
-        attacker.exhaust_given_pos(planet_id, pos_attacker)
-        attacker.print_state_of_unit(planet_id, pos_attacker)
-        defender_name = input("Enter unit to declare as defender")
-        pos_defender = defender.search_card_at_planet(defender_name, planet_id)
-        if pos_defender != -1:
-            defender.print_state_of_unit(planet_id, pos_defender)
-            input("hold")
-            unit_dead = unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender)
-            defender.print_state_of_unit(planet_id, pos_defender)
-            if unit_dead == 1:
-                defender.add_card_name_to_discard(defender_name)
-                defender.remove_card_from_play(planet_id, pos_defender)
-                defender.print_cards_at_planet(planet_id)
-                defender.print_discard()
-            input("hold")
-            return False
-
+        if attacker.check_ready_pos(planet_id, pos_attacker):
+            attacker.exhaust_given_pos(planet_id, pos_attacker)
+            attacker.print_state_of_unit(planet_id, pos_attacker)
+            defender_name = input("Enter unit to declare as defender")
+            pos_defender = defender.search_card_at_planet(defender_name, planet_id)
+            if pos_defender != -1:
+                defender.print_state_of_unit(planet_id, pos_defender)
+                input("hold")
+                unit_dead = unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender)
+                defender.print_state_of_unit(planet_id, pos_defender)
+                if unit_dead == 1:
+                    defender.add_card_name_to_discard(defender_name)
+                    defender.remove_card_from_play(planet_id, pos_defender)
+                    defender.print_cards_at_planet(planet_id)
+                    defender.print_discard()
+                input("hold")
+                return False
+        else:
+            print("Attacker not ready")
     #return to decide if player passed
-    return True
+    return combat_turn(attacker, defender, planet_id)
 
 def combat_round(p_one, p_two, planet_id):
     p_one_passed = False
