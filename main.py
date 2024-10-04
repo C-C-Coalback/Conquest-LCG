@@ -223,7 +223,7 @@ def combat_turn(attacker, defender, planet_id):
 def combat_round(p_one, p_two, planet_id):
     p_one_passed = False
     p_two_passed = False
-    while p_one_passed == False and p_two_passed == False:
+    while p_one_passed == False or p_two_passed == False:
         p_one_passed = combat_turn(p_one, p_two, planet_id)
         p_two_passed = combat_turn(p_two, p_one, planet_id)
 
