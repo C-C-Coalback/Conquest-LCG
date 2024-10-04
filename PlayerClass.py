@@ -171,12 +171,21 @@ class Player:
     def exhaust_given_pos(self, planet_id, unit_id):
         self.cards_in_play[planet_id + 1][unit_id].exhaust_card()
 
+    def get_attack_given_pos(self, planet_id, unit_id):
+        attack_value = self.cards_in_play[planet_id + 1][unit_id].get_attack()
+        return attack_value
+
+    def assign_damage_to_pos(self, planet_id, unit_id, damage):
+        damage_too_great = self.cards_in_play[planet_id + 1][unit_id].damage_card(damage)
+        return damage_too_great
+
     def print_state_of_unit(self, planet_id, unit_id):
         print("Name:", self.cards_in_play[planet_id + 1][unit_id].get_name())
         if self.cards_in_play[planet_id + 1][unit_id].get_ready():
             print("Ready")
         else:
             print("Exhausted")
+        print("Damage:", self.cards_in_play[planet_id + 1][unit_id].get_damage())
 
     def move_warlord_to_planet(self, planet_id):
         headquarters_list = self.get_headquarters()

@@ -106,7 +106,7 @@ class WarlordCard(Card):
     def shield_window(self, amount):
         print(self.get_name(), "taking", amount, "damage. Shields:")
         shield = input()
-        if shield == 0:
+        if shield == "0":
             print("No shields used")
         else:
             print("shield value:", shield)

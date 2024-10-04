@@ -191,6 +191,13 @@ def command_phase(round_number, p_one, p_two):
     print(p_two.get_resources())
     print(p_two.get_cards())
 
+def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
+    attack_value = att.get_attack_given_pos(planet_id, att_pos)
+    damage_too_great = defe.assign_damage_to_pos(planet_id, defe_pos, attack_value)
+    if damage_too_great:
+        print("Card must be discarded")
+    input("Hold attack")
+
 def combat_turn(attacker, defender, planet_id):
     attacker_name = input("Enter unit to attack with")
     pos_attacker = attacker.search_card_at_planet(attacker_name, planet_id)
@@ -201,6 +208,9 @@ def combat_turn(attacker, defender, planet_id):
         defender_name = input("Enter unit to declare as defender")
         pos_defender = defender.search_card_at_planet(defender_name, planet_id)
         if pos_defender != -1:
+            defender.print_state_of_unit(planet_id, pos_defender)
+            input("hold")
+            unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender)
             defender.print_state_of_unit(planet_id, pos_defender)
             input("hold")
 
