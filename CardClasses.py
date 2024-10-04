@@ -126,6 +126,13 @@ class WarlordCard(Card):
         else:
             return 0
 
+    def bloody_warlord(self):
+        self.damage = 0
+        self.health = self.bloodied_health
+        self.attack = self.bloodied_attack
+        self.text = self.bloodied_text
+        self.bloodied = True
+
     def print_info(self):
         if self.unique:
             print("Name: *", self.name)
