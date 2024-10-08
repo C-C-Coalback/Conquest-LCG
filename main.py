@@ -87,7 +87,6 @@ def resolve_command_struggle(planet_num, p_one, p_two):
     else:
         print("command is equal")
         return 0
-    pass
 
 
 def command_phase(round_number, p_one, p_two):
@@ -197,27 +196,27 @@ def combat_turn(attacker, defender, planet_id):
     return combat_turn(attacker, defender, planet_id)
 
 def combat_round(p_one, p_two, planet_id):
+    planet_name = p_two.get_planet_name_given_position(planet_id)
     p_one_passed = False
     p_two_passed = False
+    print("Both have units present. Combat round begins at:", planet_name)
+    print(player_one.get_name_player(), "units:")
+    player_one.print_cards_at_planet(planet_id)
+    print(player_two.get_name_player(), "units:")
+    player_two.print_cards_at_planet(planet_id)
     while p_one_passed == False or p_two_passed == False:
         p_one_passed = combat_turn(p_one, p_two, planet_id)
         p_two_passed = combat_turn(p_two, p_one, planet_id)
+    player_one.ready_all_at_planet(planet_id)
+    player_two.ready_all_at_planet(planet_id)
+    player_one.retreat_combat_window(planet_id)
+    player_two.retreat_combat_window(planet_id)
 
 def resolve_battle(p_one, p_two, planet_id, first_planet):
-    planet_name = p_two.get_planet_name_given_position(planet_id)
     player_one_check = p_one.check_if_units_present(planet_id)
     player_two_check = p_two.check_if_units_present(planet_id)
     while player_one_check and player_two_check:
-        print("Both have units present. Combat round begins at:", planet_name)
-        print(player_one.get_name_player(), "units:")
-        player_one.print_cards_at_planet(planet_id)
-        print(player_two.get_name_player(), "units:")
-        player_two.print_cards_at_planet(planet_id)
         combat_round(player_one, player_two, planet_id)
-        player_one.ready_all_at_planet(planet_id)
-        player_two.ready_all_at_planet(planet_id)
-        player_one.retreat_combat_window(planet_id)
-        player_two.retreat_combat_window(planet_id)
         player_one_check = p_one.check_if_units_present(planet_id)
         player_two_check = p_two.check_if_units_present(planet_id)
     if player_one_check and not player_two_check:
