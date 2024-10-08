@@ -204,7 +204,7 @@ def combat_round(p_one, p_two, planet_id):
         p_two_passed = combat_turn(p_two, p_one, planet_id)
 
 def resolve_battle(p_one, p_two, planet_id, first_planet):
-    planet_name = p_two.get_planet_name_given_position(planet_id - 1)
+    planet_name = p_two.get_planet_name_given_position(planet_id)
     player_one_check = p_one.check_if_units_present(planet_id)
     player_two_check = p_two.check_if_units_present(planet_id)
     while player_one_check and player_two_check:
@@ -214,10 +214,12 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
         print(player_two.get_name_player(), "units:")
         player_two.print_cards_at_planet(planet_id)
         combat_round(player_one, player_two, planet_id)
-        player_one_check = p_one.check_if_units_present(planet_id)
-        player_two_check = p_two.check_if_units_present(planet_id)
         player_one.ready_all_at_planet(planet_id)
         player_two.ready_all_at_planet(planet_id)
+        player_one.retreat_combat_window(planet_id)
+        player_two.retreat_combat_window(planet_id)
+        player_one_check = p_one.check_if_units_present(planet_id)
+        player_two_check = p_two.check_if_units_present(planet_id)
     if player_one_check and not player_two_check:
         print(player_one.get_name_player(), "has units,", player_two.get_name_player(), "doesn't")
         print(player_two.get_name_player(), "wins the battle")

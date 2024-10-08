@@ -124,6 +124,21 @@ class Player:
         self.headquarters.append(copy.deepcopy(self.cards_in_play[planet_id + 1][unit_id]))
         del self.cards_in_play[planet_id + 1][unit_id]
 
+    def retreat_combat_window(self, planet_id):
+        done_retreating = False
+        while not done_retreating:
+            retreat_a_unit = input(self.get_name_player() + " Retreat unit? (y/n)")
+            if retreat_a_unit == "n":
+                done_retreating = True
+            elif retreat_a_unit == "y":
+                unit_name = input("Enter name of unit to retreat with")
+                unit_pos = self.search_card_at_planet(unit_name, planet_id)
+                if unit_pos == -1:
+                    print("Unit not found")
+                else:
+                    self.exhaust_given_pos(planet_id, unit_pos)
+                    self.retreat_unit(planet_id, unit_pos)
+
     def retreat_all_at_planet(self, planet_id):
         while self.cards_in_play[planet_id + 1]:
             self.retreat_unit(planet_id, 0)
