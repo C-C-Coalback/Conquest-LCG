@@ -244,6 +244,32 @@ class Player:
             print("Not an army/support card")
             return -1
 
+    def deploy_turn(self):
+        play_card = input(self.get_name_player() + " play card? 'y' or 'p' to play, 'pass' to pass")
+        if play_card == "p" or play_card == "y":
+            card_name = input("Enter card name to play:")
+            card_position = self.find_card_in_hand(card_name)
+            if card_position == -1:
+                print("Card not found in hand.")
+                return self.deploy_turn()
+            else:
+                planet_name = input("Enter planet name to play card at:")
+                pos = self.search_planets_in_game(planet_name)
+                if pos == -1:
+                    print("Planet not found.")
+                    return self.deploy_turn()
+                else:
+                    print("Planet found.")
+                    print("Attempting to play card.")
+                    object_holder = FindCard.find_card(self.get_cards()[card_position])
+                    self.play_card(object_holder, pos + 1)
+                    self.print_cards_in_play()
+                    return False
+        elif play_card == "pass":
+            return True
+        else:
+            print("Command unrecognised.")
+            return self.deploy_turn()
     def remove_card_from_play(self, planet_num, card_pos):
         # card_object = self.cards_in_play[planet_num + 1][card_pos]
         # self.discard_object(card_object)
