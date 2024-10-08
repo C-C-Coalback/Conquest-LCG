@@ -62,8 +62,10 @@ def deploy_phase(round_number, p_one, p_two):
     p_one_passed = False
     p_two_passed = False
     print("deploy:", round_number)
-    print("Hand of p_one:")
+    print("Hand of", p_one.get_name_player())
     p_one.print_hand()
+    print("Hand of", p_two.get_name_player())
+    p_two.print_hand()
     while not p_one_passed or not p_two_passed:
         if not p_one_passed:
             play_card = input("Play card? 'y' or 'p' to play, 'pass' to pass")
@@ -113,11 +115,11 @@ def resolve_command_struggle(planet_num, p_one, p_two):
     player_two_command = p_two.count_command_at_planet(planet_num)
     if player_one_command > player_two_command:
         print(player_one_command, "greater than",
-              player_two_command, "at planet no", planet_num, "player one wins command")
+              player_two_command, "at planet no", planet_num, ",", player_one.get_name_player(), "wins command")
         return 1
     elif player_two_command > player_one_command:
         print(player_two_command, "greater than",
-              player_one_command, "at planet no", planet_num, "player two wins command")
+              player_one_command, "at planet no", planet_num, ",", player_two.get_name_player(), "wins command")
         return 2
     else:
         print("command is equal")
@@ -244,9 +246,9 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
     player_two_check = p_two.check_if_units_present(planet_id)
     while player_one_check and player_two_check:
         print("Both have units present. Combat round begins at:", planet_name)
-        print("Player one units:")
+        print(player_one.get_name_player(), "units:")
         player_one.print_cards_at_planet(planet_id)
-        print("Player two units:")
+        print(player_two.get_name_player(), "units:")
         player_two.print_cards_at_planet(planet_id)
         combat_round(player_one, player_two, planet_id)
         player_one_check = p_one.check_if_units_present(planet_id)
@@ -254,15 +256,15 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
         player_one.ready_all_at_planet(planet_id)
         player_two.ready_all_at_planet(planet_id)
     if player_one_check and not player_two_check:
-        print("First player has units, second player doesn't")
-        print("First player wins the battle")
+        print(player_one.get_name_player(), "has units,", player_two.get_name_player(), "doesn't")
+        print(player_two.get_name_player(), "wins the battle")
         if first_planet:
             input("Hold, retreat from winning battle")
             player_one.retreat_all_at_planet(planet_id)
             player_one.capture_planet(planet_id)
     elif not player_one_check and player_two_check:
-        print("Second player has units, first player doesn't")
-        print("Second player wins the battle")
+        print(player_two.get_name_player(), "has units,", player_one.get_name_player(), "doesn't")
+        print(player_two.get_name_player(), "wins the battle")
         if first_planet:
             player_two.retreat_all_at_planet(planet_id)
             player_two.capture_planet(planet_id)
