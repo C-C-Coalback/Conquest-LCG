@@ -4,7 +4,8 @@ import FindCard
 import PlanetCardsInit
 
 class Player:
-    def __init__(self):
+    def __init__(self, name):
+        self.name_player = name
         self.resources = 0
         self.cards = []
         self.victory_display = []
@@ -13,6 +14,9 @@ class Player:
         self.deck = []
         self.discard = []
         self.cards_in_play = [[] for _ in range(8)]
+
+    def get_name_player(self):
+        return self.name_player
 
     def get_resources(self):
         return self.resources

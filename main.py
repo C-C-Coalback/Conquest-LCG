@@ -202,6 +202,7 @@ def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
     return 0
 
 def combat_turn(attacker, defender, planet_id):
+    print(attacker.get_name_player(),'\'s turn to attack', sep='')
     attacker_name = input("Enter unit to attack with or 'p' to pass")
     if attacker_name == "p":
         return True
@@ -343,16 +344,18 @@ def init_player(player):
     return player
 
 
-player_one = PlayerClass.Player()
-player_two = PlayerClass.Player()
+
 
 holder = input("Enter: ")
 if holder == "c":
     DeckHandling.create_deck()
 elif holder == "l":
+    player_one = PlayerClass.Player('Abe')
     deck_string = FindDeck.find_deck()
     FindDeck.load_deck(deck_string, player_one)
     player_one.shuffle_deck()
     player_one.print_deck()
 elif holder == "p":
+    player_one = PlayerClass.Player('Abe')
+    player_two = PlayerClass.Player('Bob')
     play_game(player_one, player_two)
