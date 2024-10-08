@@ -178,6 +178,15 @@ class Player:
         for i in range(len(self.cards_in_play[planet_id + 1])):
             self.ready_given_pos(planet_id, i)
 
+    def ready_all_in_headquarters(self):
+        for i in range(len(self.headquarters)):
+            self.headquarters[i].ready_card()
+
+    def ready_all_in_play(self):
+        for i in range(len(self.cards_in_play[0])):
+            self.ready_all_at_planet(i)
+        self.ready_all_in_headquarters()
+
     def check_ready_pos(self, planet_id, unit_id):
         return self.cards_in_play[planet_id + 1][unit_id].get_ready()
 
