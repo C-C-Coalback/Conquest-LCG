@@ -97,7 +97,7 @@ def command_phase(round_number, p_one, p_two):
         print("Planet not found")
     else:
         print("Attempting to move Warlord")
-        p_one.move_warlord_to_planet(pos + 1)
+        p_one.commit_warlord_to_planet(pos + 1)
     p_one.print_cards_in_play()
     p_one.print_headquarters()
     planet_name = input("Choose a planet to send the Warlord to:")
@@ -106,7 +106,7 @@ def command_phase(round_number, p_one, p_two):
         print("Planet not found")
     else:
         print("Attempting to move Warlord")
-        p_two.move_warlord_to_planet(pos + 1)
+        p_two.commit_warlord_to_planet(pos + 1)
     p_two.print_cards_in_play()
     p_two.print_headquarters()
     print("command:", round_number)
@@ -302,7 +302,7 @@ def play_game(p_one, p_two):
     init_player(p_one)
     init_player(p_two)
     game_round(1, p_one, p_two)
-
+    game_round(2, p_one, p_two)
 
 def init_player(player):
     warlord = player.get_headquarters()[0]

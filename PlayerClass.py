@@ -230,15 +230,26 @@ class Player:
             print("Exhausted")
         print("Damage:", self.cards_in_play[planet_id + 1][unit_id].get_damage())
 
-    def move_warlord_to_planet(self, planet_id):
+    def commit_warlord_to_planet(self, planet_id):
         headquarters_list = self.get_headquarters()
         for i in range(len(headquarters_list)):
             if headquarters_list[i].get_card_type() == "Warlord":
                 print(headquarters_list[i].get_name())
                 self.cards_in_play[planet_id].append(copy.deepcopy(headquarters_list[i]))
                 self.headquarters.remove(headquarters_list[i])
+                self.commit_units_to_planet(planet_id)
                 return 0
         return -1
+
+    def commit_units_to_planet(self, planet_id):
+        headquarters_list = self.get_headquarters()
+        for i in range(len(headquarters_list)):
+            if headquarters_list[i].get_card_type() == "Army" or headquarters_list.get_card_type() == "Token":
+                print(headquarters_list[i].get_name())
+                headquarters_list[i].exhaust_card()
+                self.cards_in_play[planet_id].append(copy.deepcopy(headquarters_list[i]))
+                self.headquarters.remove(headquarters_list[i])
+
 
     def play_card(self, card_to_play, planet_id):
         if FindCard.check_card_type(card_to_play, "Army"):
