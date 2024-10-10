@@ -99,7 +99,8 @@ class Player:
         command = 0
         for i in range(len(self.cards_in_play[planet_id])):
             print(self.cards_in_play[planet_id][i].get_command())
-            command += self.cards_in_play[planet_id][i].get_command()
+            if self.cards_in_play[planet_id][i].get_ready():
+                command += self.cards_in_play[planet_id][i].get_command()
         return command
 
     def capture_planet(self, planet_id):
