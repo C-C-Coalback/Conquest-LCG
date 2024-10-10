@@ -175,7 +175,12 @@ def combat_turn(attacker, defender, planet_id):
     if pos_attacker != -1:
         if attacker.check_ready_pos(planet_id, pos_attacker):
             attacker.exhaust_given_pos(planet_id, pos_attacker)
-            attacker.print_state_of_unit(planet_id, pos_attacker)
+            #attacker.print_state_of_unit(planet_id, pos_attacker)
+            if attacker.check_warlord_given_pos(planet_id, pos_attacker):
+                option_retreat_warlord = input("Card is a Warlord. Retreat? (y/n)")
+                if option_retreat_warlord == "y":
+                    attacker.retreat_unit(planet_id, pos_attacker)
+                    return False
             defender_name = input("Enter unit to declare as defender")
             pos_defender = defender.search_card_at_planet(defender_name, planet_id)
             if pos_defender != -1:

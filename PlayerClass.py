@@ -190,6 +190,11 @@ class Player:
     def exhaust_given_pos(self, planet_id, unit_id):
         self.cards_in_play[planet_id + 1][unit_id].exhaust_card()
 
+    def check_warlord_given_pos(self, planet_id, unit_id):
+        if self.cards_in_play[planet_id + 1][unit_id].get_card_type() == "Warlord":
+            return True
+        return False
+
     def ready_given_pos(self, planet_id, unit_id):
         self.cards_in_play[planet_id + 1][unit_id].ready_card()
 
