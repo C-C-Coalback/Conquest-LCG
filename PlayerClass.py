@@ -221,8 +221,13 @@ class Player:
         attack_value = self.cards_in_play[planet_id + 1][unit_id].get_attack()
         return attack_value
 
+    def get_shields_given_pos(self, pos_in_hand):
+        shield_card_name = self.cards[pos_in_hand]
+        card_object = FindCard.find_card(shield_card_name)
+        return card_object.get_shields()
+
     def assign_damage_to_pos(self, planet_id, unit_id, damage):
-        damage_too_great = self.cards_in_play[planet_id + 1][unit_id].damage_card(damage)
+        damage_too_great = self.cards_in_play[planet_id + 1][unit_id].damage_card(self, damage)
         return damage_too_great
 
     def print_state_of_unit(self, planet_id, unit_id):
@@ -326,6 +331,10 @@ class Player:
             del self.deck[0]
 
     def remove_card_from_hand(self, card_pos):
+        del self.cards[card_pos]
+
+    def discard_card_from_hand(self, card_pos):
+        self.discard.append(self.cards[card_pos])
         del self.cards[card_pos]
 
     def print_hand(self):

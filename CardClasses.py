@@ -93,8 +93,8 @@ class WarlordCard(Card):
     def get_starting_cards(self):
         return self.starting_cards
 
-    def damage_card(self, amount):
-        amount = self.shield_window(amount)
+    def damage_card(self, player, amount):
+        amount = self.shield_window(player, amount)
         self.assign_damage(amount)
         if self.check_health():
             print("Card still standing")
@@ -103,10 +103,28 @@ class WarlordCard(Card):
             print("Damage exceeds health")
             return 1
 
-    def shield_window(self, amount):
-        print(self.get_name(), "taking", amount, "damage. Shields:")
-        shield = input()
-        if shield == "0":
+    def shield_window(self, player, amount):
+        print(self.get_name(), "taking", amount, "damage.")
+        keep_looping = True
+        shield = 0
+        while keep_looping:
+            shield_card = input("Enter the name of a card to shield with, or nothing to not use a shield:")
+            if shield_card == "":
+                keep_looping = False
+            else:
+                pos_hand = player.find_card_in_hand(shield_card)
+                if pos_hand == -1:
+                    print("Card not found in hand")
+                else:
+                    shield = player.get_shields_given_pos(pos_hand)
+                    if shield == -1:
+                        input("Card somehow found in hand but not in database.")
+                    elif shield == 0:
+                        input("Card has no shields on it. Use something else.")
+                    else:
+                        player.discard_card_from_hand(pos_hand)
+                        keep_looping = False
+        if shield == 0:
             print("No shields used")
         else:
             print("shield value:", shield)
@@ -181,8 +199,8 @@ class ArmyCard(Card):
         print("Loyalty:", self.loyalty)
         print("Text:", self.text, "\nStats:", self.attack, "Attack,", self.health, "Health,", self.command, "Command")
 
-    def damage_card(self, amount):
-        amount = self.shield_window(amount)
+    def damage_card(self, player, amount):
+        amount = self.shield_window(player, amount)
         self.assign_damage(amount)
         if self.check_health():
             print("Card still standing")
@@ -191,9 +209,11 @@ class ArmyCard(Card):
             print("Damage exceeds health")
             return 1
 
-    def shield_window(self, amount):
-        print(self.get_name(), "taking", amount, "damage. Shields:")
-        shield = input()
+    def shield_window(self, player, amount):
+        print(self.get_name(), "taking", amount, "damage.")
+        shield_card = input("Enter the name of a card to shield with:")
+        pos_hand = player.find_card_in_hand(shield_card)
+        shield = player.get_shields_given_pos(pos_hand)
         if shield == 0:
             print("No shields used")
         else:
@@ -289,8 +309,8 @@ class TokenCard(Card):
     def get_command(self):
         return self.command
 
-    def damage_card(self, amount):
-        amount = self.shield_window(amount)
+    def damage_card(self, player, amount):
+        amount = self.shield_window(player, amount)
         self.assign_damage(amount)
         if self.check_health():
             print("Card still standing")
@@ -299,9 +319,11 @@ class TokenCard(Card):
             print("Damage exceeds health")
             return 1
 
-    def shield_window(self, amount):
-        print(self.get_name(), "taking", amount, "damage. Shields:")
-        shield = input()
+    def shield_window(self, player, amount):
+        print(self.get_name(), "taking", amount, "damage.")
+        shield_card = input("Enter the name of a card to shield with:")
+        pos_hand = player.find_card_in_hand(shield_card)
+        shield = player.get_shields_given_pos(pos_hand)
         if shield == 0:
             print("No shields used")
         else:
