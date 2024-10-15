@@ -302,7 +302,12 @@ def play_game(p_one, p_two):
     init_player(p_one)
     init_player(p_two)
     game_round(1, p_one, p_two)
-    game_round(2, p_one, p_two)
+    game_round(2, p_two, p_one)
+    game_round(3, p_one, p_two)
+    game_round(4, p_two, p_one)
+    game_round(5, p_one, p_two)
+    game_round(6, p_two, p_one)
+    game_round(7, p_one, p_two)
 
 def init_player(player):
     warlord = player.get_headquarters()[0]
