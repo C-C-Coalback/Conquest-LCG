@@ -9,7 +9,7 @@ import FindDeck
 import PlayerClass
 import random
 
-#from PlayerClass import Player
+# from PlayerClass import Player
 
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1)
 
@@ -155,6 +155,7 @@ def command_phase(round_number, p_one, p_two):
     print(p_two.get_resources())
     print(p_two.get_cards())
 
+
 def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
     attack_value = att.get_attack_given_pos(planet_id, att_pos)
     damage_too_great = defe.assign_damage_to_pos(planet_id, defe_pos, attack_value)
@@ -165,8 +166,9 @@ def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
     input("Hold attack")
     return 0
 
+
 def combat_turn(attacker, defender, planet_id):
-    print(attacker.get_name_player(),'\'s turn to attack', sep='')
+    print(attacker.get_name_player(), '\'s turn to attack', sep='')
     attacker_name = input("Enter unit to attack with or 'p' to pass")
     if attacker_name == "p":
         return True
@@ -175,7 +177,7 @@ def combat_turn(attacker, defender, planet_id):
     if pos_attacker != -1:
         if attacker.check_ready_pos(planet_id, pos_attacker):
             attacker.exhaust_given_pos(planet_id, pos_attacker)
-            #attacker.print_state_of_unit(planet_id, pos_attacker)
+            # attacker.print_state_of_unit(planet_id, pos_attacker)
             if attacker.check_warlord_given_pos(planet_id, pos_attacker):
                 option_retreat_warlord = input("Card is a Warlord. Retreat? (y/n)")
                 if option_retreat_warlord == "y":
@@ -197,8 +199,9 @@ def combat_turn(attacker, defender, planet_id):
                 return False
         else:
             print("Attacker not ready")
-    #return to decide if player passed
+    # return to decide if player passed
     return combat_turn(attacker, defender, planet_id)
+
 
 def combat_round(p_one, p_two, planet_id):
     planet_name = p_two.get_planet_name_given_position(planet_id)
@@ -209,13 +212,14 @@ def combat_round(p_one, p_two, planet_id):
     player_one.print_cards_at_planet(planet_id)
     print(player_two.get_name_player(), "units:")
     player_two.print_cards_at_planet(planet_id)
-    while p_one_passed == False or p_two_passed == False:
+    while not p_one_passed or not p_two_passed:
         p_one_passed = combat_turn(p_one, p_two, planet_id)
         p_two_passed = combat_turn(p_two, p_one, planet_id)
     player_one.ready_all_at_planet(planet_id)
     player_two.ready_all_at_planet(planet_id)
     player_one.retreat_combat_window(planet_id)
     player_two.retreat_combat_window(planet_id)
+
 
 def resolve_battle(p_one, p_two, planet_id, first_planet):
     player_one_check = p_one.check_if_units_present(planet_id)
@@ -240,6 +244,7 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
     elif not player_one_check and not player_two_check:
         print("Neither player has units")
 
+
 def check_for_battle(p_one, p_two, planet_id, first_planet):
     planet_name = p_two.get_planet_name_given_position(planet_id - 1)
     if first_planet:
@@ -253,6 +258,7 @@ def check_for_battle(p_one, p_two, planet_id, first_planet):
         elif p_two.check_for_warlord(planet_id - 1):
             print("Battle is resolved at:", planet_name)
             resolve_battle(p_one, p_two, planet_id - 1, first_planet)
+
 
 def combat_phase(round_number, p_one, p_two):
     print("combat:", round_number)
@@ -309,6 +315,7 @@ def play_game(p_one, p_two):
     game_round(6, p_two, p_one)
     game_round(7, p_one, p_two)
 
+
 def init_player(player):
     warlord = player.get_headquarters()[0]
     player.shuffle_deck()
@@ -318,8 +325,6 @@ def init_player(player):
     for i in range(warlord.get_starting_cards()):
         player.draw_card()
     return player
-
-
 
 
 holder = input("Enter: ")

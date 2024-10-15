@@ -3,6 +3,8 @@ import copy
 import FindCard
 import PlanetCardsInit
 
+
+# noinspection PyUnresolvedReferences
 class Player:
     def __init__(self, name):
         self.name_player = name
@@ -121,7 +123,7 @@ class Player:
         return -1
 
     def retreat_unit(self, planet_id, unit_id):
-        #print("Name of card:", self.cards_in_play[planet_id + 1][unit_id].get_name())
+        # print("Name of card:", self.cards_in_play[planet_id + 1][unit_id].get_name())
         self.headquarters.append(copy.deepcopy(self.cards_in_play[planet_id + 1][unit_id]))
         del self.cards_in_play[planet_id + 1][unit_id]
 
@@ -160,7 +162,7 @@ class Player:
             print(self.victory_display[i].get_name())
 
     def print_icons_on_captured(self):
-        total_icons = [0,0,0]
+        total_icons = [0, 0, 0]
         for i in range(len(self.victory_display)):
             if self.victory_display[i].get_red():
                 total_icons[0] += 1
@@ -251,7 +253,6 @@ class Player:
                 self.cards_in_play[planet_id].append(copy.deepcopy(headquarters_list[i]))
                 self.headquarters.remove(headquarters_list[i])
 
-
     def play_card(self, card_to_play, planet_id):
         if FindCard.check_card_type(card_to_play, "Army"):
             if self.spend_resources(card_to_play.get_cost()) == 0:
@@ -302,6 +303,7 @@ class Player:
         else:
             print("Command unrecognised.")
             return self.deploy_turn()
+
     def remove_card_from_play(self, planet_num, card_pos):
         # card_object = self.cards_in_play[planet_num + 1][card_pos]
         # self.discard_object(card_object)
