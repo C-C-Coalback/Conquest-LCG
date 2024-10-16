@@ -12,6 +12,7 @@ import FindDeck
 import PlayerClass
 import random
 import HeadquartersPhase
+import pygame
 
 # from PlayerClass import Player
 
@@ -82,12 +83,10 @@ def play_game(p_one, p_two):
     init_player(p_one)
     init_player(p_two)
     game_round(1, p_one, p_two)
-    game_round(2, p_two, p_one)
-    game_round(3, p_one, p_two)
-    game_round(4, p_two, p_one)
-    game_round(5, p_one, p_two)
-    game_round(6, p_two, p_one)
-    game_round(7, p_one, p_two)
+    for i in range(2,7,2):
+        game_round(i, p_two, p_one)
+        game_round(i + 1, p_one, p_two)
+
 
 
 def init_player(player):
@@ -114,3 +113,18 @@ elif holder == "p":
     player_one = PlayerClass.Player('Abe')
     player_two = PlayerClass.Player('Bob')
     play_game(player_one, player_two)
+elif holder == "g":
+    pygame.init()
+    bounds = (1024, 768)
+    window = pygame.display.set_mode(bounds)
+    pygame.display.set_caption("Conquest")
+    nazdreg = pygame.image.load("C:\\Users\\argar\\PycharmProjects\\Conquest-LCG\\CardImages\\Nazdreg.webp").convert()
+    window.blit(nazdreg, (0,0))
+    pygame.display.flip()
+    status = True
+    while status:
+        for x in pygame.event.get():
+            if x.type == pygame.QUIT:
+                status = False
+    pygame.quit()
+

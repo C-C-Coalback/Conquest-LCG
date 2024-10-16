@@ -22,7 +22,7 @@ def find_deck():
             current_deck = ""
     file_to_read.close()
     print("Deck not found")
-    return ""
+    return find_deck()
 
 
 def read_deck(pos):

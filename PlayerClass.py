@@ -4,7 +4,6 @@ import FindCard
 import PlanetCardsInit
 
 
-# noinspection PyUnresolvedReferences
 class Player:
     def __init__(self, name):
         self.name_player = name
