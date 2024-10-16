@@ -1,4 +1,4 @@
-import OrksCardsInit
+from Inits import OrksCardsInit
 
 orks_card_array = OrksCardsInit.orks_cards_init()
 

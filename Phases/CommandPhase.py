@@ -1,5 +1,4 @@
-import PlanetCardsInit
-
+from Inits import PlanetCardsInit
 
 
 def resolve_command_struggle(planet_num, p_one, p_two):

@@ -1,4 +1,4 @@
-import OrksCardsInit
+from Inits import OrksCardsInit
 import FindCard
 
 orks_card_array = OrksCardsInit.orks_cards_init()

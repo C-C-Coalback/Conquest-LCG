@@ -1,7 +1,7 @@
 import random
 import copy
 import FindCard
-import PlanetCardsInit
+from Inits import PlanetCardsInit
 
 
 class Player:

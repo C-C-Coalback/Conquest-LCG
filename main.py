@@ -1,17 +1,13 @@
 # GIT REPO IS https://github.com/C-C-Coalback/Conquest-LCG.git
 
 import CardClasses
-import CombatPhase
-import CommandPhase
-import DeployPhase
-import PlanetCardsInit
-import OrksCardsInit
+from Phases import CombatPhase, HeadquartersPhase, CommandPhase, DeployPhase
+from Inits import PlanetCardsInit, OrksCardsInit
 import FindCard
 import DeckHandling
 import FindDeck
 import PlayerClass
 import random
-import HeadquartersPhase
 import pygame
 
 # from PlayerClass import Player
