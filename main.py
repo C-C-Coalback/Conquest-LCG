@@ -118,7 +118,7 @@ elif holder == "g":
     bounds = (1024, 768)
     window = pygame.display.set_mode(bounds)
     pygame.display.set_caption("Conquest")
-    nazdreg = pygame.image.load("C:\\Users\\argar\\PycharmProjects\\Conquest-LCG\\CardImages\\Nazdreg.webp").convert()
+    nazdreg = pygame.image.load("CardImages/Nazdreg.webp").convert()
     window.blit(nazdreg, (0,0))
     pygame.display.flip()
     status = True
