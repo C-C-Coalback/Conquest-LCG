@@ -130,10 +130,12 @@ elif holder == "r":
     input(dir_path)
     path = dir_path + '/CardImages/'
     path2 = dir_path + '/ResizedImages/'
+    planet_path = dir_path + '/PlanetImages/'
     input(path)
     input(path2)
     dirs = os.listdir(path)
     image_list = []
+    planet_image_list = []
     resized_images = []
     filenames = []
     ratio = 0.17
@@ -151,7 +153,19 @@ elif holder == "r":
         image_list.append(img)
 
     for image in image_list:
-        image = image.resize((int(365 * ratio), int(520 * ratio) ))
+        image = image.resize((int(365 * ratio), int(520 * ratio)))
+        resized_images.append(image)
+
+    for planet_filename in glob.glob(planet_path+'*.webp'):
+        print(planet_filename)
+        base_name = os.path.basename(planet_filename)
+        name, ext = os.path.splitext(base_name)
+        filenames.append(name)
+        img = Image.open(planet_filename)
+        planet_image_list.append(img)
+
+    for image in planet_image_list:
+        image = image.resize((int(520 * ratio), int(365 * ratio)))
         resized_images.append(image)
 
     for (a, new) in enumerate(resized_images):
