@@ -9,7 +9,8 @@ import FindDeck
 import PlayerClass
 import random
 import pygame
-
+from PIL import Image
+import os, glob
 # from PlayerClass import Player
 
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1)
@@ -123,4 +124,26 @@ elif holder == "g":
             if x.type == pygame.QUIT:
                 status = False
     pygame.quit()
+elif holder == "r":
+    path = "C:/Users/argar/PycharmProjects/Conquest-LCG/CardImages/"
+    path2 = "C:/Users/argar/PycharmProjects/Conquest-LCG/ResizedImages/"
+    dirs = os.listdir(path)
+    image_list = []
+    resized_images = []
+    filenames = []
+    ratio = 0.3
 
+    for filename in glob.glob(path+'*.webp'):
+        print(filename)
+        base_name = os.path.basename(filename)
+        name, ext = os.path.splitext(base_name)
+        filenames.append(name)
+        img = Image.open(filename)
+        image_list.append(img)
+
+    for image in image_list:
+        image = image.resize((int(365 * ratio), int(520 * ratio) ))
+        resized_images.append(image)
+
+    for (a, new) in enumerate(resized_images):
+        new.save('{}{}{}'.format(path2, filenames[a], '.jpg'))
