@@ -117,6 +117,8 @@ elif holder == "g":
     pygame.display.set_caption("Conquest")
     nazdreg = pygame.image.load("Playmat.png").convert()
     window.blit(nazdreg, (0,0))
+    nazdreg_gits = pygame.image.load("ResizedImages/Nazdreg's_Flash_Gitz.jpg").convert()
+    window.blit(nazdreg_gits, (170, 485))
     pygame.display.flip()
     status = True
     while status:
@@ -131,7 +133,7 @@ elif holder == "r":
     image_list = []
     resized_images = []
     filenames = []
-    ratio = 0.3
+    ratio = 0.17
 
     playmat_image = Image.open('C:/Users/argar/PycharmProjects/Conquest-LCG/Playmat.png')
     playmat_image = playmat_image.resize((1200, 600))
