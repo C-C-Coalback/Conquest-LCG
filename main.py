@@ -127,17 +127,21 @@ elif holder == "g":
                 status = False
     pygame.quit()
 elif holder == "r":
-    path = "C:/Users/argar/PycharmProjects/Conquest-LCG/CardImages/"
-    path2 = "C:/Users/argar/PycharmProjects/Conquest-LCG/ResizedImages/"
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    input(dir_path)
+    path = dir_path + '/CardImages/'
+    path2 = dir_path + '/ResizedImages/'
+    input(path)
+    input(path2)
     dirs = os.listdir(path)
     image_list = []
     resized_images = []
     filenames = []
     ratio = 0.17
 
-    playmat_image = Image.open('C:/Users/argar/PycharmProjects/Conquest-LCG/Playmat.png')
+    playmat_image = Image.open(dir_path + '/Playmat.png')
     playmat_image = playmat_image.resize((1200, 600))
-    playmat_image.save('{}{}'.format('C:/Users/argar/PycharmProjects/Conquest-LCG/Playmat', '.png'))
+    playmat_image.save('{}{}'.format(dir_path + '/Playmat', '.png'))
 
     for filename in glob.glob(path+'*.webp'):
         print(filename)
