@@ -118,6 +118,8 @@ elif holder == "g":
     window.blit(nazdreg, (0,0))
     nazdreg_gits = pygame.image.load("ResizedImages/Nazdreg's_Flash_Gitz.jpg").convert()
     window.blit(nazdreg_gits, (170, 485))
+    carnath = pygame.image.load("ResizedImages/Carnath.jpg").convert()
+    window.blit(carnath, (55, 270))
     pygame.display.flip()
     status = True
     while status:
