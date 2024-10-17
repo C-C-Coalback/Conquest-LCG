@@ -1,5 +1,5 @@
 class Card:
-    def __init__(self, name, text, traits, cost, faction, loyalty, shields, card_type, unique):
+    def __init__(self, name, text, traits, cost, faction, loyalty, shields, card_type, unique, image_name):
         self.name = name
         self.text = text
         self.traits = traits
@@ -10,6 +10,7 @@ class Card:
         self.card_type = card_type
         self.unique = unique
         self.ready = True
+        self.image_name = image_name
 
     def get_name(self):
         return self.name
@@ -19,6 +20,9 @@ class Card:
 
     def get_traits(self):
         return self.traits
+
+    def get_image_name(self):
+        return self.image_name()
 
     def get_cost(self):
         return self.cost
@@ -50,8 +54,9 @@ class Card:
 
 class WarlordCard(Card):
     def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text,
-                 starting_resources, starting_cards):
-        super().__init__(name, text, traits, -1, faction, "Signature", 0, "Warlord", False)
+                 starting_resources, starting_cards, image_name):
+        super().__init__(name, text, traits, -1, faction, "Signature", 0, "Warlord", False
+                         , image_name)
         self.attack = attack
         self.health = health
         self.damage = 0
@@ -168,8 +173,8 @@ class WarlordCard(Card):
 
 
 class ArmyCard(Card):
-    def __init__(self, name, text, traits, cost, faction, loyalty, attack, health, command, unique):
-        super().__init__(name, text, traits, cost, faction, loyalty, 0, "Army", unique)
+    def __init__(self, name, text, traits, cost, faction, loyalty, attack, health, command, unique, image_name):
+        super().__init__(name, text, traits, cost, faction, loyalty, 0, "Army", unique, image_name)
         self.attack = attack
         self.health = health
         self.damage = 0
@@ -236,8 +241,8 @@ class ArmyCard(Card):
 
 
 class EventCard(Card):
-    def __init__(self, name, text, traits, cost, faction, loyalty, shields, unique):
-        super().__init__(name, text, traits, cost, faction, loyalty, shields, "Event", unique)
+    def __init__(self, name, text, traits, cost, faction, loyalty, shields, unique, image_name):
+        super().__init__(name, text, traits, cost, faction, loyalty, shields, "Event", unique, image_name)
 
     def print_info(self):
         if self.unique:
@@ -254,8 +259,8 @@ class EventCard(Card):
 
 
 class AttachmentCard(Card):
-    def __init__(self, name, text, traits, cost, faction, loyalty, shields, unique):
-        super().__init__(name, text, traits, cost, faction, loyalty, shields, "Attachment", unique)
+    def __init__(self, name, text, traits, cost, faction, loyalty, shields, unique, image_name):
+        super().__init__(name, text, traits, cost, faction, loyalty, shields, "Attachment", unique, image_name)
 
     def print_info(self):
         if self.unique:
@@ -272,8 +277,8 @@ class AttachmentCard(Card):
 
 
 class SupportCard(Card):
-    def __init__(self, name, text, traits, cost, faction, loyalty, unique):
-        super().__init__(name, text, traits, cost, faction, loyalty, 0, "Support", unique)
+    def __init__(self, name, text, traits, cost, faction, loyalty, unique, image_name):
+        super().__init__(name, text, traits, cost, faction, loyalty, 0, "Support", unique, image_name)
 
     def print_info(self):
         if self.unique:
@@ -290,8 +295,9 @@ class SupportCard(Card):
 
 
 class TokenCard(Card):
-    def __init__(self, name, text, traits, faction, attack, health):
-        super().__init__(name, text, traits, -1, faction, "Common", 0, "Token", False)
+    def __init__(self, name, text, traits, faction, attack, health, image_name):
+        super().__init__(name, text, traits, -1, faction, "Common", 0, "Token", False,
+                         image_name)
         self.attack = attack
         self.health = health
         self.damage = 0
@@ -355,7 +361,7 @@ class TokenCard(Card):
 
 
 class PlanetCard:
-    def __init__(self, name, text, cards, resources, red, blue, green):
+    def __init__(self, name, text, cards, resources, red, blue, green, image_name):
         self.name = name
         self.text = text
         self.cards = cards
@@ -363,9 +369,13 @@ class PlanetCard:
         self.red = red
         self.blue = blue
         self.green = green
+        self.image_name = image_name
 
     def get_name(self):
         return self.name
+
+    def get_image_name(self):
+        return self.image_name
 
     def get_text(self):
         return self.text

@@ -11,9 +11,8 @@ import random
 import pygame
 from PIL import Image
 import os, glob
-# from PlayerClass import Player
 
-snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1)
+snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1, "NO IMAGE")
 
 orks_card_array = OrksCardsInit.orks_cards_init()
 planet_array = PlanetCardsInit.planet_cards_init()
