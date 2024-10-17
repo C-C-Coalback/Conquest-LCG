@@ -112,10 +112,10 @@ elif holder == "p":
     play_game(player_one, player_two)
 elif holder == "g":
     pygame.init()
-    bounds = (1024, 768)
+    bounds = (1200, 600)
     window = pygame.display.set_mode(bounds)
     pygame.display.set_caption("Conquest")
-    nazdreg = pygame.image.load("CardImages/Nazdreg.webp").convert()
+    nazdreg = pygame.image.load("Playmat.png").convert()
     window.blit(nazdreg, (0,0))
     pygame.display.flip()
     status = True
@@ -132,6 +132,10 @@ elif holder == "r":
     resized_images = []
     filenames = []
     ratio = 0.3
+
+    playmat_image = Image.open('C:/Users/argar/PycharmProjects/Conquest-LCG/Playmat.png')
+    playmat_image = playmat_image.resize((1200, 600))
+    playmat_image.save('{}{}'.format('C:/Users/argar/PycharmProjects/Conquest-LCG/Playmat', '.png'))
 
     for filename in glob.glob(path+'*.webp'):
         print(filename)
