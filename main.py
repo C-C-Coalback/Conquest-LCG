@@ -95,6 +95,9 @@ def play_pygame(p_one, p_two, game_screen):
     player_two.init_planets_in_game(planets_in_play_list)
     init_player(p_one)
     init_player(p_two)
+    playmat = pygame.image.load("Playmat.png").convert()
+    game_screen.blit(playmat, (0, 100))
+    pygame.display.flip()
     game_round(1, p_one, p_two)
     for i in range(2,7,2):
         game_round(i, p_two, p_one)
