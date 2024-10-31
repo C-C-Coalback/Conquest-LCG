@@ -65,6 +65,13 @@ def game_round(round_number, p_one, p_two):
     HeadquartersPhase.hq_phase(round_number, p_one, p_two)
 
 
+def pygame_round(round_number, p_one, p_two, game_screen):
+    DeployPhase.pygame_deploy_phase(round_number, p_one, p_two, game_screen)
+    CommandPhase.pygame_command_phase(round_number, p_one, p_two, game_screen)
+    CombatPhase.pygame_combat_phase(round_number, p_one, p_two, game_screen)
+    HeadquartersPhase.pygame_hq_phase(round_number, p_one, p_two, game_screen)
+
+
 def play_game(p_one, p_two):
     deck_s = FindDeck.find_deck()
     FindDeck.load_deck(deck_s, p_one)
@@ -100,10 +107,10 @@ def play_pygame(p_one, p_two, game_screen):
     cardback = pygame.image.load("ResizedImages/Cardback.jpg").convert()
     window.blit(cardback, (170, 485))
     pygame.display.flip()
-    game_round(1, p_one, p_two)
+    pygame_round(1, p_one, p_two, window)
     for i in range(2,7,2):
-        game_round(i, p_two, p_one)
-        game_round(i + 1, p_one, p_two)
+        pygame_round(i, p_two, p_one, window)
+        pygame_round(i + 1, p_one, p_two, window)
 
 
 

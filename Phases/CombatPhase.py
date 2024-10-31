@@ -117,3 +117,18 @@ def combat_phase(round_number, p_one, p_two):
     p_two.retreat_warlord()
     p_one.print_headquarters()
     p_two.print_headquarters()
+
+def pygame_combat_phase(round_number, p_one, p_two, game_screen):
+    print("combat:", round_number)
+    index = round_number
+    planets_counted = 0
+    first_planet = True
+    while planets_counted < 5 and index < 7:
+        check_for_battle(p_one, p_two, index, first_planet)
+        first_planet = False
+        index += 1
+        planets_counted += 1
+    p_one.retreat_warlord()
+    p_two.retreat_warlord()
+    p_one.print_headquarters()
+    p_two.print_headquarters()
