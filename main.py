@@ -9,7 +9,7 @@ import PlayerClass
 import random
 import pygame
 from PIL import Image
-import os, glob
+import os, glob, sys
 
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1, "NO IMAGE")
 
@@ -107,11 +107,26 @@ def play_pygame(p_one, p_two, game_screen):
     cardback = pygame.image.load("ResizedImages/Cardback.jpg").convert()
     window.blit(cardback, (170, 485))
     pygame.display.flip()
+    x_c = 60
+    y_c = 320
+    for i in range(5):
+        planet_image_name = "ResizedImages/" + planet_array[i].get_image_name() + ".jpg"
+        planet_image = pygame.image.load(planet_image_name).convert()
+        window.blit(planet_image, (x_c, y_c))
+        x_c += 165
+        pygame.display.flip()
+        run = True
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    run = False
     pygame_round(1, p_one, p_two, window)
     for i in range(2,7,2):
         pygame_round(i, p_two, p_one, window)
         pygame_round(i + 1, p_one, p_two, window)
-
 
 
 def init_player(player):
