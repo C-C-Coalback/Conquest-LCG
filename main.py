@@ -1,5 +1,4 @@
 # GIT REPO IS https://github.com/C-C-Coalback/Conquest-LCG.git
-
 import CardClasses
 from Phases import CombatPhase, HeadquartersPhase, CommandPhase, DeployPhase
 from Inits import PlanetCardsInit, OrksCardsInit
@@ -84,6 +83,24 @@ def play_game(p_one, p_two):
         game_round(i + 1, p_one, p_two)
 
 
+def play_pygame(p_one, p_two, game_screen):
+    deck_s = FindDeck.find_pygame_deck(game_screen)
+    FindDeck.load_deck(deck_s, p_one)
+    p_one.shuffle_deck()
+    deck_s = FindDeck.find_pygame_deck(game_screen)
+    FindDeck.load_deck(deck_s, p_two)
+    p_two.shuffle_deck()
+    planets_in_play_list = create_planets(planet_array)
+    player_one.init_planets_in_game(planets_in_play_list)
+    player_two.init_planets_in_game(planets_in_play_list)
+    init_player(p_one)
+    init_player(p_two)
+    game_round(1, p_one, p_two)
+    for i in range(2,7,2):
+        game_round(i, p_two, p_one)
+        game_round(i + 1, p_one, p_two)
+
+
 
 def init_player(player):
     warlord = player.get_headquarters()[0]
@@ -111,30 +128,38 @@ elif holder == "p":
     play_game(player_one, player_two)
 elif holder == "g":
     pygame.init()
-    bounds = (1200, 600)
+    bounds = (1200, 700)
     window = pygame.display.set_mode(bounds)
     pygame.display.set_caption("Conquest")
-    nazdreg = pygame.image.load("Playmat.png").convert()
-    window.blit(nazdreg, (0,0))
+    """
+    playmat = pygame.image.load("Playmat.png").convert()
+    window.blit(playmat, (0, 100))
     nazdreg_gits = pygame.image.load("ResizedImages/Nazdreg's_Flash_Gitz.jpg").convert()
     window.blit(nazdreg_gits, (170, 485))
     carnath = pygame.image.load("ResizedImages/Carnath.jpg").convert()
     window.blit(carnath, (55, 270))
-    pygame.display.flip()
+    """
+    # pygame.display.flip()
     status = True
     while status:
         for x in pygame.event.get():
             if x.type == pygame.QUIT:
                 status = False
+            if x.type == pygame.KEYDOWN:
+                if x.key == pygame.K_p:
+                    print("P pressed, init play procedure")
+                    player_one = PlayerClass.Player('Abe')
+                    player_two = PlayerClass.Player('Bob')
+                    play_pygame(player_one, player_two, window)
     pygame.quit()
 elif holder == "r":
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    input(dir_path)
+    # input(dir_path)
     path = dir_path + '/CardImages/'
     path2 = dir_path + '/ResizedImages/'
     planet_path = dir_path + '/PlanetImages/'
-    input(path)
-    input(path2)
+    # input(path)
+    # input(path2)
     dirs = os.listdir(path)
     image_list = []
     planet_image_list = []
@@ -143,7 +168,7 @@ elif holder == "r":
     ratio = 0.17
 
     playmat_image = Image.open(dir_path + '/Playmat.png')
-    playmat_image = playmat_image.resize((1200, 600))
+    playmat_image = playmat_image.resize((1200, 500))
     playmat_image.save('{}{}'.format(dir_path + '/Playmat', '.png'))
 
     for filename in glob.glob(path+'*.webp'):
