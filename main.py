@@ -97,6 +97,8 @@ def play_pygame(p_one, p_two, game_screen):
     init_player(p_two)
     playmat = pygame.image.load("Playmat.png").convert()
     game_screen.blit(playmat, (0, 100))
+    cardback = pygame.image.load("ResizedImages/Cardback.jpg").convert()
+    window.blit(cardback, (170, 485))
     pygame.display.flip()
     game_round(1, p_one, p_two)
     for i in range(2,7,2):
