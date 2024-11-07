@@ -1,11 +1,13 @@
 import random
 import copy
 import FindCard
+import pygame
 from Inits import PlanetCardsInit
 
 
 class Player:
-    def __init__(self, name):
+    def __init__(self, name, number):
+        self.number = number
         self.name_player = name
         self.resources = 0
         self.cards = []
@@ -18,6 +20,9 @@ class Player:
 
     def get_name_player(self):
         return self.name_player
+
+    def get_number(self):
+        return self.number
 
     def get_resources(self):
         return self.resources
@@ -340,6 +345,25 @@ class Player:
         print("Cards in hand:")
         for i in range(len(self.cards)):
             print(self.cards[i])
+
+    def pygame_print_hand(self, game_screen):
+        hand = self.get_cards()
+        x_c = 300
+        y_c = 595
+        increment = 80
+        if self.number == 2:
+            x_c = 200
+            y_c = 25
+            increment = 80
+        for i in range(len(hand)):
+            card_image_name = "ResizedImages/" + hand[i] + ".jpg"
+            for letter in card_image_name:
+                if letter == " ":
+                    card_image_name = card_image_name.replace(letter, "_")
+            card_image = pygame.image.load(card_image_name).convert()
+            game_screen.blit(card_image, (x_c, y_c))
+            x_c += increment
+        pygame.display.flip()
 
     def print_deck(self):
         for i in range(len(self.deck)):

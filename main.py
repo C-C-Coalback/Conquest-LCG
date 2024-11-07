@@ -144,14 +144,14 @@ holder = input("Enter: ")
 if holder == "c":
     DeckHandling.create_deck()
 elif holder == "l":
-    player_one = PlayerClass.Player('Abe')
+    player_one = PlayerClass.Player('Abe', 1)
     deck_string = FindDeck.find_deck()
     FindDeck.load_deck(deck_string, player_one)
     player_one.shuffle_deck()
     player_one.print_deck()
 elif holder == "p":
-    player_one = PlayerClass.Player('Abe')
-    player_two = PlayerClass.Player('Bob')
+    player_one = PlayerClass.Player('Abe', 1)
+    player_two = PlayerClass.Player('Bob', 2)
     play_game(player_one, player_two)
 elif holder == "g":
     pygame.init()
@@ -175,8 +175,8 @@ elif holder == "g":
             if x.type == pygame.KEYDOWN:
                 if x.key == pygame.K_p:
                     print("P pressed, init play procedure")
-                    player_one = PlayerClass.Player('Abe')
-                    player_two = PlayerClass.Player('Bob')
+                    player_one = PlayerClass.Player('Abe', 1)
+                    player_two = PlayerClass.Player('Bob', 2)
                     play_pygame(player_one, player_two, window)
     pygame.quit()
 elif holder == "r":
