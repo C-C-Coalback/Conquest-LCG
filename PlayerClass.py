@@ -365,6 +365,25 @@ class Player:
             x_c += increment
         pygame.display.flip()
 
+    def pygame_print_hq(self, game_screen):
+        hq = self.get_headquarters()
+        x_c = 300
+        y_c = 500
+        increment = 80
+        if self.number == 2:
+            x_c = 300
+            y_c = 125
+            increment = 80
+        for i in range(len(hq)):
+            card_image_name = "ResizedImages/" + hq[i].get_name() + ".jpg"
+            for letter in card_image_name:
+                if letter == " ":
+                    card_image_name = card_image_name.replace(letter, "_")
+            card_image = pygame.image.load(card_image_name).convert()
+            game_screen.blit(card_image, (x_c, y_c))
+            x_c += increment
+        pygame.display.flip()
+
     def print_deck(self):
         for i in range(len(self.deck)):
             print(self.deck[i])
