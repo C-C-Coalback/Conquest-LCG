@@ -55,6 +55,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                         sys.exit()
                                     if event2.type == pygame.MOUSEBUTTONDOWN:
                                         x2, y2 = pygame.mouse.get_pos()
+                                        planet_chosen = True
                                         if 319 < y2 < 376:
                                             position2 = x2 - 60
                                             remainder2 = position2 % 165
@@ -64,11 +65,11 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                                 pass
                                             else:
                                                 print("Planets selected, index", position2)
-                                                planet_chosen = True
                                                 if position2 < 7:
                                                     object_holder = FindCard.find_card(p_two.get_cards()[position])
                                                     p_two.play_card(object_holder, position2 + 1)
                                                     draw_all(game_screen, p_one, p_two)
+
                 elif 594 < y < 686:
                     position = x
                     position = position - 300
@@ -89,6 +90,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                         sys.exit()
                                     if event2.type == pygame.MOUSEBUTTONDOWN:
                                         x2, y2 = pygame.mouse.get_pos()
+                                        planet_chosen = True
                                         if 319 < y2 < 376:
                                             position2 = x2 - 60
                                             remainder2 = position2 % 165
@@ -98,12 +100,10 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                                 pass
                                             else:
                                                 print("Planets selected, index", position2)
-                                                planet_chosen = True
                                                 if position2 < 7:
                                                     object_holder = FindCard.find_card(p_one.get_cards()[position])
                                                     p_one.play_card(object_holder, position2 + 1)
                                                     draw_all(game_screen, p_one, p_two)
-
                 elif 319 < y < 376:
                     print("Planets selected")
 
