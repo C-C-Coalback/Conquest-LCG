@@ -2,6 +2,8 @@ import sys
 import pygame
 import FindCard
 import Drawing
+from Drawing import draw_all
+
 
 def deploy_phase(round_number, p_one, p_two):
     p_one_passed = False
@@ -66,6 +68,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                                 if position < 7:
                                                     object_holder = FindCard.find_card(p_two.get_cards()[position])
                                                     p_two.play_card(object_holder, position2 + 1)
+                                                    draw_all(game_screen, p_one, p_two)
 
                 elif 594 < y < 686:
                     position = x

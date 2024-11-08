@@ -4,7 +4,6 @@ import FindCard
 import pygame
 from Inits import PlanetCardsInit
 
-
 class Player:
     def __init__(self, name, number):
         self.number = number
@@ -85,6 +84,37 @@ class Player:
                 print("None")
             for j in range(len(self.cards_in_play[i + 1])):
                 print(self.cards_in_play[i + 1][j].get_name())
+
+    def pygame_print_cards_in_play(self, game_screen):
+        print("No of planets:", len(self.cards_in_play[0]))
+        x_first_planet = 60
+        y_first_planet = 230
+        x_increment = 62
+        y_increment = -88
+        if self.number == 1:
+            y_first_planet = 385
+            y_increment = 88
+        for i in range(len(self.cards_in_play[0])):
+            print("Cards at planet:", self.cards_in_play[0][i])
+            x_current_planet = x_first_planet + (i * 165)
+            y_current_planet = y_first_planet
+            if not self.cards_in_play[i + 1]:
+                print("None")
+            for j in range(len(self.cards_in_play[i + 1])):
+                print(self.cards_in_play[i + 1][j].get_name())
+                card_string = self.cards_in_play[i + 1][j].get_name()
+                for letter in card_string:
+                    if letter == " ":
+                        card_string = card_string.replace(letter, "_")
+                card_image_name = "ResizedImages/" + card_string + ".jpg"
+                card_image = pygame.image.load(card_image_name).convert()
+                game_screen.blit(card_image, (x_current_planet, y_current_planet))
+                pygame.display.flip()
+                x_current_planet = x_current_planet + x_increment
+                if x_current_planet > x_first_planet + 165 * i + x_increment:
+                    x_current_planet = x_first_planet + 165 * i
+                    y_current_planet = y_current_planet + y_increment
+
 
     def print_cards_at_planet(self, planet_id):
         for j in range(len(self.cards_in_play[planet_id + 1])):

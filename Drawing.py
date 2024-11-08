@@ -34,6 +34,13 @@ def draw_both_hq(game_screen, p_one, p_two):
     draw_hq(game_screen, p_one)
     draw_hq(game_screen, p_two)
 
+def draw_in_play(game_screen, player):
+    player.pygame_print_cards_in_play(game_screen)
+
+def draw_both_in_play(game_screen, p_one, p_two):
+    p_one.pygame_print_cards_in_play(game_screen)
+    p_two.pygame_print_cards_in_play(game_screen)
+
 def draw_all(game_screen, p_one, p_two):
     color = (1, 1, 1)
     game_screen.fill(color)
@@ -41,3 +48,5 @@ def draw_all(game_screen, p_one, p_two):
     draw_planets(game_screen, p_one)
     draw_both_hand(game_screen, p_one, p_two)
     draw_both_hq(game_screen, p_one, p_two)
+    draw_both_in_play(game_screen, p_one, p_two)
+    pygame.display.flip()
