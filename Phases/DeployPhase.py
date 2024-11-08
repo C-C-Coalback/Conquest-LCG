@@ -65,7 +65,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                             else:
                                                 print("Planets selected, index", position2)
                                                 planet_chosen = True
-                                                if position < 7:
+                                                if position2 < 7:
                                                     object_holder = FindCard.find_card(p_two.get_cards()[position])
                                                     p_two.play_card(object_holder, position2 + 1)
                                                     draw_all(game_screen, p_one, p_two)
@@ -99,7 +99,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                             else:
                                                 print("Planets selected, index", position2)
                                                 planet_chosen = True
-                                                if position < 7:
+                                                if position2 < 7:
                                                     object_holder = FindCard.find_card(p_one.get_cards()[position])
                                                     p_one.play_card(object_holder, position2 + 1)
                                                     draw_all(game_screen, p_one, p_two)
