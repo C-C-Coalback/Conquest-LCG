@@ -17,9 +17,22 @@ class Player:
         self.deck = []
         self.discard = []
         self.cards_in_play = [[] for _ in range(8)]
+        self.images_on_screen = [[] for _ in range(11)]
+        self.position_images = [[] for _ in range(11)]
+        #i_o_s[0-6] = "Cards at Planets"
+        #i_o_s[7] = "Hand"
+        #i_o_s[8] = "HQ"
+        #i_o_s[9] = "Top Discard"
+        #i_o_s[10] = "Victory Display"
 
     def get_name_player(self):
         return self.name_player
+
+    def get_position_images(self):
+        return self.position_images
+
+    def get_images_on_screen(self):
+        return self.images_on_screen
 
     def get_number(self):
         return self.number
@@ -313,6 +326,9 @@ class Player:
             print("Command unrecognised.")
             return self.deploy_turn()
 
+    def pygame_deploy_turn(self, card_position, planet_id):
+        print("Deploy unit to planet")
+
     def remove_card_from_play(self, planet_num, card_pos):
         # card_object = self.cards_in_play[planet_num + 1][card_pos]
         # self.discard_object(card_object)
@@ -379,6 +395,7 @@ class Player:
             for letter in card_image_name:
                 if letter == " ":
                     card_image_name = card_image_name.replace(letter, "_")
+
             card_image = pygame.image.load(card_image_name).convert()
             game_screen.blit(card_image, (x_c, y_c))
             x_c += increment

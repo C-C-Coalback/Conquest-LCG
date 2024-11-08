@@ -6,10 +6,11 @@ import FindCard
 import DeckHandling
 import FindDeck
 import PlayerClass
+import Drawing
 import random
 import pygame
 from PIL import Image
-import os, glob, sys
+import os, glob
 
 snotling = CardClasses.TokenCard("Snotling", "", "Runt.", "Orks", 1, 1, "NO IMAGE")
 
@@ -102,27 +103,10 @@ def play_pygame(p_one, p_two, game_screen):
     player_two.init_planets_in_game(planets_in_play_list)
     init_player(p_one)
     init_player(p_two)
-    playmat = pygame.image.load("Playmat.png").convert()
-    game_screen.blit(playmat, (0, 100))
-    cardback = pygame.image.load("ResizedImages/Cardback.jpg").convert()
-    window.blit(cardback, (170, 485))
-    pygame.display.flip()
-    x_c = 60
-    y_c = 320
-    for i in range(5):
-        planet_image_name = "ResizedImages/" + planet_array[i].get_image_name() + ".jpg"
-        planet_image = pygame.image.load(planet_image_name).convert()
-        window.blit(planet_image, (x_c, y_c))
-        x_c += 165
-        pygame.display.flip()
-        run = True
-        while run:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    run = False
+    Drawing.draw_mat(game_screen)
+    Drawing.draw_planets(game_screen, p_one)
+    # cardback = pygame.image.load("ResizedImages/Cardback.jpg").convert()
+    # window.blit(cardback, (170, 485))
     pygame_round(1, p_one, p_two, window)
     for i in range(2,7,2):
         pygame_round(i, p_two, p_one, window)
@@ -158,15 +142,6 @@ elif holder == "g":
     bounds = (1200, 700)
     window = pygame.display.set_mode(bounds)
     pygame.display.set_caption("Conquest")
-    """
-    playmat = pygame.image.load("Playmat.png").convert()
-    window.blit(playmat, (0, 100))
-    nazdreg_gits = pygame.image.load("ResizedImages/Nazdreg's_Flash_Gitz.jpg").convert()
-    window.blit(nazdreg_gits, (170, 485))
-    carnath = pygame.image.load("ResizedImages/Carnath.jpg").convert()
-    window.blit(carnath, (55, 270))
-    """
-    # pygame.display.flip()
     status = True
     while status:
         for x in pygame.event.get():
