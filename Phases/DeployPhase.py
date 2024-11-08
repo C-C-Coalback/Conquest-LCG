@@ -35,7 +35,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 print(x, y)
-                if 24 < y < 116:
+                if 24 < y < 116 and p_two.get_has_turn():
                     position = x
                     position = position - 200
                     remainder = position % 80
@@ -68,9 +68,10 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                                 if position2 < 7:
                                                     object_holder = FindCard.find_card(p_two.get_cards()[position])
                                                     p_two.play_card(object_holder, position2 + 1)
+                                                    p_one.toggle_turn()
+                                                    p_two.toggle_turn()
                                                     draw_all(game_screen, p_one, p_two)
-
-                elif 594 < y < 686:
+                elif 594 < y < 686 and p_one.get_has_turn():
                     position = x
                     position = position - 300
                     remainder = position % 80
@@ -102,7 +103,9 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                                 print("Planets selected, index", position2)
                                                 if position2 < 7:
                                                     object_holder = FindCard.find_card(p_one.get_cards()[position])
-                                                    p_one.play_card(object_holder, position2 + 1)
+                                                    if p_one.play_card(object_holder, position2 + 1) == 0:
+                                                        p_one.toggle_turn()
+                                                        p_two.toggle_turn()
                                                     draw_all(game_screen, p_one, p_two)
                 elif 319 < y < 376:
                     print("Planets selected")

@@ -8,6 +8,8 @@ class Player:
     def __init__(self, name, number):
         self.number = number
         self.name_player = name
+        self.has_initiative = True
+        self.has_turn = True
         self.resources = 0
         self.cards = []
         self.victory_display = []
@@ -23,6 +25,12 @@ class Player:
         #i_o_s[8] = "HQ"
         #i_o_s[9] = "Top Discard"
         #i_o_s[10] = "Victory Display"
+
+    def get_has_turn(self):
+        return self.has_turn
+
+    def get_has_initiative(self):
+        return self.has_initiative
 
     def get_name_player(self):
         return self.name_player
@@ -56,6 +64,18 @@ class Player:
 
     def get_discard(self):
         return self.discard
+
+    def toggle_turn(self):
+        if self.has_turn:
+            self.has_turn = False
+        else:
+            self.has_turn = True
+
+    def toggle_initiative(self):
+        if self.has_initiative:
+            self.has_initiative = False
+        else:
+            self.has_initiative = True
 
     def get_cards_in_play(self):
         return self.cards_in_play

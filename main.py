@@ -151,6 +151,8 @@ elif holder == "g":
                     print("P pressed, init play procedure")
                     player_one = PlayerClass.Player('Abe', 1)
                     player_two = PlayerClass.Player('Bob', 2)
+                    player_two.toggle_turn()
+                    player_two.toggle_initiative()
                     play_pygame(player_one, player_two, window)
     pygame.quit()
 elif holder == "r":
