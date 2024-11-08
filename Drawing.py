@@ -41,6 +41,30 @@ def draw_both_in_play(game_screen, p_one, p_two):
     p_one.pygame_print_cards_in_play(game_screen)
     p_two.pygame_print_cards_in_play(game_screen)
 
+def draw_pass_button_player_one(game_screen):
+    font = pygame.font.Font(None, 32)
+    color = pygame.Color("red")
+    text = "Pass"
+    pass_button = pygame.Rect(1100, 600, 50, 50)
+    txt_surface = font.render(text, True, color)
+    game_screen.blit(txt_surface, (pass_button.x + 5, pass_button.y + 5))
+    pygame.draw.rect(game_screen, color, pass_button, 2)
+    pygame.display.flip()
+
+def draw_pass_button_player_two(game_screen):
+    font = pygame.font.Font(None, 32)
+    color = pygame.Color("red")
+    text = "Pass"
+    pass_button = pygame.Rect(50, 50, 50, 50)
+    txt_surface = font.render(text, True, color)
+    game_screen.blit(txt_surface, (pass_button.x + 5, pass_button.y + 5))
+    pygame.draw.rect(game_screen, color, pass_button, 2)
+    pygame.display.flip()
+
+def draw_both_pass_button(game_screen):
+    draw_pass_button_player_one(game_screen)
+    draw_pass_button_player_two(game_screen)
+
 def draw_all(game_screen, p_one, p_two):
     color = (1, 1, 1)
     game_screen.fill(color)
@@ -50,3 +74,4 @@ def draw_all(game_screen, p_one, p_two):
     draw_both_hq(game_screen, p_one, p_two)
     draw_both_in_play(game_screen, p_one, p_two)
     pygame.display.flip()
+    draw_both_pass_button(game_screen)
