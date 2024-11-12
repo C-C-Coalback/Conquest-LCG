@@ -20,6 +20,10 @@ def resize_files():
     playmat_image = playmat_image.resize((1200, 500))
     playmat_image.save('{}{}'.format(dir_path + '/Playmat', '.png'))
 
+    resources_image = Image.open(dir_path + '/Netrunner_credit.png')
+    resources_image = resources_image.resize((50, 50))
+    resources_image.save('{}{}'.format(dir_path + '/Netrunner_credit', '.png'))
+
     for filename in glob.glob(path+'*.webp'):
         print(filename)
         base_name = os.path.basename(filename)

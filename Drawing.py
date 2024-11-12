@@ -61,6 +61,11 @@ def draw_both_pass_button(game_screen):
     draw_pass_button_player_one(game_screen)
     draw_pass_button_player_two(game_screen)
 
+def draw_resource_icon_both(game_screen):
+    icon = pygame.image.load("Netrunner_credit.png").convert()
+    game_screen.blit(icon, (1000, 600))
+    game_screen.blit(icon, (125, 50))
+
 def draw_all(game_screen, p_one, p_two):
     color = (1, 1, 1)
     game_screen.fill(color)
@@ -70,5 +75,6 @@ def draw_all(game_screen, p_one, p_two):
     draw_both_hq(game_screen, p_one, p_two)
     draw_both_in_play(game_screen, p_one, p_two)
     draw_both_pass_button(game_screen)
+    draw_resource_icon_both(game_screen)
     pygame.display.flip()
 
