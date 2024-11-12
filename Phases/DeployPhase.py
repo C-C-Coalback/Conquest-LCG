@@ -124,5 +124,13 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                 elif 319 < y < 376:
                     print("Planets selected")
     print("Success in passing.")
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    run = False
     pygame.quit()
     sys.exit()
