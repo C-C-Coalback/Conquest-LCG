@@ -17,6 +17,16 @@ def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
     #input("Hold attack")
     return 0
 
+def pygame_unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos, game_screen):
+    attack_value = att.get_attack_given_pos(planet_id, att_pos)
+    damage_too_great = defe.pygame_assign_damage_to_pos(planet_id, defe_pos, attack_value, game_screen)
+    if damage_too_great:
+        print("Card must be discarded")
+        #input("Hold attack")
+        return 1
+    #input("Hold attack")
+    return 0
+
 
 def combat_turn(attacker, defender, planet_id):
     print(attacker.get_name_player(), '\'s turn to attack', sep='')
@@ -124,7 +134,7 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
         #        return False
         if pos_defender != -1:
             defender.print_state_of_unit(planet_id, pos_defender)
-            unit_dead = unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender)
+            unit_dead = pygame_unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender, game_screen)
             defender.print_state_of_unit(planet_id, pos_defender)
             if unit_dead == 1:
                 # defender.add_card_name_to_discard(defender_name)

@@ -316,6 +316,10 @@ class Player:
         damage_too_great = self.cards_in_play[planet_id + 1][unit_id].damage_card(self, damage)
         return damage_too_great
 
+    def pygame_assign_damage_to_pos(self, planet_id, unit_id, damage, game_screen):
+        damage_too_great = self.cards_in_play[planet_id + 1][unit_id].pygame_damage_card(self, damage, game_screen)
+        return damage_too_great
+
     def print_state_of_unit(self, planet_id, unit_id):
         print("Name:", self.cards_in_play[planet_id + 1][unit_id].get_name())
         if self.cards_in_play[planet_id + 1][unit_id].get_ready():

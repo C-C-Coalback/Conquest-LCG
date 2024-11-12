@@ -1,3 +1,7 @@
+import pygame
+from PassCommand import check_for_pass
+import sys
+
 class Card:
     def __init__(self, name, text, traits, cost, faction, loyalty, shields, card_type, unique, image_name):
         self.name = name
@@ -97,6 +101,55 @@ class WarlordCard(Card):
 
     def get_starting_cards(self):
         return self.starting_cards
+
+    def pygame_damage_card(self, player, amount, game_screen):
+        amount = self.pygame_shield_window(player, amount, game_screen)
+        self.assign_damage(amount)
+        if self.check_health():
+            print("Card still standing")
+            return 0
+        else:
+            print("Damage exceeds health")
+            return 1
+
+    def pygame_shield_window(self, player, amount, game_screen):
+        print(self.get_name(), "taking", amount, "damage.")
+        keep_looping = True
+        shield = 0
+        print("GOT HERE")
+        run = True
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+        while keep_looping:
+            shield_card = input("Enter the name of a card to shield with, or nothing to not use a shield:")
+            if shield_card == "":
+                keep_looping = False
+            else:
+                pos_hand = player.find_card_in_hand(shield_card)
+                if pos_hand == -1:
+                    print("Card not found in hand")
+                else:
+                    shield = player.get_shields_given_pos(pos_hand)
+                    if shield == -1:
+                        input("Card somehow found in hand but not in database.")
+                    elif shield == 0:
+                        input("Card has no shields on it. Use something else.")
+                    else:
+                        player.discard_card_from_hand(pos_hand)
+                        keep_looping = False
+        if shield == 0:
+            print("No shields used")
+        else:
+            print("shield value:", shield)
+            amount = int(amount)
+            shield = int(shield)
+            amount = amount - shield
+            if amount < 0:
+                amount = 0
+        return amount
 
     def damage_card(self, player, amount):
         amount = self.shield_window(player, amount)
@@ -203,6 +256,59 @@ class ArmyCard(Card):
         print("Traits:", self.traits)
         print("Loyalty:", self.loyalty)
         print("Text:", self.text, "\nStats:", self.attack, "Attack,", self.health, "Health,", self.command, "Command")
+
+    def pygame_damage_card(self, player, amount, game_screen):
+        amount = self.pygame_shield_window(player, amount, game_screen)
+        self.assign_damage(amount)
+        if self.check_health():
+            print("Card still standing")
+            return 0
+        else:
+            print("Damage exceeds health")
+            return 1
+
+    def pygame_shield_window(self, player, amount, game_screen):
+        print(self.get_name(), "taking", amount, "damage.")
+        keep_looping = True
+        shield = 0
+        print("GOT HERE")
+        run = True
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x, y = pygame.mouse.get_pos()
+                    if check_for_pass(x, y, player.get_number()) == 1:
+                        return amount
+        while keep_looping:
+            shield_card = input("Enter the name of a card to shield with, or nothing to not use a shield:")
+            if shield_card == "":
+                keep_looping = False
+            else:
+                pos_hand = player.find_card_in_hand(shield_card)
+                if pos_hand == -1:
+                    print("Card not found in hand")
+                else:
+                    shield = player.get_shields_given_pos(pos_hand)
+                    if shield == -1:
+                        input("Card somehow found in hand but not in database.")
+                    elif shield == 0:
+                        input("Card has no shields on it. Use something else.")
+                    else:
+                        player.discard_card_from_hand(pos_hand)
+                        keep_looping = False
+        if shield == 0:
+            print("No shields used")
+        else:
+            print("shield value:", shield)
+            amount = int(amount)
+            shield = int(shield)
+            amount = amount - shield
+            if amount < 0:
+                amount = 0
+        return amount
 
     def damage_card(self, player, amount):
         amount = self.shield_window(player, amount)
@@ -314,6 +420,55 @@ class TokenCard(Card):
 
     def get_command(self):
         return self.command
+
+    def pygame_damage_card(self, player, amount, game_screen):
+        amount = self.pygame_shield_window(player, amount, game_screen)
+        self.assign_damage(amount)
+        if self.check_health():
+            print("Card still standing")
+            return 0
+        else:
+            print("Damage exceeds health")
+            return 1
+
+    def pygame_shield_window(self, player, amount, game_screen):
+        print(self.get_name(), "taking", amount, "damage.")
+        keep_looping = True
+        shield = 0
+        print("GOT HERE")
+        run = True
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+        while keep_looping:
+            shield_card = input("Enter the name of a card to shield with, or nothing to not use a shield:")
+            if shield_card == "":
+                keep_looping = False
+            else:
+                pos_hand = player.find_card_in_hand(shield_card)
+                if pos_hand == -1:
+                    print("Card not found in hand")
+                else:
+                    shield = player.get_shields_given_pos(pos_hand)
+                    if shield == -1:
+                        input("Card somehow found in hand but not in database.")
+                    elif shield == 0:
+                        input("Card has no shields on it. Use something else.")
+                    else:
+                        player.discard_card_from_hand(pos_hand)
+                        keep_looping = False
+        if shield == 0:
+            print("No shields used")
+        else:
+            print("shield value:", shield)
+            amount = int(amount)
+            shield = int(shield)
+            amount = amount - shield
+            if amount < 0:
+                amount = 0
+        return amount
 
     def damage_card(self, player, amount):
         amount = self.shield_window(player, amount)
