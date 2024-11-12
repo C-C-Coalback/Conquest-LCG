@@ -282,23 +282,26 @@ class ArmyCard(Card):
                     x, y = pygame.mouse.get_pos()
                     if check_for_pass(x, y, player.get_number()) == 1:
                         return amount
-        while keep_looping:
-            shield_card = input("Enter the name of a card to shield with, or nothing to not use a shield:")
-            if shield_card == "":
-                keep_looping = False
-            else:
-                pos_hand = player.find_card_in_hand(shield_card)
-                if pos_hand == -1:
-                    print("Card not found in hand")
-                else:
-                    shield = player.get_shields_given_pos(pos_hand)
-                    if shield == -1:
-                        input("Card somehow found in hand but not in database.")
-                    elif shield == 0:
-                        input("Card has no shields on it. Use something else.")
-                    else:
-                        player.discard_card_from_hand(pos_hand)
-                        keep_looping = False
+                    if player.get_number() == 2:
+                        position = x
+                        position = position - 200
+                        remainder = position % 80
+                        position = int(position / 80)
+                        print(position, remainder)
+                        if 62 < remainder:
+                            pass
+                        else:
+                            print("Player two hand selected, card index", position)
+                            print("Number of cards in hand:", len(player.get_cards()))
+                            if len(player.get_cards()) > position:
+                                shield = player.get_shields_given_pos(position)
+                                if shield == -1:
+                                    input("Card somehow found in hand but not in database.")
+                                elif shield == 0:
+                                    input("Card has no shields on it. Use something else.")
+                                else:
+                                    player.discard_card_from_hand(position)
+                                    run = False
         if shield == 0:
             print("No shields used")
         else:
