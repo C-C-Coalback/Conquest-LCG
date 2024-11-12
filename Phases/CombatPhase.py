@@ -1,6 +1,9 @@
 import pygame
 import sys
 
+from pygame import MOUSEBUTTONDOWN
+
+from Drawing import draw_all
 from PassCommand import check_for_pass
 
 
@@ -59,6 +62,7 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
     x_req_2 = (planet_id * 165) + 185
     average = (planet_id * 165) + 122
     pos_attacker = -1
+    pos_defender = -1
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -87,38 +91,52 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
     print("position of unit:", pos_attacker)
     run = True
     print("SUCCESS")
-    while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-    if pos_attacker != -1:
-        if attacker.check_ready_pos(planet_id, pos_attacker):
-            attacker.exhaust_given_pos(planet_id, pos_attacker)
-            # attacker.print_state_of_unit(planet_id, pos_attacker)
-            if attacker.check_warlord_given_pos(planet_id, pos_attacker):
-                # option_retreat_warlord = input("Card is a Warlord. Retreat? (y/n)")
-                option_retreat_warlord = "y"
-                if option_retreat_warlord == "y":
-                    attacker.retreat_unit(planet_id, pos_attacker)
-                    return False
-            # defender_name = input("Enter unit to declare as defender")
-            defender_name = "None"
-            pos_defender = defender.search_card_at_planet(defender_name, planet_id)
-            if pos_defender != -1:
-                defender.print_state_of_unit(planet_id, pos_defender)
-                unit_dead = unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender)
-                defender.print_state_of_unit(planet_id, pos_defender)
-                if unit_dead == 1:
-                    defender.add_card_name_to_discard(defender_name)
-                    defender.remove_card_from_play(planet_id, pos_defender)
-                    defender.print_cards_at_planet(planet_id)
-                    defender.print_discard()
-                return False
-        else:
-            print("Attacker not ready")
+    if attacker.check_ready_pos(planet_id, pos_attacker):
+        attacker.exhaust_given_pos(planet_id, pos_attacker)
+        # attacker.print_state_of_unit(planet_id, pos_attacker)
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == MOUSEBUTTONDOWN:
+                    x, y = pygame.mouse.get_pos()
+                    if x_req_1 < x < x_req_2:
+                        if y < 320 and defender.get_number() == 2:
+                            print("Player two units")
+                            position = y
+                            position = position - 320
+                            position = -1 * position
+                            position = int(position / 88)
+                            position = 2 * position
+                            if x > average:
+                                position = position + 1
+                            print(position)
+                            if position < defender.get_number_of_cards_at_planet(planet_id):
+                                print("Card present")
+                                pos_defender = position
+                                run = False
+        #if attacker.check_warlord_given_pos(planet_id, pos_attacker):
+        # option_retreat_warlord = input("Card is a Warlord. Retreat? (y/n)")
+        #    option_retreat_warlord = "y"
+        #    if option_retreat_warlord == "y":
+        #        attacker.retreat_unit(planet_id, pos_attacker)
+        #        return False
+        if pos_defender != -1:
+            defender.print_state_of_unit(planet_id, pos_defender)
+            unit_dead = unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender)
+            defender.print_state_of_unit(planet_id, pos_defender)
+            if unit_dead == 1:
+                # defender.add_card_name_to_discard(defender_name)
+                defender.remove_card_from_play(planet_id, pos_defender)
+                defender.print_cards_at_planet(planet_id)
+                defender.print_discard()
+            draw_all(game_screen, attacker, defender)
+            return False
+    else:
+        print("Attacker not ready")
     # return to decide if player passed
-    return combat_turn(attacker, defender, planet_id)
+    return pygame_combat_turn(attacker, defender, planet_id, game_screen)
 
 
 
