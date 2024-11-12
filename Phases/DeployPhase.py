@@ -132,5 +132,4 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     run = False
-    pygame.quit()
-    sys.exit()
+
