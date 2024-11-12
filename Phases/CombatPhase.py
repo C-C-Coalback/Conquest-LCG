@@ -1,4 +1,8 @@
 import pygame
+import sys
+
+from PassCommand import check_for_pass
+
 
 def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
     attack_value = att.get_attack_given_pos(planet_id, att_pos)
@@ -49,6 +53,18 @@ def combat_turn(attacker, defender, planet_id):
 
 
 def pygame_combat_turn(attacker, defender, planet_id, game_screen):
+    run = True
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                if check_for_pass(x, y, attacker.get_number()) == 1:
+                    return True
+                else:
+                    pass
     print(attacker.get_name_player(), '\'s turn to attack', sep='')
     attacker_name = "p"
     if attacker_name == "p":
@@ -113,8 +129,8 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
     print(p_two.get_name_player(), "units:")
     p_two.print_cards_at_planet(planet_id)
     while not p_one_passed or not p_two_passed:
-        p_one_passed = combat_turn(p_one, p_two, planet_id)
-        p_two_passed = combat_turn(p_two, p_one, planet_id)
+        p_one_passed = pygame_combat_turn(p_one, p_two, planet_id, game_screen)
+        p_two_passed = pygame_combat_turn(p_two, p_one, planet_id, game_screen)
     p_one.ready_all_at_planet(planet_id)
     p_two.ready_all_at_planet(planet_id)
     p_one.retreat_combat_window(planet_id)
@@ -187,15 +203,15 @@ def pygame_check_for_battle(p_one, p_two, planet_id, first_planet, game_screen):
     planet_name = p_two.get_planet_name_given_position(planet_id - 1)
     if first_planet:
         print("First planet. Resolve battle at:", planet_name)
-        resolve_battle(p_one, p_two, planet_id - 1, first_planet)
+        pygame_resolve_battle(p_one, p_two, planet_id - 1, first_planet, game_screen)
     elif not first_planet:
         print("Not first planet. Check for Warlords at:", planet_name)
         if p_one.check_for_warlord(planet_id - 1):
             print("Battle is resolved at:", planet_name)
-            resolve_battle(p_one, p_two, planet_id - 1, first_planet)
+            pygame_resolve_battle(p_one, p_two, planet_id - 1, first_planet, game_screen)
         elif p_two.check_for_warlord(planet_id - 1):
             print("Battle is resolved at:", planet_name)
-            resolve_battle(p_one, p_two, planet_id - 1, first_planet)
+            pygame_resolve_battle(p_one, p_two, planet_id - 1, first_planet, game_screen)
 
 
 def combat_phase(round_number, p_one, p_two):

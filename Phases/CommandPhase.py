@@ -156,6 +156,9 @@ def pygame_command_phase(round_number, p_one, p_two, game_screen):
         print("Test", result)
         if result == 1:
             planet_name = p_one.get_planet_name_given_position(planet_num - 1)
+            for letter in planet_name:
+                if letter == "_":
+                    planet_name = planet_name.replace(letter, " ")
             print("Planet name:", planet_name)
             for i in range(len(planet_array2)):
                 if planet_name == planet_array2[i].get_name():
@@ -166,6 +169,9 @@ def pygame_command_phase(round_number, p_one, p_two, game_screen):
                     print("test", c_res[0])
         elif result == 2:
             planet_name = p_two.get_planet_name_given_position(planet_num - 1)
+            for letter in planet_name:
+                if letter == "_":
+                    planet_name = planet_name.replace(letter, " ")
             print("Planet name:", planet_name)
             for i in range(len(planet_array2)):
                 if planet_name == planet_array2[i].get_name():
@@ -202,5 +208,3 @@ def pygame_command_phase(round_number, p_one, p_two, game_screen):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     run = False
-    pygame.quit()
-    sys.exit()
