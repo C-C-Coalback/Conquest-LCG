@@ -429,7 +429,6 @@ class Player:
             card_image = pygame.image.load(card_image_name).convert()
             game_screen.blit(card_image, (x_c, y_c))
             x_c += increment
-        pygame.display.flip()
 
     def pygame_print_hq(self, game_screen):
         hq = self.get_headquarters()
@@ -449,7 +448,6 @@ class Player:
             card_image = pygame.image.load(card_image_name).convert()
             game_screen.blit(card_image, (x_c, y_c))
             x_c += increment
-        pygame.display.flip()
 
     def print_deck(self):
         for i in range(len(self.deck)):

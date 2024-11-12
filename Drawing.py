@@ -4,7 +4,6 @@ import pygame
 def draw_mat(game_screen):
     playmat = pygame.image.load("Playmat.png").convert()
     game_screen.blit(playmat, (0, 100))
-    pygame.display.flip()
 
 def draw_planets(game_screen, player):
     x_c = 60
@@ -18,7 +17,6 @@ def draw_planets(game_screen, player):
         planet_image = pygame.image.load(planet_image_name).convert()
         game_screen.blit(planet_image, (x_c, y_c))
         x_c += 165
-        pygame.display.flip()
 
 def draw_hand(game_screen, player):
     player.pygame_print_hand(game_screen)
@@ -49,7 +47,6 @@ def draw_pass_button_player_one(game_screen):
     txt_surface = font.render(text, True, color)
     game_screen.blit(txt_surface, (pass_button.x + 5, pass_button.y + 5))
     pygame.draw.rect(game_screen, color, pass_button, 2)
-    pygame.display.flip()
 
 def draw_pass_button_player_two(game_screen):
     font = pygame.font.Font(None, 32)
@@ -59,7 +56,6 @@ def draw_pass_button_player_two(game_screen):
     txt_surface = font.render(text, True, color)
     game_screen.blit(txt_surface, (pass_button.x + 5, pass_button.y + 5))
     pygame.draw.rect(game_screen, color, pass_button, 2)
-    pygame.display.flip()
 
 def draw_both_pass_button(game_screen):
     draw_pass_button_player_one(game_screen)
