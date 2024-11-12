@@ -69,5 +69,6 @@ def draw_all(game_screen, p_one, p_two):
     draw_both_hand(game_screen, p_one, p_two)
     draw_both_hq(game_screen, p_one, p_two)
     draw_both_in_play(game_screen, p_one, p_two)
-    pygame.display.flip()
     draw_both_pass_button(game_screen)
+    pygame.display.flip()
+
