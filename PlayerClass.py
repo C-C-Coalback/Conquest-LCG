@@ -129,7 +129,7 @@ class Player:
                 card_image_name = "ResizedImages/" + card_string + ".jpg"
                 card_image = pygame.image.load(card_image_name).convert()
                 game_screen.blit(card_image, (x_current_planet, y_current_planet))
-                pygame.display.flip()
+                # pygame.display.flip()
                 x_current_planet = x_current_planet + x_increment
                 if x_current_planet > x_first_planet + 165 * i + x_increment:
                     x_current_planet = x_first_planet + 165 * i
