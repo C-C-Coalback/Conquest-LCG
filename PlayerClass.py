@@ -318,12 +318,16 @@ class Player:
 
     def commit_units_to_planet(self, planet_id):
         headquarters_list = self.get_headquarters()
-        for i in range(len(headquarters_list)):
-            if headquarters_list[i].get_card_type() == "Army" or headquarters_list.get_card_type() == "Token":
+        i = 0
+        while i < len(headquarters_list):
+            print("here", headquarters_list[i].get_name())
+            if headquarters_list[i].get_card_type() == "Army" or headquarters_list[i].get_card_type() == "Token":
                 print(headquarters_list[i].get_name())
                 headquarters_list[i].exhaust_card()
                 self.cards_in_play[planet_id].append(copy.deepcopy(headquarters_list[i]))
                 self.headquarters.remove(headquarters_list[i])
+                i = i - 1
+            i = i + 1
 
     def play_card(self, card_to_play, planet_id):
         if FindCard.check_card_type(card_to_play, "Army"):
