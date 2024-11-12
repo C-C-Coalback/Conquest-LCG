@@ -54,6 +54,11 @@ def combat_turn(attacker, defender, planet_id):
 
 def pygame_combat_turn(attacker, defender, planet_id, game_screen):
     run = True
+    print(attacker.get_name_player(), '\'s turn to attack', sep='')
+    x_req_1 = (planet_id * 165) + 60
+    x_req_2 = (planet_id * 165) + 185
+    average = (planet_id * 165) + 122
+    pos_attacker = -1
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -63,14 +68,30 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
                 x, y = pygame.mouse.get_pos()
                 if check_for_pass(x, y, attacker.get_number()) == 1:
                     return True
-                else:
-                    pass
-    print(attacker.get_name_player(), '\'s turn to attack', sep='')
-    attacker_name = "p"
-    if attacker_name == "p":
+                if x_req_1 < x < x_req_2:
+                    if y > 385 and attacker.get_number() == 1:
+                        print("Player one units")
+                        position = y
+                        position = position - 385
+                        position = int(position / 88)
+                        position = 2 * position
+                        if x > average:
+                            position = position + 1
+                        print(position)
+                        if position < attacker.get_number_of_cards_at_planet(planet_id):
+                            print("Card present")
+                            pos_attacker = position
+                            run = False
+    if pos_attacker == -1:
         return True
-    pos_attacker = attacker.search_card_at_planet(attacker_name, planet_id)
     print("position of unit:", pos_attacker)
+    run = True
+    print("SUCCESS")
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
     if pos_attacker != -1:
         if attacker.check_ready_pos(planet_id, pos_attacker):
             attacker.exhaust_given_pos(planet_id, pos_attacker)

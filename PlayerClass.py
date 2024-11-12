@@ -140,6 +140,9 @@ class Player:
         for j in range(len(self.cards_in_play[planet_id + 1])):
             print(self.cards_in_play[planet_id + 1][j].get_name())
 
+    def get_number_of_cards_at_planet(self, planet_id):
+        return len(self.cards_in_play[planet_id + 1])
+
     def check_for_warlord(self, planet_id):
         print("Looking for warlord at:", self.cards_in_play[0][planet_id])
         if not self.cards_in_play[planet_id + 1]:
@@ -176,7 +179,6 @@ class Player:
         planet_name = self.cards_in_play[0][planet_id]
         print("Attempting to capture planet.")
         print("Planet to capture:", planet_name)
-        input("Wait for input")
         planet_cards = PlanetCardsInit.planet_cards_init()
         i = 0
         while planet_cards[i].get_name() != "FINAL CARD":
