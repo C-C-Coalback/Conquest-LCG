@@ -14,7 +14,7 @@ def prompt_pos_hand(player):
                 print(x, y, player.get_number())
                 if check_for_pass(x, y, player.get_number()) == 1:
                     return -1
-                if player.get_number() == 2:
+                if player.get_number() == 2 and 24 < y < 116:
                     position = x
                     position = position - 200
                     remainder = position % 80
@@ -27,7 +27,7 @@ def prompt_pos_hand(player):
                         print("Number of cards in hand:", len(player.get_cards()))
                         if len(player.get_cards()) > position:
                             return position
-                elif player.get_number() == 1:
+                elif player.get_number() == 1 and 594 < y < 686:
                     position = x
                     position = position - 300
                     remainder = position % 80
