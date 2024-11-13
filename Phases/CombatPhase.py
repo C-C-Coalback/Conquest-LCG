@@ -96,6 +96,20 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
                             print("Card present")
                             pos_attacker = position
                             run = False
+                    elif y < 320 and attacker.get_number() == 2:
+                        print("Player two units")
+                        position = y
+                        position = position - 320
+                        position = -1 * position
+                        position = int(position / 88)
+                        position = 2 * position
+                        if x > average:
+                            position = position + 1
+                        print(position)
+                        if position < attacker.get_number_of_cards_at_planet(planet_id):
+                            print("Card present")
+                            pos_attacker = position
+                            run = False
     if pos_attacker == -1:
         return True
     print("position of unit:", pos_attacker)
@@ -117,6 +131,19 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
                             position = y
                             position = position - 320
                             position = -1 * position
+                            position = int(position / 88)
+                            position = 2 * position
+                            if x > average:
+                                position = position + 1
+                            print(position)
+                            if position < defender.get_number_of_cards_at_planet(planet_id):
+                                print("Card present")
+                                pos_defender = position
+                                run = False
+                        elif y > 385 and defender.get_number() == 1:
+                            print("Player one units")
+                            position = y
+                            position = position - 385
                             position = int(position / 88)
                             position = 2 * position
                             if x > average:

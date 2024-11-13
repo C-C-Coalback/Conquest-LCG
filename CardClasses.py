@@ -269,7 +269,6 @@ class ArmyCard(Card):
 
     def pygame_shield_window(self, player, amount, game_screen):
         print(self.get_name(), "taking", amount, "damage.")
-        keep_looping = True
         shield = 0
         print("GOT HERE")
         run = True
@@ -292,6 +291,26 @@ class ArmyCard(Card):
                             pass
                         else:
                             print("Player two hand selected, card index", position)
+                            print("Number of cards in hand:", len(player.get_cards()))
+                            if len(player.get_cards()) > position:
+                                shield = player.get_shields_given_pos(position)
+                                if shield == -1:
+                                    input("Card somehow found in hand but not in database.")
+                                elif shield == 0:
+                                    input("Card has no shields on it. Use something else.")
+                                else:
+                                    player.discard_card_from_hand(position)
+                                    run = False
+                    elif player.get_number() == 1:
+                        position = x
+                        position = position - 300
+                        remainder = position % 80
+                        position = int(position / 80)
+                        print(position, remainder)
+                        if 62 < remainder < 80:
+                            pass
+                        else:
+                            print("Player one hand selected, card index", position)
                             print("Number of cards in hand:", len(player.get_cards()))
                             if len(player.get_cards()) > position:
                                 shield = player.get_shields_given_pos(position)
