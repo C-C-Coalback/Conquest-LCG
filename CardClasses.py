@@ -1,6 +1,4 @@
-import pygame
-from PassCommand import check_for_pass
-import sys
+import ClickDetection
 
 class Card:
     def __init__(self, name, text, traits, cost, faction, loyalty, shields, card_type, unique, image_name):
@@ -114,69 +112,26 @@ class WarlordCard(Card):
 
     def pygame_shield_window(self, player, amount, game_screen):
         print(self.get_name(), "taking", amount, "damage.")
-        shield = 0
         print("GOT HERE")
-        run = True
-        while run:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    x, y = pygame.mouse.get_pos()
-                    print(x, y, player.get_number())
-                    if check_for_pass(x, y, player.get_number()) == 1:
-                        return amount
-                    if player.get_number() == 2:
-                        position = x
-                        position = position - 200
-                        remainder = position % 80
-                        position = int(position / 80)
-                        print(position, remainder)
-                        if 62 < remainder:
-                            pass
-                        else:
-                            print("Player two hand selected, card index", position)
-                            print("Number of cards in hand:", len(player.get_cards()))
-                            if len(player.get_cards()) > position:
-                                shield = player.get_shields_given_pos(position)
-                                if shield == -1:
-                                    input("Card somehow found in hand but not in database.")
-                                elif shield == 0:
-                                    input("Card has no shields on it. Use something else.")
-                                else:
-                                    player.discard_card_from_hand(position)
-                                    run = False
-                    elif player.get_number() == 1:
-                        position = x
-                        position = position - 300
-                        remainder = position % 80
-                        position = int(position / 80)
-                        print(position, remainder)
-                        if 62 < remainder < 80:
-                            pass
-                        else:
-                            print("Player one hand selected, card index", position)
-                            print("Number of cards in hand:", len(player.get_cards()))
-                            if len(player.get_cards()) > position:
-                                shield = player.get_shields_given_pos(position)
-                                if shield == -1:
-                                    input("Card somehow found in hand but not in database.")
-                                elif shield == 0:
-                                    input("Card has no shields on it. Use something else.")
-                                else:
-                                    player.discard_card_from_hand(position)
-                                    run = False
-        if shield == 0:
-            print("No shields used")
-        else:
-            print("shield value:", shield)
-            amount = int(amount)
-            shield = int(shield)
-            amount = amount - shield
-            if amount < 0:
-                amount = 0
-        return amount
+        while True:
+            position = ClickDetection.prompt_pos_hand(player)
+            if position == -1:
+                print("No shields used")
+                return amount
+            shield = player.get_shields_given_pos(position)
+            if shield == -1:
+                input("Card somehow found in hand but not in database.")
+            elif shield == 0:
+                print("Card has no shields on it. Use something else.")
+            else:
+                player.discard_card_from_hand(position)
+                print("shield value:", shield)
+                amount = int(amount)
+                shield = int(shield)
+                amount = amount - shield
+                if amount < 0:
+                    amount = 0
+            return amount
 
     def damage_card(self, player, amount):
         amount = self.shield_window(player, amount)
@@ -296,69 +251,26 @@ class ArmyCard(Card):
 
     def pygame_shield_window(self, player, amount, game_screen):
         print(self.get_name(), "taking", amount, "damage.")
-        shield = 0
         print("GOT HERE")
-        run = True
-        while run:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    x, y = pygame.mouse.get_pos()
-                    print(x, y, player.get_number())
-                    if check_for_pass(x, y, player.get_number()) == 1:
-                        return amount
-                    if player.get_number() == 2:
-                        position = x
-                        position = position - 200
-                        remainder = position % 80
-                        position = int(position / 80)
-                        print(position, remainder)
-                        if 62 < remainder:
-                            pass
-                        else:
-                            print("Player two hand selected, card index", position)
-                            print("Number of cards in hand:", len(player.get_cards()))
-                            if len(player.get_cards()) > position:
-                                shield = player.get_shields_given_pos(position)
-                                if shield == -1:
-                                    input("Card somehow found in hand but not in database.")
-                                elif shield == 0:
-                                    input("Card has no shields on it. Use something else.")
-                                else:
-                                    player.discard_card_from_hand(position)
-                                    run = False
-                    elif player.get_number() == 1:
-                        position = x
-                        position = position - 300
-                        remainder = position % 80
-                        position = int(position / 80)
-                        print(position, remainder)
-                        if 62 < remainder < 80:
-                            pass
-                        else:
-                            print("Player one hand selected, card index", position)
-                            print("Number of cards in hand:", len(player.get_cards()))
-                            if len(player.get_cards()) > position:
-                                shield = player.get_shields_given_pos(position)
-                                if shield == -1:
-                                    input("Card somehow found in hand but not in database.")
-                                elif shield == 0:
-                                    input("Card has no shields on it. Use something else.")
-                                else:
-                                    player.discard_card_from_hand(position)
-                                    run = False
-        if shield == 0:
-            print("No shields used")
-        else:
-            print("shield value:", shield)
-            amount = int(amount)
-            shield = int(shield)
-            amount = amount - shield
-            if amount < 0:
-                amount = 0
-        return amount
+        while True:
+            position = ClickDetection.prompt_pos_hand(player)
+            if position == -1:
+                print("No shields used")
+                return amount
+            shield = player.get_shields_given_pos(position)
+            if shield == -1:
+                input("Card somehow found in hand but not in database.")
+            elif shield == 0:
+                print("Card has no shields on it. Use something else.")
+            else:
+                player.discard_card_from_hand(position)
+                print("shield value:", shield)
+                amount = int(amount)
+                shield = int(shield)
+                amount = amount - shield
+                if amount < 0:
+                    amount = 0
+            return amount
 
     def damage_card(self, player, amount):
         amount = self.shield_window(player, amount)
@@ -483,69 +395,26 @@ class TokenCard(Card):
 
     def pygame_shield_window(self, player, amount, game_screen):
         print(self.get_name(), "taking", amount, "damage.")
-        shield = 0
         print("GOT HERE")
-        run = True
-        while run:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    x, y = pygame.mouse.get_pos()
-                    print(x, y, player.get_number())
-                    if check_for_pass(x, y, player.get_number()) == 1:
-                        return amount
-                    if player.get_number() == 2:
-                        position = x
-                        position = position - 200
-                        remainder = position % 80
-                        position = int(position / 80)
-                        print(position, remainder)
-                        if 62 < remainder:
-                            pass
-                        else:
-                            print("Player two hand selected, card index", position)
-                            print("Number of cards in hand:", len(player.get_cards()))
-                            if len(player.get_cards()) > position:
-                                shield = player.get_shields_given_pos(position)
-                                if shield == -1:
-                                    input("Card somehow found in hand but not in database.")
-                                elif shield == 0:
-                                    input("Card has no shields on it. Use something else.")
-                                else:
-                                    player.discard_card_from_hand(position)
-                                    run = False
-                    elif player.get_number() == 1:
-                        position = x
-                        position = position - 300
-                        remainder = position % 80
-                        position = int(position / 80)
-                        print(position, remainder)
-                        if 62 < remainder < 80:
-                            pass
-                        else:
-                            print("Player one hand selected, card index", position)
-                            print("Number of cards in hand:", len(player.get_cards()))
-                            if len(player.get_cards()) > position:
-                                shield = player.get_shields_given_pos(position)
-                                if shield == -1:
-                                    input("Card somehow found in hand but not in database.")
-                                elif shield == 0:
-                                    input("Card has no shields on it. Use something else.")
-                                else:
-                                    player.discard_card_from_hand(position)
-                                    run = False
-        if shield == 0:
-            print("No shields used")
-        else:
-            print("shield value:", shield)
-            amount = int(amount)
-            shield = int(shield)
-            amount = amount - shield
-            if amount < 0:
-                amount = 0
-        return amount
+        while True:
+            position = ClickDetection.prompt_pos_hand(player)
+            if position == -1:
+                print("No shields used")
+                return amount
+            shield = player.get_shields_given_pos(position)
+            if shield == -1:
+                input("Card somehow found in hand but not in database.")
+            elif shield == 0:
+                print("Card has no shields on it. Use something else.")
+            else:
+                player.discard_card_from_hand(position)
+                print("shield value:", shield)
+                amount = int(amount)
+                shield = int(shield)
+                amount = amount - shield
+                if amount < 0:
+                    amount = 0
+            return amount
 
     def shield_window(self, player, amount):
         print(self.get_name(), "taking", amount, "damage.")
