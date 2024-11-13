@@ -209,8 +209,8 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
         p_two_passed = pygame_combat_turn(p_two, p_one, planet_id, game_screen)
     p_one.ready_all_at_planet(planet_id)
     p_two.ready_all_at_planet(planet_id)
-    p_one.retreat_combat_window(planet_id)
-    p_two.retreat_combat_window(planet_id)
+    p_one.pygame_retreat_combat_window(planet_id, game_screen, p_one, p_two)
+    p_two.pygame_retreat_combat_window(planet_id, game_screen, p_one, p_two)
 
 
 def resolve_battle(p_one, p_two, planet_id, first_planet):

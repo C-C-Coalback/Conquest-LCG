@@ -2,6 +2,10 @@ import random
 import copy
 import FindCard
 import pygame
+import sys
+
+from Drawing import draw_all
+from PassCommand import check_for_pass
 from Inits import PlanetCardsInit
 
 class Player:
@@ -196,6 +200,53 @@ class Player:
         self.headquarters.append(copy.deepcopy(self.cards_in_play[planet_id + 1][unit_id]))
         del self.cards_in_play[planet_id + 1][unit_id]
 
+    def pygame_retreat_combat_window(self, planet_id, game_screen, p_one, p_two):
+        done_retreating = False
+        x_req_1 = (planet_id * 165) + 60
+        x_req_2 = (planet_id * 165) + 185
+        average = (planet_id * 165) + 122
+        while not done_retreating:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x, y = pygame.mouse.get_pos()
+                    if check_for_pass(x, y, self.get_number()) == 1:
+                        done_retreating = True
+                    if x_req_1 < x < x_req_2:
+                        if y > 385 and self.get_number() == 1:
+                            print("Player one units")
+                            position = y
+                            position = position - 385
+                            position = int(position / 88)
+                            position = 2 * position
+                            if x > average:
+                                position = position + 1
+                            unit_pos = position
+                            print(position)
+                            if position < self.get_number_of_cards_at_planet(planet_id):
+                                print("Card present")
+                                self.exhaust_given_pos(planet_id, unit_pos)
+                                self.retreat_unit(planet_id, unit_pos)
+                        elif y < 320 and self.get_number() == 2:
+                            print("Player two units")
+                            position = y
+                            position = position - 320
+                            position = -1 * position
+                            position = int(position / 88)
+                            position = 2 * position
+                            if x > average:
+                                position = position + 1
+                            unit_pos = position
+                            print(position)
+                            if position < self.get_number_of_cards_at_planet(planet_id):
+                                print("Card present")
+                                self.exhaust_given_pos(planet_id, unit_pos)
+                                self.retreat_unit(planet_id, unit_pos)
+                                draw_all(game_screen, p_one, p_two)
+
+
     def retreat_combat_window(self, planet_id):
         done_retreating = False
         while not done_retreating:
@@ -210,23 +261,6 @@ class Player:
                 else:
                     self.exhaust_given_pos(planet_id, unit_pos)
                     self.retreat_unit(planet_id, unit_pos)
-
-
-    def pygame_retreat_combat_window(self, planet_id, game_screen):
-        done_retreating = False
-        while not done_retreating:
-            retreat_a_unit = input(self.get_name_player() + " Retreat unit? (y/n)")
-            if retreat_a_unit == "n":
-                done_retreating = True
-            elif retreat_a_unit == "y":
-                unit_name = input("Enter name of unit to retreat with")
-                unit_pos = self.search_card_at_planet(unit_name, planet_id)
-                if unit_pos == -1:
-                    print("Unit not found")
-                else:
-                    self.exhaust_given_pos(planet_id, unit_pos)
-                    self.retreat_unit(planet_id, unit_pos)
-
 
     def retreat_all_at_planet(self, planet_id):
         while self.cards_in_play[planet_id + 1]:
