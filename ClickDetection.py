@@ -47,3 +47,25 @@ def determine_pos_hand(x, y, player):
             print("Number of cards in hand:", len(player.get_cards()))
             if len(player.get_cards()) > position:
                 return position
+
+def prompt_pos_planet():
+    planet_chosen = False
+    while not planet_chosen:
+        for event2 in pygame.event.get():
+            if event2.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event2.type == pygame.MOUSEBUTTONDOWN:
+                x2, y2 = pygame.mouse.get_pos()
+                planet_chosen = True
+                if 319 < y2 < 376:
+                    position2 = x2 - 60
+                    remainder2 = position2 % 165
+                    position2 = int(position2 / 165)
+                    print(position2, remainder2)
+                    if 84 < remainder2:
+                        pass
+                    else:
+                        print("Planets selected, index", position2)
+                        if position2 < 7:
+                            return position2

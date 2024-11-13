@@ -47,31 +47,13 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                         if position == -1:
                             pass
                         else:
-                            planet_chosen = False
-                            while not planet_chosen:
-                                for event2 in pygame.event.get():
-                                    if event2.type == pygame.QUIT:
-                                        pygame.quit()
-                                        sys.exit()
-                                    if event2.type == pygame.MOUSEBUTTONDOWN:
-                                        x2, y2 = pygame.mouse.get_pos()
-                                        planet_chosen = True
-                                        if 319 < y2 < 376:
-                                            position2 = x2 - 60
-                                            remainder2 = position2 % 165
-                                            position2 = int(position2 / 165)
-                                            print(position2, remainder2)
-                                            if 84 < remainder2:
-                                                pass
-                                            else:
-                                                print("Planets selected, index", position2)
-                                                if position2 < 7:
-                                                    object_holder = FindCard.find_card(p_two.get_cards()[position])
-                                                    if p_two.play_card(object_holder, position2 + 1) == 0:
-                                                        if not p_one_passed:
-                                                            p_one.toggle_turn()
-                                                            p_two.toggle_turn()
-                                                        draw_all(game_screen, p_one, p_two)
+                            position2 = ClickDetection.prompt_pos_planet()
+                            object_holder = FindCard.find_card(p_two.get_cards()[position])
+                            if p_two.play_card(object_holder, position2 + 1) == 0:
+                                if not p_one_passed:
+                                    p_one.toggle_turn()
+                                p_two.toggle_turn()
+                                draw_all(game_screen, p_one, p_two)
                 elif 594 < y < 686 and p_one.get_has_turn():
                     if check_for_pass(x, y, p_one.get_number()) == 1:
                         p_one_passed = True
@@ -83,31 +65,13 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                         if position == -1:
                             pass
                         else:
-                            planet_chosen = False
-                            while not planet_chosen:
-                                for event2 in pygame.event.get():
-                                    if event2.type == pygame.QUIT:
-                                        pygame.quit()
-                                        sys.exit()
-                                    if event2.type == pygame.MOUSEBUTTONDOWN:
-                                        x2, y2 = pygame.mouse.get_pos()
-                                        planet_chosen = True
-                                        if 319 < y2 < 376:
-                                            position2 = x2 - 60
-                                            remainder2 = position2 % 165
-                                            position2 = int(position2 / 165)
-                                            print(position2, remainder2)
-                                            if 84 < remainder2:
-                                                pass
-                                            else:
-                                                print("Planets selected, index", position2)
-                                                if position2 < 7:
-                                                    object_holder = FindCard.find_card(p_one.get_cards()[position])
-                                                    if p_one.play_card(object_holder, position2 + 1) == 0:
-                                                        if not p_two_passed:
-                                                            p_one.toggle_turn()
-                                                            p_two.toggle_turn()
-                                                        draw_all(game_screen, p_one, p_two)
+                            position2 = ClickDetection.prompt_pos_planet()
+                            object_holder = FindCard.find_card(p_one.get_cards()[position])
+                            if p_one.play_card(object_holder, position2 + 1) == 0:
+                                if not p_two_passed:
+                                    p_one.toggle_turn()
+                                p_two.toggle_turn()
+                                draw_all(game_screen, p_one, p_two)
                 elif 319 < y < 376:
                     print("Planets selected")
     print("Success in passing.")
