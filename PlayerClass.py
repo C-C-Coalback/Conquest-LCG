@@ -139,6 +139,23 @@ class Player:
                     y_current_planet = y_current_planet + y_increment
 
 
+    def draw_victory_display(self, game_screen):
+        x = 30
+        y = 505
+        inc_y = 10
+        if self.get_number() == 2:
+            x = 1057
+            y = 125
+        for i in range(len(self.get_victory_display())):
+            card_string = self.victory_display[i].get_name()
+            for letter in card_string:
+                if letter == " ":
+                    card_string = card_string.replace(letter, "_")
+            card_image_name = "ResizedImages/" + card_string + ".jpg"
+            card_image = pygame.image.load(card_image_name).convert()
+            game_screen.blit(card_image, (x, y))
+            y = y + inc_y
+
     def print_cards_at_planet(self, planet_id):
         for j in range(len(self.cards_in_play[planet_id + 1])):
             print(self.cards_in_play[planet_id + 1][j].get_name())

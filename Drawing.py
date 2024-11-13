@@ -57,6 +57,10 @@ def draw_pass_button_player_two(game_screen):
     game_screen.blit(txt_surface, (pass_button.x + 5, pass_button.y + 5))
     pygame.draw.rect(game_screen, color, pass_button, 2)
 
+def draw_victory_display_both(game_screen, p_one, p_two):
+    p_one.draw_victory_display(game_screen)
+    p_two.draw_victory_display(game_screen)
+
 def draw_both_pass_button(game_screen):
     draw_pass_button_player_one(game_screen)
     draw_pass_button_player_two(game_screen)
@@ -89,5 +93,6 @@ def draw_all(game_screen, p_one, p_two):
     draw_both_pass_button(game_screen)
     draw_resource_icon_both(game_screen)
     draw_resource_number_both(game_screen, p_one, p_two)
+    draw_victory_display_both(game_screen, p_one, p_two)
     pygame.display.flip()
 
