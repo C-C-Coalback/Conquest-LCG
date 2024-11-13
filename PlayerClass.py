@@ -4,7 +4,6 @@ import FindCard
 import pygame
 import sys
 
-from Drawing import draw_all
 from PassCommand import check_for_pass
 from Inits import PlanetCardsInit
 
@@ -200,7 +199,7 @@ class Player:
         self.headquarters.append(copy.deepcopy(self.cards_in_play[planet_id + 1][unit_id]))
         del self.cards_in_play[planet_id + 1][unit_id]
 
-    def pygame_retreat_combat_window(self, planet_id, game_screen, p_one, p_two):
+    def pygame_retreat_combat_window(self, planet_id):
         done_retreating = False
         x_req_1 = (planet_id * 165) + 60
         x_req_2 = (planet_id * 165) + 185
@@ -213,10 +212,11 @@ class Player:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
                     if check_for_pass(x, y, self.get_number()) == 1:
-                        done_retreating = True
+                        return True
                     if x_req_1 < x < x_req_2:
                         if y > 385 and self.get_number() == 1:
                             print("Player one units")
+                            print(x, y)
                             position = y
                             position = position - 385
                             position = int(position / 88)
@@ -229,6 +229,7 @@ class Player:
                                 print("Card present")
                                 self.exhaust_given_pos(planet_id, unit_pos)
                                 self.retreat_unit(planet_id, unit_pos)
+                                return False
                         elif y < 320 and self.get_number() == 2:
                             print("Player two units")
                             position = y
@@ -244,7 +245,7 @@ class Player:
                                 print("Card present")
                                 self.exhaust_given_pos(planet_id, unit_pos)
                                 self.retreat_unit(planet_id, unit_pos)
-                                draw_all(game_screen, p_one, p_two)
+                                return False
 
 
     def retreat_combat_window(self, planet_id):
