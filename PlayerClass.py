@@ -525,8 +525,9 @@ class Player:
             for letter in card_image_name:
                 if letter == " ":
                     card_image_name = card_image_name.replace(letter, "_")
-
             card_image = pygame.image.load(card_image_name).convert()
+            if not hq[i].get_ready:
+                card_image = pygame.transform.rotate(card_image, 270)
             game_screen.blit(card_image, (x_c, y_c))
             x_c += increment
 
