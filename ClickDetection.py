@@ -14,29 +14,36 @@ def prompt_pos_hand(player):
                 print(x, y, player.get_number())
                 if check_for_pass(x, y, player.get_number()) == 1:
                     return -1
-                if player.get_number() == 2 and 24 < y < 116:
-                    position = x
-                    position = position - 200
-                    remainder = position % 80
-                    position = int(position / 80)
-                    print(position, remainder)
-                    if 62 < remainder:
-                        pass
-                    else:
-                        print("Player two hand selected, card index", position)
-                        print("Number of cards in hand:", len(player.get_cards()))
-                        if len(player.get_cards()) > position:
-                            return position
-                elif player.get_number() == 1 and 594 < y < 686:
-                    position = x
-                    position = position - 300
-                    remainder = position % 80
-                    position = int(position / 80)
-                    print(position, remainder)
-                    if 62 < remainder < 80:
-                        pass
-                    else:
-                        print("Player one hand selected, card index", position)
-                        print("Number of cards in hand:", len(player.get_cards()))
-                        if len(player.get_cards()) > position:
-                            return position
+                result = determine_pos_hand(x, y, player)
+                if result == -1:
+                    pass
+                else:
+                    return result
+
+def determine_pos_hand(x, y, player):
+    if player.get_number() == 2 and 24 < y < 116:
+        position = x
+        position = position - 200
+        remainder = position % 80
+        position = int(position / 80)
+        print(position, remainder)
+        if 62 < remainder:
+            return -1
+        else:
+            print("Player two hand selected, card index", position)
+            print("Number of cards in hand:", len(player.get_cards()))
+            if len(player.get_cards()) > position:
+                return position
+    elif player.get_number() == 1 and 594 < y < 686:
+        position = x
+        position = position - 300
+        remainder = position % 80
+        position = int(position / 80)
+        print(position, remainder)
+        if 62 < remainder < 80:
+            return -1
+        else:
+            print("Player one hand selected, card index", position)
+            print("Number of cards in hand:", len(player.get_cards()))
+            if len(player.get_cards()) > position:
+                return position
