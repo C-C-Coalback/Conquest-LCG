@@ -69,3 +69,44 @@ def prompt_pos_planet():
                         print("Planets selected, index", position2)
                         if position2 < 7:
                             return position2
+
+def prompt_pos_unit_at_planet(player, planet_id):
+    x_req_1 = (planet_id * 165) + 60
+    x_req_2 = (planet_id * 165) + 185
+    average = (planet_id * 165) + 122
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                if check_for_pass(x, y, player.get_number()) == 1:
+                    return -1
+                if x_req_1 < x < x_req_2:
+                    if y > 385 and player.get_number() == 1:
+                        print("Player one units")
+                        print(x, y)
+                        position = y
+                        position = position - 385
+                        position = int(position / 88)
+                        position = 2 * position
+                        if x > average:
+                            position = position + 1
+                        print(position)
+                        if position < player.get_number_of_cards_at_planet(planet_id):
+                            print("Card present")
+                            return position
+                    elif y < 320 and player.get_number() == 2:
+                        print("Player two units")
+                        position = y
+                        position = position - 320
+                        position = -1 * position
+                        position = int(position / 88)
+                        position = 2 * position
+                        if x > average:
+                            position = position + 1
+                        print(position)
+                        if position < player.get_number_of_cards_at_planet(planet_id):
+                            print("Card present")
+                            return position
