@@ -95,6 +95,13 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
                         if position < attacker.get_number_of_cards_at_planet(planet_id):
                             print("Card present")
                             pos_attacker = position
+                            x_for_drawing = x_req_1
+                            if x > average:
+                                x_for_drawing = average
+                            y_for_drawing = (int(position / 2) * 88) + 385
+                            pygame.draw.rect(game_screen, [255, 0, 0],
+                                             [x_for_drawing, y_for_drawing, 62, 88], 2)
+                            pygame.display.flip()
                             run = False
                     elif y < 320 and attacker.get_number() == 2:
                         print("Player two units")
@@ -109,6 +116,13 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
                         if position < attacker.get_number_of_cards_at_planet(planet_id):
                             print("Card present")
                             pos_attacker = position
+                            x_for_drawing = x_req_1
+                            if x > average:
+                                x_for_drawing = average
+                            y_for_drawing = (int(position / 2) * (-88)) + 232
+                            pygame.draw.rect(game_screen, [255, 0, 0],
+                                             [x_for_drawing, y_for_drawing, 62, 88], 2)
+                            pygame.display.flip()
                             run = False
     if pos_attacker == -1:
         return True
