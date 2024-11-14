@@ -34,7 +34,7 @@ def resize_files():
         name, ext = os.path.splitext(base_name)
         damage_token_names.append(name)
         img = Image.open(token)
-        img = img.resize((int(40), int(40)))
+        img = img.resize((int(30), int(30)))
         resized_damage_images.append(img)
 
 
