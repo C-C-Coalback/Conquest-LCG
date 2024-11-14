@@ -500,12 +500,14 @@ class Player:
             if not hq[i].get_ready():
                 card_image = pygame.transform.rotate(card_image, 270)
             game_screen.blit(card_image, (x_c, y_c))
-            damage = hq[i].get_damage()
-            if 0 < damage < 10:
-                damage = str(damage)
-                damage_name = 'damagetokens/' + damage + '_Damage.png'
-                damage_image = pygame.image.load(damage_name).convert()
-                game_screen.blit(damage_image, (x_c + 10, y_c + 30))
+            card_type = hq[i].get_card_type()
+            if card_type == "Army" or card_type == "Warlord" or card_type == "Token":
+                damage = hq[i].get_damage()
+                if 0 < damage < 10:
+                    damage = str(damage)
+                    damage_name = 'damagetokens/' + damage + '_Damage.png'
+                    damage_image = pygame.image.load(damage_name).convert()
+                    game_screen.blit(damage_image, (x_c + 10, y_c + 30))
             x_c += increment
 
     def print_deck(self):
