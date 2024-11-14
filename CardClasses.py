@@ -54,21 +54,26 @@ class Card:
         self.ready = False
 
 
-class WarlordCard(Card):
-    def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text,
-                 starting_resources, starting_cards, image_name):
-        super().__init__(name, text, traits, -1, faction, "Signature", 0, "Warlord", False
-                         , image_name)
+class UnitCard(Card):
+    def __init__(self, name, text, traits, cost, faction, loyalty, card_type, attack, health, command,
+                 unique, image_name):
+        super().__init__(name, text, traits, cost, faction, loyalty, 0, card_type, unique, image_name)
         self.attack = attack
         self.health = health
         self.damage = 0
+        self.command = command
+
+class WarlordCard(UnitCard):
+    def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text,
+                 starting_resources, starting_cards, image_name):
+        super().__init__(name, text, traits, -1, faction, "Signature", "Warlord", attack, health, 999,
+                         True, image_name)
         self.bloodied = False
         self.bloodied_attack = bloodied_attack
         self.bloodied_health = bloodied_health
         self.bloodied_text = bloodied_text
         self.starting_resources = starting_resources
         self.starting_cards = starting_cards
-        self.command = 999
 
     def get_attack(self):
         return self.attack
@@ -207,13 +212,10 @@ class WarlordCard(Card):
                   self.bloodied_health, "Health")
 
 
-class ArmyCard(Card):
+class ArmyCard(UnitCard):
     def __init__(self, name, text, traits, cost, faction, loyalty, attack, health, command, unique, image_name):
-        super().__init__(name, text, traits, cost, faction, loyalty, 0, "Army", unique, image_name)
-        self.attack = attack
-        self.health = health
-        self.damage = 0
-        self.command = command
+        super().__init__(name, text, traits, cost, faction, loyalty, "Army", attack, health, command,
+                         unique, image_name)
 
     def get_attack(self):
         return self.attack
@@ -362,14 +364,10 @@ class SupportCard(Card):
         print("Text:", self.text)
 
 
-class TokenCard(Card):
+class TokenCard(UnitCard):
     def __init__(self, name, text, traits, faction, attack, health, image_name):
-        super().__init__(name, text, traits, -1, faction, "Common", 0, "Token", False,
-                         image_name)
-        self.attack = attack
-        self.health = health
-        self.damage = 0
-        self.command = 0
+        super().__init__(name, text, traits, -1, faction, "Common", "Token",
+                         attack, health, 0, False, image_name)
 
     def get_attack(self):
         return self.attack
