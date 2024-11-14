@@ -34,6 +34,7 @@ def determine_pos_hand(x, y, player):
             print("Number of cards in hand:", len(player.get_cards()))
             if len(player.get_cards()) > position:
                 return position
+            return -1
     elif player.get_number() == 1 and 594 < y < 686:
         position = x
         position = position - 300
@@ -47,6 +48,8 @@ def determine_pos_hand(x, y, player):
             print("Number of cards in hand:", len(player.get_cards()))
             if len(player.get_cards()) > position:
                 return position
+            return -1
+    return -1
 
 def prompt_pos_planet():
     planet_chosen = False
@@ -69,6 +72,7 @@ def prompt_pos_planet():
                         print("Planets selected, index", position2)
                         if position2 < 7:
                             return position2
+    return -1
 
 def prompt_pos_unit_at_planet(player, planet_id):
     x_req_1 = (planet_id * 165) + 60
