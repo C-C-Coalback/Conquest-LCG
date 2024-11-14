@@ -44,6 +44,11 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                             p_one.toggle_turn()
                     else:
                         position = ClickDetection.determine_pos_hand(x, y, p_two)
+                        x_for_drawing = (position * 80) + 200
+                        y_for_drawing = 24
+                        pygame.draw.rect(game_screen, [55, 155, 55],
+                                         [x_for_drawing, y_for_drawing, 62, 88], 2)
+                        pygame.display.flip()
                         if position == -1:
                             pass
                         else:
@@ -56,7 +61,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                     if not p_one_passed:
                                         p_one.toggle_turn()
                                         p_two.toggle_turn()
-                                    draw_all(game_screen, p_one, p_two)
+                        draw_all(game_screen, p_one, p_two)
                 elif 594 < y < 686 and p_one.get_has_turn():
                     if check_for_pass(x, y, p_one.get_number()) == 1:
                         p_one_passed = True
@@ -68,6 +73,11 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                         if position == -1:
                             pass
                         else:
+                            x_for_drawing = (position * 80) + 300
+                            y_for_drawing = 594
+                            pygame.draw.rect(game_screen, [55, 155, 55],
+                                             [x_for_drawing, y_for_drawing, 62, 88], 2)
+                            pygame.display.flip()
                             position2 = ClickDetection.prompt_pos_planet()
                             if position2 == -1:
                                 pass
@@ -77,7 +87,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                     if not p_two_passed:
                                         p_one.toggle_turn()
                                         p_two.toggle_turn()
-                                    draw_all(game_screen, p_one, p_two)
+                            draw_all(game_screen, p_one, p_two)
                 elif 319 < y < 376:
                     print("Planets selected")
     print("Success in passing.")

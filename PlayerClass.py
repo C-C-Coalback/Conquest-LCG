@@ -393,6 +393,7 @@ class Player:
         elif FindCard.check_card_type(card_to_play, "Support"):
             if self.spend_resources((card_to_play.get_cost())) == 0:
                 self.add_to_hq(card_to_play)
+                self.cards.remove(card_to_play.get_name())
                 print("Played card to HQ")
                 for i in range(len(self.get_headquarters())):
                     print(self.get_headquarters()[i].get_name())
