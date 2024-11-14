@@ -193,18 +193,8 @@ def pygame_command_phase(round_number, p_one, p_two, game_screen):
     print("Player two gets", c_res[3], "cards from command struggle")
     for i in range(c_res[3]):
         p_two.draw_card()
-    # player two will need the same idea but with c_res[2] and c_res[3]
     print(p_one.get_resources())
     print(p_one.get_cards())
     print(p_two.get_resources())
     print(p_two.get_cards())
     draw_all(game_screen, p_one, p_two)
-    run = True
-    while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    run = False
