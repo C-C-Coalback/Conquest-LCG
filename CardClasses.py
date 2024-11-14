@@ -63,18 +63,6 @@ class UnitCard(Card):
         self.damage = 0
         self.command = command
 
-class WarlordCard(UnitCard):
-    def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text,
-                 starting_resources, starting_cards, image_name):
-        super().__init__(name, text, traits, -1, faction, "Signature", "Warlord", attack, health, 999,
-                         True, image_name)
-        self.bloodied = False
-        self.bloodied_attack = bloodied_attack
-        self.bloodied_health = bloodied_health
-        self.bloodied_text = bloodied_text
-        self.starting_resources = starting_resources
-        self.starting_cards = starting_cards
-
     def get_attack(self):
         return self.attack
 
@@ -86,24 +74,6 @@ class WarlordCard(UnitCard):
 
     def get_command(self):
         return self.command
-
-    def get_bloodied_state(self):
-        return self.bloodied
-
-    def get_bloodied_attack(self):
-        return self.bloodied_attack
-
-    def get_bloodied_health(self):
-        return self.bloodied_health
-
-    def get_bloodied_text(self):
-        return self.bloodied_text
-
-    def get_starting_resources(self):
-        return self.starting_resources
-
-    def get_starting_cards(self):
-        return self.starting_cards
 
     def pygame_damage_card(self, player, amount, game_screen):
         amount = self.pygame_shield_window(player, amount, game_screen)
@@ -137,6 +107,45 @@ class WarlordCard(UnitCard):
                 if amount < 0:
                     amount = 0
             return amount
+
+    def assign_damage(self, amount):
+        self.damage = self.damage + amount
+
+    def check_health(self):
+        if self.health > self.damage:
+            return 1
+        else:
+            return 0
+
+class WarlordCard(UnitCard):
+    def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text,
+                 starting_resources, starting_cards, image_name):
+        super().__init__(name, text, traits, -1, faction, "Signature", "Warlord", attack, health, 999,
+                         True, image_name)
+        self.bloodied = False
+        self.bloodied_attack = bloodied_attack
+        self.bloodied_health = bloodied_health
+        self.bloodied_text = bloodied_text
+        self.starting_resources = starting_resources
+        self.starting_cards = starting_cards
+
+    def get_bloodied_state(self):
+        return self.bloodied
+
+    def get_bloodied_attack(self):
+        return self.bloodied_attack
+
+    def get_bloodied_health(self):
+        return self.bloodied_health
+
+    def get_bloodied_text(self):
+        return self.bloodied_text
+
+    def get_starting_resources(self):
+        return self.starting_resources
+
+    def get_starting_cards(self):
+        return self.starting_cards
 
     def damage_card(self, player, amount):
         amount = self.shield_window(player, amount)
@@ -180,15 +189,6 @@ class WarlordCard(UnitCard):
                 amount = 0
         return amount
 
-    def assign_damage(self, amount):
-        self.damage = self.damage + amount
-
-    def check_health(self):
-        if self.health > self.damage:
-            return 1
-        else:
-            return 0
-
     def bloody_warlord(self):
         self.damage = 0
         self.health = self.bloodied_health
@@ -217,18 +217,6 @@ class ArmyCard(UnitCard):
         super().__init__(name, text, traits, cost, faction, loyalty, "Army", attack, health, command,
                          unique, image_name)
 
-    def get_attack(self):
-        return self.attack
-
-    def get_health(self):
-        return self.health
-
-    def get_damage(self):
-        return self.damage
-
-    def get_command(self):
-        return self.command
-
     def print_info(self):
         if self.unique:
             print("Name: *", self.name)
@@ -240,39 +228,6 @@ class ArmyCard(UnitCard):
         print("Traits:", self.traits)
         print("Loyalty:", self.loyalty)
         print("Text:", self.text, "\nStats:", self.attack, "Attack,", self.health, "Health,", self.command, "Command")
-
-    def pygame_damage_card(self, player, amount, game_screen):
-        amount = self.pygame_shield_window(player, amount, game_screen)
-        self.assign_damage(amount)
-        if self.check_health():
-            print("Card still standing")
-            return 0
-        else:
-            print("Damage exceeds health")
-            return 1
-
-    def pygame_shield_window(self, player, amount, game_screen):
-        print(self.get_name(), "taking", amount, "damage.")
-        print("GOT HERE")
-        while True:
-            position = ClickDetection.prompt_pos_hand(player)
-            if position == -1:
-                print("No shields used")
-                return amount
-            shield = player.get_shields_given_pos(position)
-            if shield == -1:
-                input("Card somehow found in hand but not in database.")
-            elif shield == 0:
-                print("Card has no shields on it. Use something else.")
-            else:
-                player.discard_card_from_hand(position)
-                print("shield value:", shield)
-                amount = int(amount)
-                shield = int(shield)
-                amount = amount - shield
-                if amount < 0:
-                    amount = 0
-            return amount
 
     def damage_card(self, player, amount):
         amount = self.shield_window(player, amount)
@@ -300,14 +255,6 @@ class ArmyCard(UnitCard):
                 amount = 0
         return amount
 
-    def assign_damage(self, amount):
-        self.damage = self.damage + amount
-
-    def check_health(self):
-        if self.health > self.damage:
-            return 1
-        else:
-            return 0
 
 
 class EventCard(Card):
@@ -369,51 +316,6 @@ class TokenCard(UnitCard):
         super().__init__(name, text, traits, -1, faction, "Common", "Token",
                          attack, health, 0, False, image_name)
 
-    def get_attack(self):
-        return self.attack
-
-    def get_health(self):
-        return self.health
-
-    def get_damage(self):
-        return self.damage
-
-    def get_command(self):
-        return self.command
-
-    def pygame_damage_card(self, player, amount, game_screen):
-        amount = self.pygame_shield_window(player, amount, game_screen)
-        self.assign_damage(amount)
-        if self.check_health():
-            print("Card still standing")
-            return 0
-        else:
-            print("Damage exceeds health")
-            return 1
-
-    def pygame_shield_window(self, player, amount, game_screen):
-        print(self.get_name(), "taking", amount, "damage.")
-        print("GOT HERE")
-        while True:
-            position = ClickDetection.prompt_pos_hand(player)
-            if position == -1:
-                print("No shields used")
-                return amount
-            shield = player.get_shields_given_pos(position)
-            if shield == -1:
-                input("Card somehow found in hand but not in database.")
-            elif shield == 0:
-                print("Card has no shields on it. Use something else.")
-            else:
-                player.discard_card_from_hand(position)
-                print("shield value:", shield)
-                amount = int(amount)
-                shield = int(shield)
-                amount = amount - shield
-                if amount < 0:
-                    amount = 0
-            return amount
-
     def shield_window(self, player, amount):
         print(self.get_name(), "taking", amount, "damage.")
         shield_card = input("Enter the name of a card to shield with:")
@@ -429,15 +331,6 @@ class TokenCard(UnitCard):
             if amount < 0:
                 amount = 0
         return amount
-
-    def assign_damage(self, amount):
-        self.damage = self.damage + amount
-
-    def check_health(self):
-        if self.health > self.damage:
-            return 1
-        else:
-            return 0
 
     def print_info(self):
         print("Name:", self.name)
