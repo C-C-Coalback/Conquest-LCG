@@ -20,6 +20,7 @@ class Player:
         self.headquarters = []
         self.deck = []
         self.discard = []
+        self.planets_in_play = [True, True, True, True, True, False, False]
         self.cards_in_play = [[] for _ in range(8)]
         self.images_on_screen = [[] for _ in range(11)]
         self.position_images = [[] for _ in range(11)]
@@ -34,6 +35,9 @@ class Player:
 
     def get_has_initiative(self):
         return self.has_initiative
+
+    def get_planets_in_play(self):
+        return self.planets_in_play
 
     def get_name_player(self):
         return self.name_player
@@ -67,6 +71,9 @@ class Player:
 
     def get_discard(self):
         return self.discard
+
+    def toggle_planet_in_play(self, planet_id):
+        self.planets_in_play[planet_id] = not self.planets_in_play[planet_id]
 
     def toggle_turn(self):
         if self.has_turn:

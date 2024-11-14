@@ -242,6 +242,9 @@ def resolve_battle(p_one, p_two, planet_id, first_planet):
             p_two.capture_planet(planet_id)
     elif not player_one_check and not player_two_check:
         print("Neither player has units")
+    if first_planet:
+        p_one.toggle_planet_in_play(planet_id)
+        p_two.toggle_planet_in_play(planet_id)
 
 
 

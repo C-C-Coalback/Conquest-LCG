@@ -9,13 +9,15 @@ def draw_planets(game_screen, player):
     x_c = 60
     y_c = 320
     planet_array = player.get_cards_in_play()
+    in_play_test = player.get_planets_in_play()
     for i in range(7):
-        for letter in planet_array[0][i]:
-            if letter == " ":
-                planet_array[0][i] = planet_array[0][i].replace(letter, "_")
-        planet_image_name = "ResizedImages/" + planet_array[0][i] + ".jpg"
-        planet_image = pygame.image.load(planet_image_name).convert()
-        game_screen.blit(planet_image, (x_c, y_c))
+        if in_play_test[i]:
+            for letter in planet_array[0][i]:
+                if letter == " ":
+                    planet_array[0][i] = planet_array[0][i].replace(letter, "_")
+            planet_image_name = "ResizedImages/" + planet_array[0][i] + ".jpg"
+            planet_image = pygame.image.load(planet_image_name).convert()
+            game_screen.blit(planet_image, (x_c, y_c))
         x_c += 165
 
 def draw_hand(game_screen, player):
