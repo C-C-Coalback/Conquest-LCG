@@ -424,9 +424,6 @@ class Player:
             print("Command unrecognised.")
             return self.deploy_turn()
 
-    def pygame_deploy_turn(self, card_position, planet_id):
-        print("Deploy unit to planet")
-
     def remove_card_from_play(self, planet_num, card_pos):
         # card_object = self.cards_in_play[planet_num + 1][card_pos]
         # self.discard_object(card_object)
@@ -496,6 +493,12 @@ class Player:
             if not hq[i].get_ready():
                 card_image = pygame.transform.rotate(card_image, 270)
             game_screen.blit(card_image, (x_c, y_c))
+            damage = hq[i].get_damage()
+            if 0 < damage < 10:
+                damage = str(damage)
+                damage_name = 'damagetokens/' + damage + '_Damage.png'
+                damage_image = pygame.image.load(damage_name).convert()
+                game_screen.blit(damage_image, (x_c + 10, y_c + 30))
             x_c += increment
 
     def print_deck(self):
