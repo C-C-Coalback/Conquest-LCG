@@ -1,3 +1,4 @@
+import ClickDetection
 from Inits import PlanetCardsInit
 import sys
 import pygame
@@ -86,28 +87,7 @@ def command_phase(round_number, p_one, p_two):
     print(p_two.get_cards())
 
 def pygame_command_phase(round_number, p_one, p_two, game_screen):
-    run = True
-    pos = 0
-    while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                print(x, y)
-                if 319 < y < 376:
-                    print("Planets selected")
-                    position = x
-                    position = position - 60
-                    remainder = position % 165
-                    position = int(position / 165)
-                    print(position, remainder)
-                    if remainder > 88:
-                        pass
-                    else:
-                        pos = position
-                        run = False
+    pos = ClickDetection.prompt_pos_planet()
     planet_array2 = PlanetCardsInit.planet_cards_init()
     if pos == -1:
         print("Planet not found")
