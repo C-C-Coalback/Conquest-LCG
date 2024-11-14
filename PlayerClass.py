@@ -134,6 +134,12 @@ class Player:
                 if not self.cards_in_play[i + 1][j].get_ready():
                     card_image = pygame.transform.rotate(card_image, 270)
                 game_screen.blit(card_image, (x_current_planet, y_current_planet))
+                damage = self.cards_in_play[i + 1][j].get_damage()
+                if 0 < damage < 10:
+                    damage = str(damage)
+                    damage_name = 'damagetokens/' + damage + '_Damage.png'
+                    damage_image = pygame.image.load(damage_name).convert()
+                    game_screen.blit(damage_image, (x_current_planet + 10, y_current_planet + 30))
                 # pygame.display.flip()
                 x_current_planet = x_current_planet + x_increment
                 if x_current_planet > x_first_planet + 165 * i + x_increment:
