@@ -1,5 +1,5 @@
 import pygame
-
+import sys
 
 def draw_mat(game_screen):
     playmat = pygame.image.load("Playmat.png").convert()
@@ -110,5 +110,43 @@ def draw_all(game_screen, p_one, p_two):
     draw_current_round_and_phase(p_one, game_screen)
     pygame.display.flip()
 
-def draw_current_deck(game_screen):
-    pass
+def draw_current_deck(game_screen,  current_deck):
+    for letter in current_deck:
+        if letter == " ":
+            current_deck = current_deck.replace(letter, "_")
+    image_names = current_deck.split("#")
+    x = 100
+    y = 100
+    x_inc = 100
+    y_inc = 100
+    color = (1, 1, 1)
+    game_screen.fill(color)
+    card_image_name = "ResizedImages/LargerResizedImages/" + image_names[1] + ".jpg"
+    card_image = pygame.image.load(card_image_name).convert()
+    game_screen.blit(card_image, (x, y))
+    x = x + x_inc * 2
+    for i in range(2, 10):
+        card_image_name = "ResizedImages/LargerResizedImages/" + image_names[i] + ".jpg"
+        card_image = pygame.image.load(card_image_name).convert()
+        game_screen.blit(card_image, (x, y))
+        x += x_inc
+    y += y_inc
+    x = 100
+    for i in range(10, len(image_names)):
+        card_image_name = "ResizedImages/LargerResizedImages/" + image_names[i] + ".jpg"
+        card_image = pygame.image.load(card_image_name).convert()
+        game_screen.blit(card_image, (x, y))
+        x += x_inc
+        if x > 1000:
+            x = 100
+            y += y_inc
+    pygame.display.flip()
+    status = True
+    while status:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                status = False
+

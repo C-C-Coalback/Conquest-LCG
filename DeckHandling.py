@@ -44,7 +44,7 @@ def pygame_create_deck(game_screen):
     while deck_size < 13:
         card_to_add = PromptText.prompt_text(game_screen, "Enter card name to add")
         if card_to_add == "Current Deck":
-            draw_current_deck(game_screen)
+            draw_current_deck(game_screen, deck_to_write)
         card_object = FindCard.find_card(card_to_add)
         if FindCard.check_faction(card_object, required_faction):
             if FindCard.check_loyalty(card_object, "Signature"):

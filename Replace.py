@@ -6,6 +6,7 @@ def resize_files():
     # input(dir_path)
     path = dir_path + '/CardImages/'
     path2 = dir_path + '/ResizedImages/'
+    bigpath = dir_path + '/ResizedImages/LargerResizedImages/'
     planet_path = dir_path + '/PlanetImages/'
     damage_tokens_path = dir_path + '/damagetokens/'
     damage_tokens_400x400_path = dir_path + '/400x400damagetokens/'
@@ -16,8 +17,10 @@ def resize_files():
     planet_image_list = []
     resized_images = []
     resized_damage_images = []
+    big_resized_images = []
     filenames = []
     damage_token_names = []
+    big_ratio = 0.4
     ratio = 0.17
 
     playmat_image = Image.open(dir_path + '/Playmat.png')
@@ -50,8 +53,10 @@ def resize_files():
         image_list.append(img)
 
     for image in image_list:
-        image = image.resize((int(365 * ratio), int(520 * ratio)))
-        resized_images.append(image)
+        small_image = image.resize((int(365 * ratio), int(520 * ratio)))
+        resized_images.append(small_image)
+        bigger_image = image.resize((int(365 * big_ratio), int(520 * big_ratio)))
+        big_resized_images.append(bigger_image)
 
     for planet_filename in glob.glob(planet_path+'*.webp'):
         print(planet_filename)
@@ -67,3 +72,5 @@ def resize_files():
 
     for (a, new) in enumerate(resized_images):
         new.save('{}{}{}'.format(path2, filenames[a], '.jpg'))
+    for (a, new) in enumerate(big_resized_images):
+        new.save('{}{}{}'.format(bigpath, filenames[a], '.jpg'))
