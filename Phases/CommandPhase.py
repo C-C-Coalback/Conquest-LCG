@@ -100,6 +100,7 @@ def pygame_command_phase(round_number, p_one, p_two, game_screen):
     planet_array2 = PlanetCardsInit.planet_cards_init()
     p_one.set_phase("Command")
     p_two.set_phase("Command")
+    draw_all(game_screen, p_one, p_two)
     if p_one.get_has_initiative():
         pygame_commit_warlord_step(p_one)
         draw_all(game_screen, p_one, p_two)

@@ -59,6 +59,15 @@ def draw_pass_button_player_two(game_screen):
     game_screen.blit(txt_surface, (pass_button.x + 5, pass_button.y + 5))
     pygame.draw.rect(game_screen, color, pass_button, 2)
 
+def draw_current_phase(player, game_screen):
+    font = pygame.font.Font(None, 32)
+    color = pygame.Color("gray")
+    text = player.get_phase()
+    box = pygame.Rect(1050, 375, 150, 50)
+    txt_surface = font.render(text, True, color)
+    game_screen.blit(txt_surface, (box.x + 5, box.y + 5))
+    pygame.draw.rect(game_screen, color, box, 2)
+
 def draw_victory_display_both(game_screen, p_one, p_two):
     p_one.draw_victory_display(game_screen)
     p_two.draw_victory_display(game_screen)
@@ -71,7 +80,6 @@ def draw_resource_icon_both(game_screen):
     icon = pygame.image.load("Netrunner_credit.png").convert()
     game_screen.blit(icon, (1000, 600))
     game_screen.blit(icon, (125, 50))
-
 
 def draw_resource_number_both(game_screen, player_one, player_two):
     resources_p_one = str(player_one.get_resources())
@@ -96,5 +104,6 @@ def draw_all(game_screen, p_one, p_two):
     draw_resource_icon_both(game_screen)
     draw_resource_number_both(game_screen, p_one, p_two)
     draw_victory_display_both(game_screen, p_one, p_two)
+    draw_current_phase(p_one, game_screen)
     pygame.display.flip()
 
