@@ -140,6 +140,9 @@ elif holder == "g":
     bounds = (1200, 700)
     window = pygame.display.set_mode(bounds)
     pygame.display.set_caption("Conquest")
+    card_image = pygame.image.load("ImperialAquila.jpg").convert()
+    window.blit(card_image, (0, 0))
+    pygame.display.flip()
     status = True
     while status:
         for x in pygame.event.get():
