@@ -355,6 +355,8 @@ def combat_phase(round_number, p_one, p_two):
 
 def pygame_combat_phase(round_number, p_one, p_two, game_screen):
     print("combat:", round_number)
+    p_one.set_phase("Combat")
+    p_two.set_phase("Combat")
     index = round_number
     planets_counted = 0
     first_planet = True

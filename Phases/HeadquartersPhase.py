@@ -13,6 +13,8 @@ def hq_phase(round_number, p_one, p_two):
 
 def pygame_hq_phase(round_number, p_one, p_two, game_screen):
     print("hq:", round_number)
+    p_one.set_phase("Headquarters")
+    p_two.set_phase("Headquarters")
     p_one.ready_all_in_play()
     p_two.ready_all_in_play()
     p_one.add_resources(4)

@@ -23,6 +23,8 @@ def deploy_phase(round_number, p_one, p_two):
 def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
     p_one_passed = False
     p_two_passed = False
+    p_one.set_phase("Deploy")
+    p_two.set_phase("Deploy")
     if p_one.get_has_initiative():
         p_one.set_has_turn(True)
         p_two.set_has_turn(False)

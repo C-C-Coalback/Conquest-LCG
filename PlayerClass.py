@@ -13,6 +13,7 @@ class Player:
         self.name_player = name
         self.has_initiative = True
         self.has_turn = True
+        self.phase = "Deploy"
         self.resources = 0
         self.cards = []
         self.victory_display = []
@@ -29,6 +30,12 @@ class Player:
         #i_o_s[8] = "HQ"
         #i_o_s[9] = "Top Discard"
         #i_o_s[10] = "Victory Display"
+
+    def get_phase(self):
+        return self.phase
+
+    def set_phase(self, phase):
+        self.phase = phase
 
     def get_has_turn(self):
         return self.has_turn
