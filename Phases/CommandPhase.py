@@ -96,8 +96,9 @@ def pygame_commit_warlord_step(player):
     player.print_cards_in_play()
     player.print_headquarters()
 
-def pygame_command_phase(round_number, p_one, p_two, game_screen):
+def pygame_command_phase(round_number, p_one, p_two, game_screen, conquest_game):
     planet_array2 = PlanetCardsInit.planet_cards_init()
+    conquest_game.set_phase("Command")
     if p_one.get_has_initiative():
         pygame_commit_warlord_step(p_one)
         draw_all(game_screen, p_one, p_two)
