@@ -25,6 +25,8 @@ def pygame_create_deck(game_screen):
                                                               "is not a Warlord"
                                                               "\nEnter Warlord Name")
         warlord_card = FindCard.find_card(warlord_to_find)
+    print("Card is a warlord!")
+    deck_to_write = PromptText.prompt_text(game_screen, "Enter a name for the deck")
 
 def create_deck():
     warlord_to_find = input("Enter a Warlord: ")

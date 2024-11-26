@@ -45,7 +45,6 @@ def prompt_text(input_window, info_text):
         pygame.draw.rect(input_window, color, input_box, 2)
         txt_surface2 = font.render(helpful_text, True, color_helpful)
         input_window.blit(txt_surface2, (input_box.x+5, input_box.y-30))
-        if warning_text != "":
-            txt_surface3 = font.render(warning_text, True, color_warning)
-            input_window.blit(txt_surface3, (input_box.x + 5, input_box.y - 60))
+        txt_surface3 = font.render(warning_text, True, color_warning)
+        input_window.blit(txt_surface3, (input_box.x + 5, input_box.y - 60))
         pygame.display.flip()
