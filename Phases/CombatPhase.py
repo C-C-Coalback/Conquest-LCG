@@ -238,6 +238,7 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
     p_one.ready_all_at_planet(planet_id)
     p_two.ready_all_at_planet(planet_id)
     done_retreating = False
+    draw_all(game_screen, p_one, p_two)
     while not done_retreating:
         done_retreating = p_one.pygame_retreat_combat_window(planet_id)
         print("should update")
@@ -278,6 +279,7 @@ def pygame_resolve_battle(p_one, p_two, planet_id, first_planet, game_screen):
     player_two_check = p_two.check_if_units_present(planet_id)
     while player_one_check and player_two_check:
         pygame_combat_round(p_one, p_two, planet_id, game_screen)
+        draw_all(game_screen, p_one, p_two)
         player_one_check = p_one.check_if_units_present(planet_id)
         player_two_check = p_two.check_if_units_present(planet_id)
     if player_one_check and not player_two_check:
@@ -326,7 +328,7 @@ def pygame_check_for_battle(p_one, p_two, planet_id, first_planet, game_screen):
         elif p_two.check_for_warlord(planet_id - 1):
             print("Battle is resolved at:", planet_name)
             pygame_resolve_battle(p_one, p_two, planet_id - 1, first_planet, game_screen)
-
+    draw_all(game_screen, p_one, p_two)
 
 def combat_phase(round_number, p_one, p_two):
     print("combat:", round_number)
