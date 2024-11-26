@@ -37,7 +37,8 @@ def prompt_text(input_window, info_text):
                         text = text[:-1]
                     else:
                         text += event.unicode
-        input_window.fill((30, 30, 30))
+        imperial_image = pygame.image.load("ImperialAquila.jpg").convert()
+        input_window.blit(imperial_image, (0, 0))
         txt_surface = font.render(text, True, color)
         width = max(200, txt_surface.get_width() + 10)
         input_box.w = width
