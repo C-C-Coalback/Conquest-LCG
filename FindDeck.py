@@ -27,7 +27,7 @@ def find_deck():
 
 def find_pygame_deck(input_window):
     file_to_read = open("deck_storage.txt", "r")
-    deck_name = PromptText.prompt_text(input_window)
+    deck_name = PromptText.prompt_text(input_window, "Enter deck name")
     file_text = file_to_read.read()
     pos = 0
     current_deck = ""

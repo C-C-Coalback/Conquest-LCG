@@ -14,14 +14,16 @@ def write_deck_into_file(deck_string):
     file.close()
 
 def pygame_create_deck(game_screen):
-    warlord_to_find = PromptText.prompt_text(game_screen)
+    warlord_to_find = PromptText.prompt_text(game_screen, "Enter Warlord Name")
     warlord_card = FindCard.find_card(warlord_to_find)
     while not FindCard.check_card_type(warlord_card, "Warlord"):
         if FindCard.check_card_type(warlord_card, ""):
             print("Card not found.")
         else:
             print("Card is not a Warlord, card is a(n)", warlord_card.get_card_type(), "card")
-        warlord_to_find = PromptText.prompt_text(game_screen)
+        warlord_to_find = PromptText.prompt_text(game_screen, "Card does not exist/"
+                                                              "is not a Warlord"
+                                                              "\nEnter Warlord Name")
         warlord_card = FindCard.find_card(warlord_to_find)
 
 def create_deck():
