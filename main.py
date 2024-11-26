@@ -107,7 +107,7 @@ def play_pygame(p_one, p_two, game_screen):
     # window.blit(cardback, (170, 485))
     i = 1
     while i < 8:
-        pygame_round(i, p_one, p_two, game_screen, game)
+        pygame_round(i, p_one, p_two, game_screen)
         i = i + 1
 
 
