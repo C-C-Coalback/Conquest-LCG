@@ -1,7 +1,5 @@
 import ClickDetection
 from Inits import PlanetCardsInit
-import sys
-import pygame
 from Drawing import draw_all
 
 def resolve_command_struggle(planet_num, p_one, p_two):
@@ -87,43 +85,26 @@ def command_phase(round_number, p_one, p_two):
     print(p_two.get_cards())
 
 def pygame_command_phase(round_number, p_one, p_two, game_screen):
-    pos = ClickDetection.prompt_pos_planet()
     planet_array2 = PlanetCardsInit.planet_cards_init()
-    if pos == -1:
-        print("Planet not found")
-    else:
-        print("Attempting to move Warlord")
-        p_one.commit_warlord_to_planet(pos + 1)
+    pos = -1
+    while pos == -1:
+        pos = ClickDetection.prompt_pos_planet()
+        if pos == -1:
+            print("Planet not found")
+        else:
+            print("Attempting to move Warlord")
+            p_one.commit_warlord_to_planet(pos + 1)
     p_one.print_cards_in_play()
     p_one.print_headquarters()
     draw_all(game_screen, p_one, p_two)
-    run = True
-    pos = 0
-    while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                print(x, y)
-                if 319 < y < 376:
-                    print("Planets selected")
-                    position = x
-                    position = position - 60
-                    remainder = position % 165
-                    position = int(position / 165)
-                    print(position, remainder)
-                    if remainder > 88:
-                        pass
-                    else:
-                        pos = position
-                        run = False
-    if pos == -1:
-        print("Planet not found")
-    else:
-        print("Attempting to move Warlord")
-        p_two.commit_warlord_to_planet(pos + 1)
+    pos = -1
+    while pos == -1:
+        pos = ClickDetection.prompt_pos_planet()
+        if pos == -1:
+            print("Planet not found")
+        else:
+            print("Attempting to move Warlord")
+            p_two.commit_warlord_to_planet(pos + 1)
     p_two.print_cards_in_play()
     p_two.print_headquarters()
     draw_all(game_screen, p_one, p_two)
