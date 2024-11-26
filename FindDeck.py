@@ -81,7 +81,7 @@ def find_pygame_deck(input_window):
             current_deck = ""
     file_to_read.close()
     print("Deck not found")
-    return find_deck()
+    return find_pygame_deck(input_window)
 
 
 def read_deck(pos):
