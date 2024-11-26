@@ -1,6 +1,7 @@
 import PromptText
 from Inits import OrksCardsInit
 import FindCard
+from Drawing import draw_current_deck
 
 orks_card_array = OrksCardsInit.orks_cards_init()
 faction_wheel = ["Astra Militarum", "Space Marines", "Tau", "Eldar",
@@ -42,6 +43,8 @@ def pygame_create_deck(game_screen):
     deck_size = 8
     while deck_size < 13:
         card_to_add = PromptText.prompt_text(game_screen, "Enter card name to add")
+        if card_to_add == "Current Deck":
+            draw_current_deck(game_screen)
         card_object = FindCard.find_card(card_to_add)
         if FindCard.check_faction(card_object, required_faction):
             if FindCard.check_loyalty(card_object, "Signature"):

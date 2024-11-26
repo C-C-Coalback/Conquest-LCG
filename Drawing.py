@@ -110,3 +110,5 @@ def draw_all(game_screen, p_one, p_two):
     draw_current_round_and_phase(p_one, game_screen)
     pygame.display.flip()
 
+def draw_current_deck(game_screen):
+    pass
