@@ -86,11 +86,11 @@ def game_round(round_number, p_one, p_two):
     HeadquartersPhase.hq_phase(round_number, p_one, p_two)
 
 
-def pygame_round(round_number, p_one, p_two, game_screen, conquest_game):
-    DeployPhase.pygame_deploy_phase(round_number, p_one, p_two, game_screen, conquest_game)
-    CommandPhase.pygame_command_phase(round_number, p_one, p_two, game_screen, conquest_game)
-    CombatPhase.pygame_combat_phase(round_number, p_one, p_two, game_screen, conquest_game)
-    HeadquartersPhase.pygame_hq_phase(round_number, p_one, p_two, game_screen, conquest_game)
+def pygame_round(round_number, p_one, p_two, game_screen, game):
+    DeployPhase.pygame_deploy_phase(round_number, p_one, p_two, game_screen, game)
+    CommandPhase.pygame_command_phase(round_number, p_one, p_two, game_screen, game)
+    CombatPhase.pygame_combat_phase(round_number, p_one, p_two, game_screen, game)
+    HeadquartersPhase.pygame_hq_phase(round_number, p_one, p_two, game_screen, game)
 
 
 def play_game(p_one, p_two):
@@ -111,7 +111,7 @@ def play_game(p_one, p_two):
         game_round(i + 1, p_one, p_two)
 
 
-def play_pygame(conquest_game, p_one, p_two, game_screen):
+def play_pygame(game, p_one, p_two, game_screen):
     deck_s = FindDeck.find_pygame_deck(game_screen)
     FindDeck.load_deck(deck_s, p_one)
     p_one.shuffle_deck()
@@ -129,7 +129,7 @@ def play_pygame(conquest_game, p_one, p_two, game_screen):
     # window.blit(cardback, (170, 485))
     i = 1
     while i < 8:
-        pygame_round(i, p_one, p_two, game_screen, conquest_game)
+        pygame_round(i, p_one, p_two, game_screen, game)
         i = i + 1
 
 
