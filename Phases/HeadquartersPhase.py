@@ -27,6 +27,8 @@ def pygame_hq_phase(round_number, p_one, p_two, game_screen):
     p_two.toggle_initiative()
     print(p_one.get_resources())
     print(p_two.get_resources())
+    p_one.increment_round_number()
+    p_two.increment_round_number()
     if round_number < 3:
         p_one.toggle_planet_in_play(round_number + 4)
         p_two.toggle_planet_in_play(round_number + 4)

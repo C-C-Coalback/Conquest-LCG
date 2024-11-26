@@ -59,13 +59,16 @@ def draw_pass_button_player_two(game_screen):
     game_screen.blit(txt_surface, (pass_button.x + 5, pass_button.y + 5))
     pygame.draw.rect(game_screen, color, pass_button, 2)
 
-def draw_current_phase(player, game_screen):
+def draw_current_round_and_phase(player, game_screen):
     font = pygame.font.Font(None, 32)
     color = pygame.Color("gray")
-    text = player.get_phase()
-    box = pygame.Rect(1050, 375, 150, 50)
-    txt_surface = font.render(text, True, color)
-    game_screen.blit(txt_surface, (box.x + 5, box.y + 5))
+    phase_text = player.get_phase()
+    box = pygame.Rect(1050, 375, 150, 150)
+    phase_txt_surface = font.render(phase_text, True, color)
+    game_screen.blit(phase_txt_surface, (box.x + 5, box.y + 35))
+    round_text = "Round: " + str(player.get_round_number())
+    round_txt_surface = font.render(round_text, True, color)
+    game_screen.blit(round_txt_surface, (box.x + 5, box.y + 5))
     pygame.draw.rect(game_screen, color, box, 2)
 
 def draw_victory_display_both(game_screen, p_one, p_two):
@@ -104,6 +107,6 @@ def draw_all(game_screen, p_one, p_two):
     draw_resource_icon_both(game_screen)
     draw_resource_number_both(game_screen, p_one, p_two)
     draw_victory_display_both(game_screen, p_one, p_two)
-    draw_current_phase(p_one, game_screen)
+    draw_current_round_and_phase(p_one, game_screen)
     pygame.display.flip()
 

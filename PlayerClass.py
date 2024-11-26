@@ -14,6 +14,7 @@ class Player:
         self.has_initiative = True
         self.has_turn = True
         self.phase = "Deploy"
+        self.round_number = 1
         self.resources = 0
         self.cards = []
         self.victory_display = []
@@ -36,6 +37,12 @@ class Player:
 
     def set_phase(self, phase):
         self.phase = phase
+
+    def get_round_number(self):
+        return self.round_number
+
+    def increment_round_number(self):
+        self.round_number += 1
 
     def get_has_turn(self):
         return self.has_turn
