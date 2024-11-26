@@ -1,3 +1,4 @@
+import PromptText
 from Inits import OrksCardsInit
 import FindCard
 
@@ -12,6 +13,16 @@ def write_deck_into_file(deck_string):
     file.write("\n")
     file.close()
 
+def pygame_create_deck(game_screen):
+    warlord_to_find = PromptText.prompt_text(game_screen)
+    warlord_card = FindCard.find_card(warlord_to_find)
+    while not FindCard.check_card_type(warlord_card, "Warlord"):
+        if FindCard.check_card_type(warlord_card, ""):
+            print("Card not found.")
+        else:
+            print("Card is not a Warlord, card is a(n)", warlord_card.get_card_type(), "card")
+        warlord_to_find = PromptText.prompt_text(game_screen)
+        warlord_card = FindCard.find_card(warlord_to_find)
 
 def create_deck():
     warlord_to_find = input("Enter a Warlord: ")

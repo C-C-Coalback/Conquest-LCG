@@ -153,6 +153,10 @@ elif holder == "g":
                     player_two.toggle_turn()
                     player_two.toggle_initiative()
                     play_pygame(player_one, player_two, window)
+                if x.key == pygame.K_d:
+                    print("D pressed, init deck-building procedure")
+                    DeckHandling.pygame_create_deck(window)
+                    status = False
     pygame.quit()
 elif holder == "r":
     Replace.resize_files()
