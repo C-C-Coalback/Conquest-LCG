@@ -140,8 +140,14 @@ elif holder == "g":
     bounds = (1200, 700)
     window = pygame.display.set_mode(bounds)
     pygame.display.set_caption("Conquest")
-    card_image = pygame.image.load("ImperialAquila.jpg").convert()
-    window.blit(card_image, (0, 0))
+    imperial_image = pygame.image.load("ImperialAquila.jpg").convert()
+    window.blit(imperial_image, (0, 0))
+    font = pygame.font.Font(None, 32)
+    color = pygame.Color("green")
+    txt_surface = font.render("Press p to play", True, color)
+    window.blit(txt_surface, (500,  300))
+    txt_surface2 = font.render("Press d to build a deck", True, color)
+    window.blit(txt_surface2, (500, 325))
     pygame.display.flip()
     status = True
     while status:

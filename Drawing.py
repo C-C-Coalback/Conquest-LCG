@@ -96,8 +96,8 @@ def draw_resource_number_both(game_screen, player_one, player_two):
 
 
 def draw_all(game_screen, p_one, p_two):
-    color = (1, 1, 1)
-    game_screen.fill(color)
+    imperial_image = pygame.image.load("ImperialAquila.jpg").convert()
+    game_screen.blit(imperial_image, (0, 0))
     draw_mat(game_screen)
     draw_planets(game_screen, p_one)
     draw_both_hand(game_screen, p_one, p_two)
@@ -119,8 +119,8 @@ def draw_current_deck(game_screen,  current_deck):
     y = 100
     x_inc = 100
     y_inc = 100
-    color = (1, 1, 1)
-    game_screen.fill(color)
+    imperial_image = pygame.image.load("ImperialAquila.jpg").convert()
+    game_screen.blit(imperial_image, (0, 0))
     card_image_name = "ResizedImages/LargerResizedImages/" + image_names[1] + ".jpg"
     card_image = pygame.image.load(card_image_name).convert()
     game_screen.blit(card_image, (x, y))
