@@ -21,6 +21,8 @@ def pygame_hq_phase(round_number, p_one, p_two, game_screen):
     p_one.draw_card()
     p_two.draw_card()
     p_two.draw_card()
+    p_one.toggle_initiative()
+    p_two.toggle_initiative()
     print(p_one.get_resources())
     print(p_two.get_resources())
     if round_number < 3:

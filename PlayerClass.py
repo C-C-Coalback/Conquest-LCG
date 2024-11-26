@@ -36,6 +36,9 @@ class Player:
     def get_has_initiative(self):
         return self.has_initiative
 
+    def set_has_turn(self, new_val):
+        self.has_turn = new_val
+
     def get_planets_in_play(self):
         return self.planets_in_play
 
@@ -266,9 +269,17 @@ class Player:
         for i in range(len(self.cards_in_play[0])):
             if not self.cards_in_play[i + 1]:
                 pass
-            for j in range(len(self.cards_in_play[i + 1])):
-                if self.cards_in_play[i + 1][j].get_card_type() == "Warlord":
-                    self.retreat_unit(i, j)
+            else:
+                j = 0
+                while j < len(self.cards_in_play[i + 1]):
+                    print("TEST", self.cards_in_play[0][i], "planet", i)
+                    print(self.cards_in_play[0])
+                    print(len(self.cards_in_play[i + 1]))
+                    if self.cards_in_play[i + 1][j].get_card_type() == "Warlord":
+                        self.retreat_unit(i, j)
+                        j = j - 1
+                    j = j + 1
+
 
     def print_victory_display(self):
         print("Cards in victory display:")

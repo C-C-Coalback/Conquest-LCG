@@ -106,10 +106,10 @@ def play_pygame(p_one, p_two, game_screen):
     Drawing.draw_planets(game_screen, p_one)
     # cardback = pygame.image.load("ResizedImages/Cardback.jpg").convert()
     # window.blit(cardback, (170, 485))
-    pygame_round(1, p_one, p_two, window)
-    for i in range(2,7,2):
-        pygame_round(i, p_two, p_one, window)
-        pygame_round(i + 1, p_one, p_two, window)
+    i = 1
+    while i < 8:
+        pygame_round(i, p_one, p_two, game_screen)
+        i = i + 1
 
 
 def init_player(player):
