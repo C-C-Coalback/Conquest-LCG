@@ -84,29 +84,23 @@ def command_phase(round_number, p_one, p_two):
     print(p_two.get_resources())
     print(p_two.get_cards())
 
+def pygame_commit_warlord_step(player):
+    pos = -1
+    while pos == -1:
+        pos = ClickDetection.prompt_pos_planet()
+        if pos == -1:
+            print("Planet not found")
+        else:
+            print("Attempting to move Warlord")
+            player.commit_warlord_to_planet(pos + 1)
+    player.print_cards_in_play()
+    player.print_headquarters()
+
 def pygame_command_phase(round_number, p_one, p_two, game_screen):
     planet_array2 = PlanetCardsInit.planet_cards_init()
-    pos = -1
-    while pos == -1:
-        pos = ClickDetection.prompt_pos_planet()
-        if pos == -1:
-            print("Planet not found")
-        else:
-            print("Attempting to move Warlord")
-            p_one.commit_warlord_to_planet(pos + 1)
-    p_one.print_cards_in_play()
-    p_one.print_headquarters()
+    pygame_commit_warlord_step(p_one)
     draw_all(game_screen, p_one, p_two)
-    pos = -1
-    while pos == -1:
-        pos = ClickDetection.prompt_pos_planet()
-        if pos == -1:
-            print("Planet not found")
-        else:
-            print("Attempting to move Warlord")
-            p_two.commit_warlord_to_planet(pos + 1)
-    p_two.print_cards_in_play()
-    p_two.print_headquarters()
+    pygame_commit_warlord_step(p_two)
     draw_all(game_screen, p_one, p_two)
     print("command:", round_number)
     planet_num = round_number
