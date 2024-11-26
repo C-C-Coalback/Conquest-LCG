@@ -392,6 +392,8 @@ class Player:
             i = i + 1
 
     def play_card(self, card_to_play, planet_id):
+        if not self.planets_in_play[planet_id - 1]:
+            return -1
         if FindCard.check_card_type(card_to_play, "Army"):
             if self.spend_resources(card_to_play.get_cost()) == 0:
                 self.cards_in_play[planet_id].append(copy.deepcopy(card_to_play))
