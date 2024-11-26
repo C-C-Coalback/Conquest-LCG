@@ -1,6 +1,6 @@
 import pygame
 import sys
-def prompt_textbox_for_deck_name(input_window):
+def prompt_text(input_window):
     font = pygame.font.Font(None, 32)
     color_inactive = pygame.Color("white")
     color = color_inactive
