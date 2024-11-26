@@ -18,28 +18,6 @@ planet_array = PlanetCardsInit.planet_cards_init()
 faction_wheel = ["Astra Militarum", "Space Marines", "Tau", "Eldar",
                  "Dark Eldar", "Chaos", "Orks", "Astra Militarum", "Space Marines"]
 
-class ConquestGame:
-    def __init__(self, p_one, p_two):
-        self.phase = None
-        self.round_number = 1
-        self.p_one = p_one
-        self.p_two = p_two
-
-    def increment_round(self):
-        self.round_number += 1
-
-    def get_p_one(self):
-        return self.p_one
-
-    def get_p_two(self):
-        return self.p_two
-
-    def get_phase(self):
-        return self.phase
-
-    def set_phase(self, new_phase):
-        self.phase = new_phase
-
 def print_info_planet():
     planet_to_find = input("Select Planet: ")
     i = 0
@@ -86,11 +64,11 @@ def game_round(round_number, p_one, p_two):
     HeadquartersPhase.hq_phase(round_number, p_one, p_two)
 
 
-def pygame_round(round_number, p_one, p_two, game_screen, game):
-    DeployPhase.pygame_deploy_phase(round_number, p_one, p_two, game_screen, game)
-    CommandPhase.pygame_command_phase(round_number, p_one, p_two, game_screen, game)
-    CombatPhase.pygame_combat_phase(round_number, p_one, p_two, game_screen, game)
-    HeadquartersPhase.pygame_hq_phase(round_number, p_one, p_two, game_screen, game)
+def pygame_round(round_number, p_one, p_two, game_screen):
+    DeployPhase.pygame_deploy_phase(round_number, p_one, p_two, game_screen)
+    CommandPhase.pygame_command_phase(round_number, p_one, p_two, game_screen)
+    CombatPhase.pygame_combat_phase(round_number, p_one, p_two, game_screen)
+    HeadquartersPhase.pygame_hq_phase(round_number, p_one, p_two, game_screen)
 
 
 def play_game(p_one, p_two):
@@ -111,7 +89,7 @@ def play_game(p_one, p_two):
         game_round(i + 1, p_one, p_two)
 
 
-def play_pygame(game, p_one, p_two, game_screen):
+def play_pygame(p_one, p_two, game_screen):
     deck_s = FindDeck.find_pygame_deck(game_screen)
     FindDeck.load_deck(deck_s, p_one)
     p_one.shuffle_deck()
@@ -174,8 +152,7 @@ elif holder == "g":
                     player_two = PlayerClass.Player('Bob', 2)
                     player_two.toggle_turn()
                     player_two.toggle_initiative()
-                    conquest_game = ConquestGame(player_one, player_two)
-                    play_pygame(conquest_game, player_one, player_two, window)
+                    play_pygame(player_one, player_two, window)
     pygame.quit()
 elif holder == "r":
     Replace.resize_files()
