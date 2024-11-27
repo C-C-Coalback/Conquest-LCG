@@ -81,6 +81,9 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 if check_for_pass(x, y, attacker.get_number()) == 1:
+                    attacker.toggle_turn()
+                    defender.toggle_turn()
+                    draw_all(game_screen, attacker, defender)
                     return True
                 if x_req_1 < x < x_req_2:
                     if y > 385 and attacker.get_number() == 1:
@@ -196,6 +199,8 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
                 defender.remove_card_from_play(planet_id, pos_defender)
                 defender.print_cards_at_planet(planet_id)
                 defender.print_discard()
+            attacker.toggle_turn()
+            defender.toggle_turn()
             draw_all(game_screen, attacker, defender)
             return False
     else:
@@ -241,6 +246,8 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
     p_one.ready_all_at_planet(planet_id)
     p_two.ready_all_at_planet(planet_id)
     done_retreating = False
+    p_one.set_has_turn(p_one.get_has_initiative())
+    p_two.set_has_turn(p_two.get_has_initiative())
     draw_all(game_screen, p_one, p_two)
     while not done_retreating:
         if p_one.get_has_initiative():
@@ -249,6 +256,9 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
             done_retreating = p_two.pygame_retreat_combat_window(planet_id)
         draw_all(game_screen, p_one, p_two)
     done_retreating = False
+    p_one.toggle_turn()
+    p_two.toggle_turn()
+    draw_all(game_screen, p_one, p_two)
     while not done_retreating:
         if p_one.get_has_initiative():
             done_retreating = p_two.pygame_retreat_combat_window(planet_id)
@@ -360,6 +370,7 @@ def pygame_combat_phase(round_number, p_one, p_two, game_screen):
     index = round_number
     planets_counted = 0
     first_planet = True
+    draw_all(game_screen, p_one, p_two)
     while planets_counted < 5 and index < 7:
         pygame_check_for_battle(p_one, p_two, index, first_planet, game_screen)
         first_planet = False

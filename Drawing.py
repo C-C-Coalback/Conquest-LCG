@@ -71,6 +71,30 @@ def draw_current_round_and_phase(player, game_screen):
     game_screen.blit(round_txt_surface, (box.x + 5, box.y + 5))
     pygame.draw.rect(game_screen, color, box, 2)
 
+
+def draw_current_turn(player, game_screen):
+    font = pygame.font.Font(None, 32)
+    color = pygame.Color("gray")
+    name_text = player.get_name_player()
+    name_txt_surface = font.render(name_text, True, color)
+    box = pygame.Rect(1050, 375, 150, 150)
+    game_screen.blit(name_txt_surface, (box.x + 5, box.y + 65))
+    text = ""
+    if player.get_phase() == "Deploy":
+        text = "Deploy turn"
+    elif player.get_phase() == "Command":
+        text = "Commit Warlord"
+    elif player.get_phase() == "Combat":
+        text = "Combat turn"
+    else:
+        "Action window"
+    txt_surface = font.render(text, True, color)
+    game_screen.blit(txt_surface, (box.x + 5, box.y + 95))
+
+
+
+
+
 def draw_victory_display_both(game_screen, p_one, p_two):
     p_one.draw_victory_display(game_screen)
     p_two.draw_victory_display(game_screen)
@@ -108,6 +132,10 @@ def draw_all(game_screen, p_one, p_two):
     draw_resource_number_both(game_screen, p_one, p_two)
     draw_victory_display_both(game_screen, p_one, p_two)
     draw_current_round_and_phase(p_one, game_screen)
+    if p_one.get_has_turn():
+        draw_current_turn(p_one, game_screen)
+    else:
+        draw_current_turn(p_two, game_screen)
     pygame.display.flip()
 
 def draw_current_deck(game_screen,  current_deck):

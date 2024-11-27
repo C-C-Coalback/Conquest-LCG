@@ -50,6 +50,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                         p_two.toggle_turn()
                         if not p_one_passed:
                             p_one.toggle_turn()
+                        draw_all(game_screen, p_one, p_two)
                     else:
                         position = ClickDetection.determine_pos_hand(x, y, p_two)
                         x_for_drawing = (position * 80) + 200
@@ -76,6 +77,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                         p_one.toggle_turn()
                         if not p_two_passed:
                             p_two.toggle_turn()
+                        draw_all(game_screen, p_one, p_two)
                     else:
                         position = ClickDetection.determine_pos_hand(x, y, p_one)
                         if position == -1:

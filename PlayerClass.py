@@ -93,10 +93,7 @@ class Player:
         self.planets_in_play[planet_id] = not self.planets_in_play[planet_id]
 
     def toggle_turn(self):
-        if self.has_turn:
-            self.has_turn = False
-        else:
-            self.has_turn = True
+        self.has_turn = not self.has_turn
 
     def toggle_initiative(self):
         if self.has_initiative:
