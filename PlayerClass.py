@@ -240,7 +240,11 @@ class Player:
         print("Planet to capture:", planet_name)
         planet_cards = PlanetCardsInit.planet_cards_init()
         i = 0
+        for letter in planet_name:
+            if letter == "_":
+                planet_name = planet_name.replace(letter, " ")
         while planet_cards[i].get_name() != "FINAL CARD":
+            print(planet_cards[i].get_name(), planet_name)
             if planet_cards[i].get_name() == planet_name:
                 self.victory_display.append(planet_cards[i])
                 self.print_victory_display()
