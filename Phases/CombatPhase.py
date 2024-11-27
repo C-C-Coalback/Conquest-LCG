@@ -272,6 +272,8 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
         draw_all(game_screen, p_one, p_two)
     p_one.set_retreating(False)
     p_two.set_retreating(False)
+    p_one.toggle_turn()
+    p_two.toggle_turn()
 
 def resolve_battle(p_one, p_two, planet_id, first_planet):
     player_one_check = p_one.check_if_units_present(planet_id)
