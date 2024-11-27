@@ -365,6 +365,8 @@ class Player:
 
     def get_attack_given_pos(self, planet_id, unit_id):
         attack_value = self.cards_in_play[planet_id + 1][unit_id].get_attack()
+        if self.cards_in_play[planet_id + 1][unit_id].get_brutal():
+            attack_value = attack_value + self.cards_in_play[planet_id + 1][unit_id].get_damage()
         return attack_value
 
     def get_shields_given_pos(self, pos_in_hand):

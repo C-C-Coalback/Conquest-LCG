@@ -6,12 +6,12 @@ def chaos_cards_init():
                                                 "Interrupt: When damage is assigned to an enemy unit at this"
                                                 " planet, increase that damage by 1.","Psyker. Tzeentch.",
                                                 "Chaos", 1, 6, 1, 5,
-                                                "Bloodied.", 7, 7,""),
+                                                "Bloodied.", 7, 7,"", [False]),
                         CardClasses.ArmyCard("Zarathur's Flamers", "Action: Sacrifice this unit to deal 2 "
                                                                    "damage to a target non-warlord "
                                                                    "unit at the same planet.",
                                              "Daemon. Tzeentch.", 2, "Chaos", "Signature",
-                                             2, 2, 1, False, ""),
+                                             2, 2, 1, False, "", [False]),
                         CardClasses.SupportCard("Shrine of Warpflame", "Reaction: After an enemy unit is "
                                                                        "destroyed, exhaust this support to return "
                                                                        "the topmost Tzeentch card from "
@@ -31,48 +31,49 @@ def chaos_cards_init():
                                                    False, ""),
                         CardClasses.ArmyCard("Alpha Legion Infiltrator", "", "Alpha Legion. Scout.",
                                              2, "Chaos", "Loyal", 4, 1, 1,
-                                             False, ""),
+                                             False, "", [False]),
                         CardClasses.ArmyCard("Possessed", "", "Daemon. Elite.", 5, "Chaos",
-                                             "Common", 9, 4, 1, False, ""),
+                                             "Common", 9, 4, 1, False, "", [False]),
                         CardClasses.ArmyCard("Splintered Path Acolyte", "Interrupt: When you deploy a Daemon unit, "
                                                                         "sacrifice this unit to "
                                                                         "reduce its cost by 2.", "Cultist, Tzeentch",
                                              1, "Chaos", "Common", 1, 1, 1,
-                                             False, ""),
+                                             False, "", [False]),
                         CardClasses.ArmyCard("Khorne Berzerker", "Brutal.", "Khorne. Warrior. World Eaters.",
-                                             3, "Chaos", "Common", 2, 4, 1, False, ""),
+                                             3, "Chaos", "Common", 2, 4, 1, False, ""
+                                             , [True]),
                         CardClasses.ArmyCard("Vicious Bloodletter", "Area Effect (3), No Wargear Attachments",
                                              "Daemon. Elite. Khorne.", 5, "Chaos", "Loyal",
-                                             4, 4, 0, False, ""),
+                                             4, 4, 0, False, "", [False]),
                         CardClasses.ArmyCard("Umbral Preacher", "Each army unit at this "
                                                                 "planet cannot retreat from battle.",
                                              "Cultist. Priest.", 3, "Chaos", "Common",
-                                             1, 4, 2, False, ""),
+                                             1, 4, 2, False, "", [False]),
                         CardClasses.ArmyCard("Black Legion Heldrake", "Flying, No Wargear Attachments",
                                              "Black Legion. Daemon. Elite.", 8, "Chaos", "Loyal",
-                                             8, 8, 3, False, ""),
+                                             8, 8, 3, False, "", [False]),
                         CardClasses.ArmyCard("Ravenous Flesh Hounds", "No Attachments.\n"
                                                                       "Action: Sacrifice a Cultist unit to "
                                                                       "remove all damage from this unit.",
                                              "Daemon. Elite. Khorne.", 5, "Chaos", "Common",
-                                             3, 6, 1, False, ""),
+                                             3, 6, 1, False, "", [False]),
                         CardClasses.ArmyCard("Virulent Plague Squad", "This unit gets +1 ATK for each unit "
                                                                       "in your opponent's discard pile.",
                                              "Death Guard. Nurgle. Warrior.", 4, "Chaos", "Common",
-                                             1, 4, 1, False, ""),
+                                             1, 4, 1, False, "", [False]),
                         CardClasses.ArmyCard("Chaos Fanatics", "", "Cultist.", 2, "Chaos",
-                                             "Common", 1, 2, 2, False, ""),
+                                             "Common", 1, 2, 2, False, "", [False]),
                         CardClasses.ArmyCard("Soul Grinder", "No Wargear Attachments.\n"
                                                              "Reaction: After you win a command struggle at this planet,"
                                                              " your opponent must sacrifice a non-warlord unit"
                                                              " at the same planet, if able.",
                                              "Daemon. Elite. War Engine.", 6, "Chaos", "Common",
-                                             4, 6, 2, False, ""),
+                                             4, 6, 2, False, "", [False]),
                         CardClasses.ArmyCard("Xavaes Split-Tongue", "Reaction: After an enemy unit at this "
                                                                     "planet is destroyed, put a Cultist token "
                                                                     "into play at your HQ.",
                                              "Slaanesh. Warrior.", 3, "Chaos", "Loyal",
-                                             2, 3, 2, True, ""),
+                                             2, 3, 2, True, "", [False]),
                         CardClasses.EventCard("Warpstorm", "Combat Action: Deal 2 damage to each unit without"
                                                            " any attachments at a target planet or HQ.", "Power.",
                                               3, "Chaos", "Common", 1, False, ""),
