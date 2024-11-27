@@ -248,6 +248,8 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
     done_retreating = False
     p_one.set_has_turn(p_one.get_has_initiative())
     p_two.set_has_turn(p_two.get_has_initiative())
+    p_one.set_retreating(True)
+    p_two.set_retreating(True)
     draw_all(game_screen, p_one, p_two)
     while not done_retreating:
         if p_one.get_has_initiative():
@@ -265,7 +267,8 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
         else:
             done_retreating = p_one.pygame_retreat_combat_window(planet_id)
         draw_all(game_screen, p_one, p_two)
-
+    p_one.set_retreating(False)
+    p_two.set_retreating(False)
 
 def resolve_battle(p_one, p_two, planet_id, first_planet):
     player_one_check = p_one.check_if_units_present(planet_id)

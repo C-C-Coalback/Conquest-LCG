@@ -13,6 +13,7 @@ class Player:
         self.name_player = name
         self.has_initiative = True
         self.has_turn = True
+        self.retreating = False
         self.phase = "Deploy"
         self.round_number = 1
         self.resources = 0
@@ -37,6 +38,12 @@ class Player:
 
     def set_phase(self, phase):
         self.phase = phase
+
+    def get_retreating(self):
+        return self.retreating
+
+    def set_retreating(self, new_val):
+        self.retreating = new_val
 
     def get_round_number(self):
         return self.round_number

@@ -86,6 +86,8 @@ def draw_current_turn(player, game_screen):
         text = "Commit Warlord"
     elif player.get_phase() == "Combat":
         text = "Combat turn"
+        if player.get_retreating():
+            text = "Retreat window"
     else:
         "Action window"
     txt_surface = font.render(text, True, color)
