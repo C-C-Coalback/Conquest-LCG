@@ -158,6 +158,9 @@ class Player:
                     if letter == " ":
                         card_string = card_string.replace(letter, "_")
                 card_image_name = "ResizedImages/" + card_string + ".jpg"
+                if self.cards_in_play[i + 1][j].get_card_type() == "Warlord":
+                    if self.cards_in_play[i + 1][j].get_bloodied():
+                        card_image_name = "ResizedImages/" + card_string + "_bloodied.jpg"
                 card_image = pygame.image.load(card_image_name).convert()
                 if not self.cards_in_play[i + 1][j].get_ready():
                     card_image = pygame.transform.rotate(card_image, 270)
@@ -377,6 +380,15 @@ class Player:
         damage_too_great = self.cards_in_play[planet_id + 1][unit_id].pygame_damage_card(self, damage, game_screen)
         return damage_too_great
 
+    def check_if_warlord(self, planet_id, unit_id):
+        if self.cards_in_play[planet_id + 1][unit_id].get_card_type() == "Warlord":
+            return True
+        return False
+
+    def bloody_warlord_given_pos(self, planet_id, unit_id):
+        self.cards_in_play[planet_id + 1][unit_id].bloody_warlord()
+        self.retreat_warlord()
+
     def print_state_of_unit(self, planet_id, unit_id):
         print("Name:", self.cards_in_play[planet_id + 1][unit_id].get_name())
         if self.cards_in_play[planet_id + 1][unit_id].get_ready():
@@ -525,6 +537,9 @@ class Player:
             increment = 80
         for i in range(len(hq)):
             card_image_name = "ResizedImages/" + hq[i].get_name() + ".jpg"
+            if hq[i].get_card_type() == "Warlord":
+                if hq[i].get_bloodied():
+                    card_image_name = "ResizedImages/" + hq[i].get_name() + "_bloodied.jpg"
             for letter in card_image_name:
                 if letter == " ":
                     card_image_name = card_image_name.replace(letter, "_")

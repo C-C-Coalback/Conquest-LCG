@@ -196,9 +196,12 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
             defender.print_state_of_unit(planet_id, pos_defender)
             if unit_dead == 1:
                 # defender.add_card_name_to_discard(defender_name)
-                defender.remove_card_from_play(planet_id, pos_defender)
-                defender.print_cards_at_planet(planet_id)
-                defender.print_discard()
+                if defender.check_if_warlord(planet_id, pos_defender):
+                    defender.bloody_warlord_given_pos(planet_id, pos_defender)
+                else:
+                    defender.remove_card_from_play(planet_id, pos_defender)
+                    defender.print_cards_at_planet(planet_id)
+                    defender.print_discard()
             attacker.toggle_turn()
             defender.toggle_turn()
             draw_all(game_screen, attacker, defender)

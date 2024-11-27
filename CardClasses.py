@@ -183,6 +183,9 @@ class WarlordCard(UnitCard):
     def get_bloodied_text(self):
         return self.bloodied_text
 
+    def get_bloodied(self):
+        return self.bloodied
+
     def get_starting_resources(self):
         return self.starting_resources
 
