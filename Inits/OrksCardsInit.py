@@ -89,6 +89,5 @@ def orks_cards_init():
                                                "Combat Action: Exhaust this support to move an Orks unit "
                                                "you control to the first planet.",
                                                "Location.", 2, "Orks", "Common", False,
-                                               "Tellyporta_Pad"),
-                       CardClasses.Card("FINAL CARD", "", "", -1, "", "", -1, "", "", "NO IMAGE")]
+                                               "Tellyporta_Pad")]
     return orks_card_array
