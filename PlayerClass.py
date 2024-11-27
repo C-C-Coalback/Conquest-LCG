@@ -331,9 +331,9 @@ class Player:
             if self.cards_in_play[planet_id + 1][i].get_name() == card_name:
                 print("Card found:", self.cards_in_play[planet_id + 1][i].get_name(),
                       "position:", i)
-                confirm = input("Confirm card selection.(y/n)")
-                if confirm == "y":
-                    return i
+                # confirm = input("Confirm card selection.(y/n)")
+                # if confirm == "y":
+                return i
         return -1
 
     def exhaust_given_pos(self, planet_id, unit_id):
@@ -365,8 +365,12 @@ class Player:
 
     def get_attack_given_pos(self, planet_id, unit_id):
         attack_value = self.cards_in_play[planet_id + 1][unit_id].get_attack()
+        if self.search_card_at_planet("Nazdreg", planet_id) != -1:
+            if self.cards_in_play[planet_id + 1][unit_id].get_name() != "Nazdreg":
+                self.cards_in_play[planet_id + 1][unit_id].set_brutal(True)
         if self.cards_in_play[planet_id + 1][unit_id].get_brutal():
             attack_value = attack_value + self.cards_in_play[planet_id + 1][unit_id].get_damage()
+        self.cards_in_play[planet_id + 1][unit_id].reset_brutal()
         return attack_value
 
     def get_shields_given_pos(self, pos_in_hand):

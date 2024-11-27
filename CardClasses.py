@@ -71,6 +71,12 @@ class UnitCard(Card):
     def get_brutal(self):
         return self.brutal
 
+    def set_brutal(self, new_val):
+        self.brutal = new_val
+
+    def reset_brutal(self):
+        self.brutal = self.by_base_brutal
+
     def get_attack(self):
         return self.attack
 
