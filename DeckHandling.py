@@ -1,9 +1,11 @@
 import PromptText
-from Inits import OrksCardsInit
+from Inits import OrksCardsInit, FinalCardInit
 import FindCard
 from Drawing import draw_current_deck
 
 orks_card_array = OrksCardsInit.orks_cards_init()
+final_card_array = FinalCardInit.final_card_init()
+card_array = orks_card_array + final_card_array
 faction_wheel = ["Astra Militarum", "Space Marines", "Tau", "Eldar",
                  "Dark Eldar", "Chaos", "Orks", "Astra Militarum", "Space Marines"]
 

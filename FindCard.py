@@ -1,17 +1,19 @@
 from Inits import OrksCardsInit
+from Inits.FinalCardInit import final_card_init
 
 orks_card_array = OrksCardsInit.orks_cards_init()
-
+final_card_array = final_card_init()
+card_array = orks_card_array + final_card_array
 
 def find_card(card_to_find):
     i = 0
-    while orks_card_array[i].get_shields() != -1:
-        if card_to_find == orks_card_array[i].get_name():
+    while card_array[i].get_shields() != -1:
+        if card_to_find == card_array[i].get_name():
             # print("Card found! :", orks_card_array[i].get_name())
-            return orks_card_array[i]
+            return card_array[i]
         else:
             i = i + 1
-    return orks_card_array[i]
+    return card_array[i]
 
 
 def check_card_type(card_object, required_type):
