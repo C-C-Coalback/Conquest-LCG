@@ -1,12 +1,13 @@
 import PromptText
-from Inits import OrksCardsInit, ChaosCardsInit, FinalCardInit
+from Inits import OrksCardsInit, ChaosCardsInit, NeutralCardsInit, FinalCardInit
 import FindCard
 from Drawing import draw_current_deck
 
 orks_card_array = OrksCardsInit.orks_cards_init()
 chaos_card_array = ChaosCardsInit.chaos_cards_init()
+neutral_card_array = NeutralCardsInit.neutral_cards_init()
 final_card_array = FinalCardInit.final_card_init()
-card_array = orks_card_array + chaos_card_array + final_card_array
+card_array = orks_card_array + chaos_card_array + neutral_card_array + final_card_array
 
 
 
@@ -113,7 +114,7 @@ def pygame_create_deck(game_screen):
                             deck_size = deck_size + 1
                             copies_to_add = copies_to_add - 1
                         cards_added_array.append(card_object.get_name())
-        elif FindCard.check_faction(card_object, ally):
+        elif FindCard.check_faction(card_object, ally) or FindCard.check_faction(card_object, "Neutral"):
             if FindCard.check_loyalty(card_object, "Common"):
                 already_added = False
                 for cards_added in cards_added_array:
