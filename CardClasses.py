@@ -87,6 +87,8 @@ class UnitCard(Card):
         return self.damage
 
     def get_command(self):
+        if self.name == "Bad Dok" and self.damage > 0:
+            return self.command + 3
         return self.command
 
     def pygame_damage_card(self, player, amount, game_screen):
