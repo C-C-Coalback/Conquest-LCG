@@ -200,9 +200,11 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
             p_win.add_resources(1)
     elif planet_name == "Iridial":
         print("Iridial ability")
-        pos_unit, pos_planet = ClickDetection.prompt_pos_unit_any_planet(p_win, game_screen)
-        if pos_unit != -1:
+        pos_unit, pos_planet = ClickDetection.prompt_pos_unit_anywhere(p_win, game_screen)
+        if pos_unit != -1 and pos_planet != -1:
             p_win.remove_damage_from_pos(pos_planet, pos_unit, 999)
+        if pos_unit != -1 and pos_planet == -1:
+            p_win.remove_damage_from_pos_headquarters(pos_unit, 999)
     elif planet_name == "Plannum":
         print("Plannum ability")
     elif planet_name == "Tarrus":

@@ -51,6 +51,37 @@ def determine_pos_hand(x, y, player):
             return -1
     return -1
 
+def determine_pos_hq(x, y, player):
+    if player.get_number() == 1 and 500 < y < 588:
+        position = x
+        position = position - 300
+        remainder = position % 80
+        position = int(position / 80)
+        print(position, remainder)
+        if 62 < remainder < 80:
+            return -1
+        else:
+            print("Player one HQ selected, card index", position)
+            print("Number of cards in hand:", len(player.get_headquarters()))
+            if len(player.get_headquarters()) > position:
+                return position
+            return -1
+    elif player.get_number() == 2 and 125 < y < 213:
+        position = x
+        position = position - 200
+        remainder = position % 80
+        position = int(position / 80)
+        print(position, remainder)
+        if 62 < remainder:
+            return -1
+        else:
+            print("Player two HQ selected, card index", position)
+            print("Number of cards in hand:", len(player.get_headquarters()))
+            if len(player.get_headquarters()) > position:
+                return position
+            return -1
+    return -1
+
 def prompt_pos_planet():
     planet_chosen = False
     while not planet_chosen:
@@ -73,6 +104,62 @@ def prompt_pos_planet():
                         if position2 < 7:
                             return position2
     return -1
+
+def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None):
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                print(x, y)
+                if check_for_pass(x, y, player.get_number()) == 1:
+                    return -1, -1
+                if y > 385 and player.get_number() == 1:
+                    if y > 500:
+                        position = determine_pos_hq(x, y, player)
+                        if position != -1:
+                            return position, -1
+                    else:
+                        x_pos = x % 165
+                        if 60 < x_pos < 185:
+                            print("Player one units")
+                            print(x, y)
+                            position = y
+                            position = position - 385
+                            position = int(position / 88)
+                            position = 2 * position
+                            if x_pos > 122:
+                                position = position + 1
+                            planet_pos = x - 60
+                            planet_pos = int(planet_pos / 165)
+                            if position < player.get_number_of_cards_at_planet(planet_pos):
+                                print("Card present")
+                                return position, planet_pos
+                elif y < 320 and player.get_number() == 2:
+                    if y < 212:
+                        position = determine_pos_hq(x, y, player)
+                        if position != -1:
+                            return position, -1
+                    else:
+                        x_pos = x % 165
+                        if 60 < x_pos < 185:
+                            print("Player two units")
+                            print(x, y)
+                            position = y
+                            position = position - 320
+                            position = -1 * position
+                            position = int(position / 88)
+                            position = 2 * position
+                            if x_pos > 122:
+                                position = position + 1
+                            planet_pos = x - 60
+                            planet_pos = int(planet_pos / 165)
+                            if position < player.get_number_of_cards_at_planet(planet_pos):
+                                print("Card present")
+                                return position, planet_pos
+
 
 def prompt_pos_unit_any_planet(player, game_screen = None, color1 = None):
     while True:
