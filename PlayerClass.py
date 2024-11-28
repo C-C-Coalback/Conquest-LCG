@@ -439,6 +439,19 @@ class Player:
                 i = i - 1
             i = i + 1
 
+    def move_unit_from_hq_to_planet(self, start_unit, end_planet):
+        if self.headquarters[start_unit]:
+            if self.headquarters[start_unit] == "Support":
+                print("Supports may not leave HQ")
+            else:
+                self.cards_in_play[end_planet + 1].append(copy.deepcopy(self.headquarters[start_unit]))
+                self.headquarters.remove(self.headquarters[start_unit])
+
+    def move_unit_from_planet_to_planet(self, start_unit, start_planet, end_planet):
+        if self.cards_in_play[start_planet + 1][start_unit]:
+            self.cards_in_play[end_planet + 1].append(copy.deepcopy(self.cards_in_play[start_planet + 1][start_unit]))
+            self.cards_in_play[start_planet + 1].remove(self.cards_in_play[start_planet + 1][start_unit])
+
     def pygame_play_card(self, card_to_play):
         if FindCard.check_card_type(card_to_play, "Army"):
             planet_id = ClickDetection.prompt_pos_planet()

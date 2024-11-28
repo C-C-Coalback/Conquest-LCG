@@ -68,7 +68,7 @@ def determine_pos_hq(x, y, player):
             return -1
     elif player.get_number() == 2 and 125 < y < 213:
         position = x
-        position = position - 200
+        position = position - 300
         remainder = position % 80
         position = int(position / 80)
         print(position, remainder)
@@ -76,7 +76,7 @@ def determine_pos_hq(x, y, player):
             return -1
         else:
             print("Player two HQ selected, card index", position)
-            print("Number of cards in hand:", len(player.get_headquarters()))
+            print("Number of cards in HQ:", len(player.get_headquarters()))
             if len(player.get_headquarters()) > position:
                 return position
             return -1
@@ -119,7 +119,14 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None):
                 if y > 385 and player.get_number() == 1:
                     if y > 500:
                         position = determine_pos_hq(x, y, player)
+
                         if position != -1:
+                            if color1 is not None:
+                                x_for_drawing = position * 80 + 300
+                                y_for_drawing = 500
+                                pygame.draw.rect(game_screen, color1,
+                                                 [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                pygame.display.flip()
                             return position, -1
                     else:
                         x_pos = x % 165
@@ -136,11 +143,25 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None):
                             planet_pos = int(planet_pos / 165)
                             if position < player.get_number_of_cards_at_planet(planet_pos):
                                 print("Card present")
+                                if color1 is not None:
+                                    x_for_drawing = planet_pos * 165 + 60
+                                    if x_pos > 122:
+                                        x_for_drawing = x_for_drawing + 62
+                                    y_for_drawing = (int(position / 2) * 88) + 385
+                                    pygame.draw.rect(game_screen, color1,
+                                                     [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                    pygame.display.flip()
                                 return position, planet_pos
                 elif y < 320 and player.get_number() == 2:
                     if y < 212:
                         position = determine_pos_hq(x, y, player)
                         if position != -1:
+                            if color1 is not None:
+                                x_for_drawing = position * 80 + 300
+                                y_for_drawing = 125
+                                pygame.draw.rect(game_screen, color1,
+                                                 [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                pygame.display.flip()
                             return position, -1
                     else:
                         x_pos = x % 165
@@ -158,6 +179,14 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None):
                             planet_pos = int(planet_pos / 165)
                             if position < player.get_number_of_cards_at_planet(planet_pos):
                                 print("Card present")
+                                if color1 is not None:
+                                    x_for_drawing = planet_pos * 165 + 60
+                                    if x_pos > 122:
+                                        x_for_drawing = x_for_drawing + 62
+                                    y_for_drawing = (int(position / 2) * -88) + 232
+                                    pygame.draw.rect(game_screen, color1,
+                                                     [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                    pygame.display.flip()
                                 return position, planet_pos
 
 
@@ -187,6 +216,14 @@ def prompt_pos_unit_any_planet(player, game_screen = None, color1 = None):
                         planet_pos = int(planet_pos / 165)
                         if position < player.get_number_of_cards_at_planet(planet_pos):
                             print("Card present")
+                            if color1 is not None:
+                                x_for_drawing = planet_pos * 165 + 60
+                                if x > 122:
+                                    x_for_drawing = x_for_drawing + 62
+                                y_for_drawing = (int(position / 2) * 88) + 385
+                                pygame.draw.rect(game_screen, color1,
+                                                 [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                pygame.display.flip()
                             return position, planet_pos
                 elif y < 320 and player.get_number() == 2:
                     x_pos = x % 165
@@ -204,6 +241,14 @@ def prompt_pos_unit_any_planet(player, game_screen = None, color1 = None):
                         planet_pos = int(planet_pos / 165)
                         if position < player.get_number_of_cards_at_planet(planet_pos):
                             print("Card present")
+                            if color1 is not None:
+                                x_for_drawing = planet_pos * 165 + 60
+                                if x > 122:
+                                    x_for_drawing = x_for_drawing + 62
+                                y_for_drawing = (int(position / 2) * -88) + 232
+                                pygame.draw.rect(game_screen, color1,
+                                                 [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                pygame.display.flip()
                             return position, planet_pos
 
 

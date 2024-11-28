@@ -211,6 +211,25 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
             p_win.remove_damage_from_pos_headquarters(pos_unit, 999)
     elif planet_name == "Plannum":
         print("Plannum ability")
+        if p_win.get_number() == 1:
+            draw_all(game_screen, p_win, p_lose, "Plannum ability")
+        else:
+            draw_all(game_screen, p_lose, p_win, "Plannum ability")
+        pos_unit, pos_planet = ClickDetection.prompt_pos_unit_anywhere(p_win, game_screen, pygame.Color("blue"))
+        if pos_unit != -1 and pos_planet != -1:
+            if p_win.get_cards_in_play()[pos_planet + 1][pos_unit].get_card_type() == "Warlord":
+                print("Unit is a Warlord, movement forbidden with Plannum")
+            else:
+                target_planet = ClickDetection.prompt_pos_planet()
+                p_win.move_unit_from_planet_to_planet(pos_unit, pos_planet, target_planet)
+        if pos_unit != -1 and pos_planet == -1:
+            if p_win.get_headquarters()[pos_unit] == "Warlord" or p_win.get_headquarters()[pos_unit] == "Support":
+                print("Unit is a Warlord / Support, movement forbidden with Plannum")
+            else:
+                target_planet = ClickDetection.prompt_pos_planet()
+                p_win.move_unit_from_hq_to_planet(pos_unit, target_planet)
+
+
     elif planet_name == "Tarrus":
         print("Tarrus ability")
     elif planet_name == "Y'varn":
