@@ -29,7 +29,7 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
     elif planet_name == "Elouith":
         elouith_ability(p_win, p_lose, game_screen)
     elif planet_name == "Atrox_Prime" or planet_name == "Atrox Prime":
-        atrox_prime_ability()
+        atrox_prime_ability(p_win, p_lose, planet_id, game_screen)
 
 def osus_iv_ability(p_win, p_lose):
     print("Osus IV ability")
@@ -142,6 +142,7 @@ def ferrin_ability(p_win, p_lose, game_screen):
                 p_lose.exhaust_card_in_hq()
 
 def carnath_ability(p_win, p_lose, game_screen):
+    print("Carnath ability")
     pos_planet = ClickDetection.prompt_pos_planet()
     resolve_planet_battle_effect(p_win, p_lose, pos_planet, game_screen)
 
@@ -157,5 +158,11 @@ def elouith_ability(p_win, p_lose, game_screen):
     p_win.draw_card_from_position_deck(choice)
 
 
-def atrox_prime_ability():
+def atrox_prime_ability(p_win, p_lose, pos_planet, game_screen):
     print("Atrox Prime ability")
+    target_planet = ClickDetection.prompt_pos_planet()
+    if abs(target_planet - pos_planet) == 1:
+        print("Planet in range of Atrox Prime")
+        p_lose.suffer_area_effect_at_planet(p_win, 1, target_planet, game_screen)
+    else:
+        print("Target invalid")

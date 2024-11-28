@@ -5,6 +5,7 @@ import ClickDetection
 import FindCard
 import pygame
 
+from Drawing import draw_all
 from Inits import PlanetCardsInit
 
 class Player:
@@ -422,6 +423,23 @@ class Player:
     def pygame_assign_damage_to_pos(self, planet_id, unit_id, damage, game_screen):
         damage_too_great = self.cards_in_play[planet_id + 1][unit_id].pygame_damage_card(self, damage, game_screen)
         return damage_too_great
+
+    def suffer_area_effect_at_planet(self, attacker, amount, planet_id, game_screen):
+        i = 0
+        while i < len(self.cards_in_play[planet_id + 1]):
+            if self.number == 1:
+                draw_all(game_screen, self, attacker, "Atrox Prime ability")
+            else:
+                draw_all(game_screen, attacker, self, "Atrox Prime ability")
+            damage_to_great = self.pygame_assign_damage_to_pos(planet_id, i, amount, game_screen)
+            if damage_to_great == 1:
+                if self.check_if_warlord(planet_id, i):
+                    self.bloody_warlord_given_pos(planet_id, i)
+                else:
+                    self.remove_card_from_play(planet_id, i)
+                i = i - 1
+            i = i + 1
+
 
     def check_if_warlord(self, planet_id, unit_id):
         if self.cards_in_play[planet_id + 1][unit_id].get_card_type() == "Warlord":
