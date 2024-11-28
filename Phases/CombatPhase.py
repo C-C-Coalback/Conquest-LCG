@@ -190,6 +190,31 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
     p_one.toggle_turn()
     p_two.toggle_turn()
 
+def resolve_planet_battle_effect(p_win, p_lose, planet_id):
+    planet_name = p_win.get_planet_name_given_position(planet_id)
+    print("Resolve battle ability:")
+    print(planet_name)
+    if planet_name == "Osus_IV":
+        print("Osus IV ability")
+    elif planet_name == "Iridial":
+        print("Iridial ability")
+    elif planet_name == "Plannum":
+        print("Plannum ability")
+    elif planet_name == "Tarrus":
+        print("Tarrus ability")
+    elif planet_name == "Y'varn":
+        print("Y'varn ability")
+    elif planet_name == "Barlus":
+        print("Barlus ability")
+    elif planet_name == "Ferrin":
+        print("Ferrin ability")
+    elif planet_name == "Carnath":
+        print("Carnath ability")
+    elif planet_name == "Elouith":
+        print("Elouith ability")
+    elif planet_name == "Atrox_Prime":
+        print("Atrox Prime ability")
+
 def resolve_battle(p_one, p_two, planet_id, first_planet):
     player_one_check = p_one.check_if_units_present(planet_id)
     player_two_check = p_two.check_if_units_present(planet_id)
@@ -226,12 +251,14 @@ def pygame_resolve_battle(p_one, p_two, planet_id, first_planet, game_screen):
     if player_one_check and not player_two_check:
         print(p_one.get_name_player(), "has units,", p_two.get_name_player(), "doesn't")
         print(p_two.get_name_player(), "wins the battle")
+        resolve_planet_battle_effect(p_one, p_two, planet_id)
         if first_planet:
             p_one.retreat_all_at_planet(planet_id)
             p_one.capture_planet(planet_id)
     elif not player_one_check and player_two_check:
         print(p_two.get_name_player(), "has units,", p_one.get_name_player(), "doesn't")
         print(p_two.get_name_player(), "wins the battle")
+        resolve_planet_battle_effect(p_two, p_one, planet_id)
         if first_planet:
             p_two.retreat_all_at_planet(planet_id)
             p_two.capture_planet(planet_id)
