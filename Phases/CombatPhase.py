@@ -196,7 +196,7 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id):
     print(planet_name)
     if planet_name == "Osus_IV":
         print("Osus IV ability")
-        if p_lose.spend_resources == 0:
+        if p_lose.spend_resources(1) == 0:
             p_win.add_resources(1)
     elif planet_name == "Iridial":
         print("Iridial ability")
