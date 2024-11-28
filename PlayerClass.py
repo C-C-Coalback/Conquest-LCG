@@ -364,6 +364,24 @@ class Player:
             self.ready_all_at_planet(i)
         self.ready_all_in_headquarters()
 
+    def count_number_units_at_planet(self, planet_id):
+        return len(self.cards_in_play[planet_id + 1])
+
+    def count_number_units_at_hq(self):
+        count = 0
+        for i in range(len(self.headquarters)):
+            if self.headquarters[i].get_card_type != "Support":
+                count = count + 1
+        return count
+
+    def count_number_units_in_play(self):
+        count = 0
+        for i in range(len(self.cards_in_play[0])):
+            count = count + self.count_number_units_at_planet(i)
+        count = count + self.count_number_units_at_hq()
+        print(count)
+        return count
+
     def check_ready_pos(self, planet_id, unit_id):
         return self.cards_in_play[planet_id + 1][unit_id].get_ready()
 

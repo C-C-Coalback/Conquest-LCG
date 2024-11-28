@@ -105,6 +105,35 @@ def prompt_pos_planet():
                             return position2
     return -1
 
+def prompt_two_choices(player, game_screen, choices_list):
+    box1 = pygame.Rect(1047, 214, 150, 40)
+    box2 = pygame.Rect(1047, 254, 150, 40)
+    font = pygame.font.Font(None, 32)
+    choice1_text = choices_list[0]
+    choice2_text = choices_list[1]
+    color = pygame.Color("blue")
+    choice1_txt_surface = font.render(choice1_text, True, color)
+    game_screen.blit(choice1_txt_surface, (box1.x + 5, box1.y + 5))
+    choice2_txt_surface = font.render(choice2_text, True, color)
+    game_screen.blit(choice2_txt_surface, (box2.x + 5, box2.y + 5))
+    pygame.draw.rect(game_screen, color, box1, 2)
+    pygame.draw.rect(game_screen, color, box2, 2)
+    pygame.display.flip()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if box1.collidepoint(event.pos):
+                    return 1
+                elif box2.collidepoint(event.pos):
+                    return 2
+                x, y = pygame.mouse.get_pos()
+                print(x, y)
+                if check_for_pass(x, y, player.get_number()) == 1:
+                    return -1
+
 def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None):
     while True:
         for event in pygame.event.get():

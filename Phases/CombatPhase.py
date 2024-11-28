@@ -228,10 +228,20 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
             else:
                 target_planet = ClickDetection.prompt_pos_planet()
                 p_win.move_unit_from_hq_to_planet(pos_unit, target_planet)
-
-
     elif planet_name == "Tarrus":
         print("Tarrus ability")
+        if p_win.get_number() == 1:
+            draw_all(game_screen, p_win, p_lose, "Tarrus ability")
+        else:
+            draw_all(game_screen, p_lose, p_win, "Tarrus ability")
+        if p_win.count_number_units_in_play() < p_lose.count_number_units_in_play():
+            choice = ClickDetection.prompt_two_choices(p_win, game_screen, ["Resources", "Cards"])
+            if choice == 1:
+                p_win.add_resources(3)
+            elif choice == 2:
+                p_win.draw_card()
+                p_win.draw_card()
+                p_win.draw_card()
     elif planet_name == "Y'varn":
         print("Y'varn ability")
     elif planet_name == "Barlus":
