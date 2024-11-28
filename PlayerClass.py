@@ -433,6 +433,31 @@ class Player:
                 i = i - 1
             i = i + 1
 
+    def pygame_play_card(self, card_to_play):
+        if FindCard.check_card_type(card_to_play, "Army"):
+            planet_id = ClickDetection.prompt_pos_planet()
+            if not self.planets_in_play[planet_id]:
+                return -1
+            if self.spend_resources(card_to_play.get_cost()) == 0:
+                self.cards_in_play[planet_id + 1].append(copy.deepcopy(card_to_play))
+                self.cards.remove(card_to_play.get_name())
+                print("Played card")
+                return 0
+            print("Insufficient resources")
+            return -1
+        elif FindCard.check_card_type(card_to_play, "Support"):
+            if self.spend_resources((card_to_play.get_cost())) == 0:
+                self.add_to_hq(card_to_play)
+                self.cards.remove(card_to_play.get_name())
+                print("Played card to HQ")
+                for i in range(len(self.get_headquarters())):
+                    print(self.get_headquarters()[i].get_name())
+                return 0
+            print("Insufficient resources")
+            return -1
+        print("not an army/support card")
+        return -1
+
     def play_card(self, card_to_play, planet_id):
         if not self.planets_in_play[planet_id - 1]:
             return -1
