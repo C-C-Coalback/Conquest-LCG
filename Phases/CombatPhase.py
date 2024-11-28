@@ -66,9 +66,11 @@ def combat_turn(attacker, defender, planet_id):
 def pygame_combat_turn(attacker, defender, planet_id, game_screen):
     print(attacker.get_name_player(), '\'s turn to attack', sep='')
     pos_attacker = ClickDetection.prompt_pos_unit_at_planet(attacker, planet_id, game_screen, pygame.Color("red"))
-    pos_defender = ClickDetection.prompt_pos_unit_at_planet(defender, planet_id, game_screen, pygame.Color("blue"))
-    if pos_attacker == -1 or pos_defender == -1:
+    if pos_attacker == -1:
         return True
+    pos_defender = ClickDetection.prompt_pos_unit_at_planet(defender, planet_id, game_screen, pygame.Color("blue"))
+    if pos_defender == -1:
+        return pygame_combat_turn(attacker, defender, planet_id, game_screen)
     print("position of unit:", pos_attacker)
     print("SUCCESS")
 
@@ -135,12 +137,20 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
             p_two.set_has_turn(False)
             draw_all(game_screen, p_one, p_two)
             p_one_passed = pygame_combat_turn(p_one, p_two, planet_id, game_screen)
+            if p_one_passed:
+                p_one.set_has_turn(False)
+                p_two.set_has_turn(True)
+            draw_all(game_screen, p_one, p_two)
             p_two_passed = pygame_combat_turn(p_two, p_one, planet_id, game_screen)
         else:
             p_one.set_has_turn(False)
             p_two.set_has_turn(True)
             draw_all(game_screen, p_one, p_two)
             p_two_passed = pygame_combat_turn(p_two, p_one, planet_id, game_screen)
+            if p_two_passed:
+                p_one.set_has_turn(True)
+                p_two.set_has_turn(False)
+            draw_all(game_screen, p_one, p_two)
             p_one_passed = pygame_combat_turn(p_one, p_two, planet_id, game_screen)
     p_one.ready_all_at_planet(planet_id)
     p_two.ready_all_at_planet(planet_id)
