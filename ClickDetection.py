@@ -74,6 +74,48 @@ def prompt_pos_planet():
                             return position2
     return -1
 
+def prompt_pos_unit_any_planet(player, game_screen = None, color1 = None):
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                print(x, y)
+                if check_for_pass(x, y, player.get_number()) == 1:
+                    return -1
+                if y > 385 and player.get_number() == 1:
+                    x_pos = x % 165
+                    if 60 < x_pos < 185:
+                        print("Player one units")
+                        print(x, y)
+                        position = y
+                        position = position - 385
+                        position = int(position / 88)
+                        position = 2 * position
+                        if x_pos > 122:
+                            position = position + 1
+                        planet_pos = x - 60
+                        planet_pos = int(planet_pos / 165)
+                        return position, planet_pos
+                elif y < 320 and player.get_number() == 2:
+                    x_pos = x % 165
+                    if 60 < x_pos < 185:
+                        print("Player two units")
+                        print(x, y)
+                        position = y
+                        position = position - 320
+                        position = -1 * position
+                        position = int(position / 88)
+                        position = 2 * position
+                        if x_pos > 122:
+                            position = position + 1
+                        planet_pos = x - 60
+                        planet_pos = int(planet_pos / 165)
+                        return position, planet_pos
+
+
 def prompt_pos_unit_at_planet(player, planet_id, game_screen = None, color1 = None):
     x_req_1 = (planet_id * 165) + 60
     x_req_2 = (planet_id * 165) + 185
