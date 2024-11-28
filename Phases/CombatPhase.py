@@ -162,12 +162,12 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
             p_one.set_has_turn(True)
             p_two.set_has_turn(False)
             draw_all(game_screen, p_one, p_two)
-            done_retreating = p_one.pygame_retreat_combat_window(planet_id)
+            done_retreating = p_one.pygame_retreat_combat_window(planet_id, game_screen)
         else:
             p_one.set_has_turn(False)
             p_two.set_has_turn(True)
             draw_all(game_screen, p_one, p_two)
-            done_retreating = p_two.pygame_retreat_combat_window(planet_id)
+            done_retreating = p_two.pygame_retreat_combat_window(planet_id, game_screen)
         draw_all(game_screen, p_one, p_two)
     done_retreating = False
     p_one.toggle_turn()
@@ -178,12 +178,12 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
             p_one.set_has_turn(False)
             p_two.set_has_turn(True)
             draw_all(game_screen, p_one, p_two)
-            done_retreating = p_two.pygame_retreat_combat_window(planet_id)
+            done_retreating = p_two.pygame_retreat_combat_window(planet_id, game_screen)
         else:
             p_one.set_has_turn(True)
             p_two.set_has_turn(False)
             draw_all(game_screen, p_one, p_two)
-            done_retreating = p_one.pygame_retreat_combat_window(planet_id)
+            done_retreating = p_one.pygame_retreat_combat_window(planet_id, game_screen)
         draw_all(game_screen, p_one, p_two)
     p_one.set_retreating(False)
     p_two.set_retreating(False)
@@ -196,6 +196,8 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id):
     print(planet_name)
     if planet_name == "Osus_IV":
         print("Osus IV ability")
+        if p_lose.spend_resources == 0:
+            p_win.add_resources(1)
     elif planet_name == "Iridial":
         print("Iridial ability")
     elif planet_name == "Plannum":

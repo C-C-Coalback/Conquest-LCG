@@ -101,13 +101,14 @@ def prompt_pos_unit_at_planet(player, planet_id, game_screen = None, color1 = No
                         print(position)
                         if position < player.get_number_of_cards_at_planet(planet_id):
                             print("Card present")
-                            x_for_drawing = x_req_1
-                            if x > average:
-                                x_for_drawing = average
-                            y_for_drawing = (int(position / 2) * 88) + 385
-                            pygame.draw.rect(game_screen, color1,
-                                             [x_for_drawing, y_for_drawing, 62, 88], 2)
-                            pygame.display.flip()
+                            if color1 is not None:
+                                x_for_drawing = x_req_1
+                                if x > average:
+                                    x_for_drawing = average
+                                y_for_drawing = (int(position / 2) * 88) + 385
+                                pygame.draw.rect(game_screen, color1,
+                                                 [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                pygame.display.flip()
                             return position
                     elif y < 320 and player.get_number() == 2:
                         print("Player two units")
@@ -121,12 +122,13 @@ def prompt_pos_unit_at_planet(player, planet_id, game_screen = None, color1 = No
                         print(position)
                         if position < player.get_number_of_cards_at_planet(planet_id):
                             print("Card present")
-                            x_for_drawing = x_req_1
-                            if x > average:
-                                x_for_drawing = average
-                            y_for_drawing = (int(position / 2) * -88) + 232
-                            print("Drawing", x_for_drawing, y_for_drawing)
-                            pygame.draw.rect(game_screen, color1,
-                                             [x_for_drawing, y_for_drawing, 62, 88], 2)
-                            pygame.display.flip()
+                            if color1 is not None:
+                                x_for_drawing = x_req_1
+                                if x > average:
+                                    x_for_drawing = average
+                                y_for_drawing = (int(position / 2) * -88) + 232
+                                print("Drawing", x_for_drawing, y_for_drawing)
+                                pygame.draw.rect(game_screen, color1,
+                                                 [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                pygame.display.flip()
                             return position

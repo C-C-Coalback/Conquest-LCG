@@ -259,9 +259,9 @@ class Player:
         self.headquarters.append(copy.deepcopy(self.cards_in_play[planet_id + 1][unit_id]))
         del self.cards_in_play[planet_id + 1][unit_id]
 
-    def pygame_retreat_combat_window(self, planet_id):
+    def pygame_retreat_combat_window(self, planet_id, game_screen):
         while True:
-            unit_pos = ClickDetection.prompt_pos_unit_at_planet(self, planet_id)
+            unit_pos = ClickDetection.prompt_pos_unit_at_planet(self, planet_id, game_screen)
             if unit_pos == -1:
                 return True
             else:
