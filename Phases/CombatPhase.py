@@ -205,7 +205,7 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
     elif planet_name == "Y'varn":
         Phases.PlanetBattleAbilities.yvarn_ability(p_win, p_lose, game_screen)
     elif planet_name == "Barlus":
-        Phases.PlanetBattleAbilities.barlus_ability()
+        Phases.PlanetBattleAbilities.barlus_ability(p_lose)
     elif planet_name == "Ferrin":
         Phases.PlanetBattleAbilities.ferrin_ability()
     elif planet_name == "Carnath":

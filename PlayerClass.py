@@ -595,6 +595,11 @@ class Player:
         self.discard.append(self.cards[card_pos])
         del self.cards[card_pos]
 
+    def random_discard_from_hand(self):
+        card_pos = random.randrange(len(self.cards))
+        self.discard_card_from_hand(card_pos)
+        
+
     def print_hand(self):
         print("Cards in hand:")
         for i in range(len(self.cards)):

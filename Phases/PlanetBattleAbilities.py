@@ -80,8 +80,8 @@ def yvarn_ability(p_win, p_lose, game_screen):
     else:
         draw_all(game_screen, p_lose, p_win, "Y'varn ability")
 
-def barlus_ability():
-    print("Barlus ability")
+def barlus_ability(p_lose):
+    p_lose.random_discard_from_hand()
 
 def ferrin_ability():
     print("Ferrin ability")
