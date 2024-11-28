@@ -113,10 +113,16 @@ def draw_resource_number_both(game_screen, player_one, player_two):
     resources_p_two = str(player_two.get_resources())
     font = pygame.font.Font(None, 32)
     color = pygame.Color("green")
-    txt_surface_one = font.render(resources_p_one, True, color)
-    game_screen.blit(txt_surface_one, (1019, 615))
-    txt_surface_two = font.render(resources_p_two, True, color)
-    game_screen.blit(txt_surface_two, (144, 65))
+    if player_one.get_number() == 1:
+        txt_surface_one = font.render(resources_p_one, True, color)
+        game_screen.blit(txt_surface_one, (1019, 615))
+        txt_surface_two = font.render(resources_p_two, True, color)
+        game_screen.blit(txt_surface_two, (144, 65))
+    else:
+        txt_surface_one = font.render(resources_p_two, True, color)
+        game_screen.blit(txt_surface_one, (1019, 615))
+        txt_surface_two = font.render(resources_p_one, True, color)
+        game_screen.blit(txt_surface_two, (144, 65))
 
 
 def draw_all(game_screen, p_one, p_two, helpful_text = ""):
