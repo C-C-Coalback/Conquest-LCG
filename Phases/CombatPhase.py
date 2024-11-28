@@ -3,7 +3,7 @@ import pygame
 
 import ClickDetection
 from Drawing import draw_all
-
+from FindCard import find_card
 
 def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
     attack_value = att.get_attack_given_pos(planet_id, att_pos)
@@ -244,6 +244,28 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
                 p_win.draw_card()
     elif planet_name == "Y'varn":
         print("Y'varn ability")
+        if p_win.get_number() == 1:
+            draw_all(game_screen, p_win, p_lose, "Y'varn ability")
+        else:
+            draw_all(game_screen, p_lose, p_win, "Y'varn ability")
+        position = ClickDetection.prompt_pos_hand(p_win)
+        if position != -1:
+            object_holder = find_card(p_win.get_cards()[position])
+            if p_win.play_unit_without_cost(object_holder, True):
+                print("Card played")
+        if p_win.get_number() == 1:
+            draw_all(game_screen, p_win, p_lose, "Y'varn ability")
+        else:
+            draw_all(game_screen, p_lose, p_win, "Y'varn ability")
+        position = ClickDetection.prompt_pos_hand(p_lose)
+        if position != -1:
+            object_holder = find_card(p_lose.get_cards()[position])
+            if p_lose.play_unit_without_cost(object_holder, True) == 0:
+                print("Card played")
+        if p_win.get_number() == 1:
+            draw_all(game_screen, p_win, p_lose, "Y'varn ability")
+        else:
+            draw_all(game_screen, p_lose, p_win, "Y'varn ability")
     elif planet_name == "Barlus":
         print("Barlus ability")
     elif planet_name == "Ferrin":

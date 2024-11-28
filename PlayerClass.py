@@ -495,6 +495,24 @@ class Player:
         print("not an army/support card")
         return -1
 
+    def play_unit_without_cost(self, card_to_play, forced_hq = False):
+        if FindCard.check_card_type(card_to_play, "Army"):
+            if forced_hq:
+                self.headquarters.append(copy.deepcopy(card_to_play))
+                self.cards.remove(card_to_play.get_name())
+                print("Played card to HQ")
+                return 0
+            else:
+                planet_id = ClickDetection.prompt_pos_planet()
+                if not self.planets_in_play[planet_id]:
+                    return -1
+                self.cards_in_play[planet_id + 1].append(copy.deepcopy(card_to_play))
+                self.cards.remove(card_to_play.get_name())
+                print("Played card")
+                return 0
+        print("Not a unit")
+        return -1
+
     def play_card(self, card_to_play, planet_id):
         if not self.planets_in_play[planet_id - 1]:
             return -1
