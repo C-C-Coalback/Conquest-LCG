@@ -1,10 +1,8 @@
 import pygame
-import sys
 
-from pygame import MOUSEBUTTONDOWN
 
+import ClickDetection
 from Drawing import draw_all
-from PassCommand import check_for_pass
 
 
 def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
@@ -66,146 +64,31 @@ def combat_turn(attacker, defender, planet_id):
 
 
 def pygame_combat_turn(attacker, defender, planet_id, game_screen):
-    run = True
     print(attacker.get_name_player(), '\'s turn to attack', sep='')
-    x_req_1 = (planet_id * 165) + 60
-    x_req_2 = (planet_id * 165) + 185
-    average = (planet_id * 165) + 122
-    pos_attacker = -1
-    pos_defender = -1
-    while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                if check_for_pass(x, y, attacker.get_number()) == 1:
-                    attacker.toggle_turn()
-                    defender.toggle_turn()
-                    draw_all(game_screen, attacker, defender)
-                    return True
-                if x_req_1 < x < x_req_2:
-                    if y > 385 and attacker.get_number() == 1:
-                        print("Player one units")
-                        position = y
-                        position = position - 385
-                        position = int(position / 88)
-                        position = 2 * position
-                        if x > average:
-                            position = position + 1
-                        print(position)
-                        if position < attacker.get_number_of_cards_at_planet(planet_id):
-                            print("Card present")
-                            pos_attacker = position
-                            x_for_drawing = x_req_1
-                            if x > average:
-                                x_for_drawing = average
-                            y_for_drawing = (int(position / 2) * 88) + 385
-                            pygame.draw.rect(game_screen, [255, 0, 0],
-                                             [x_for_drawing, y_for_drawing, 62, 88], 2)
-                            pygame.display.flip()
-                            run = False
-                    elif y < 320 and attacker.get_number() == 2:
-                        print("Player two units")
-                        position = y
-                        position = position - 320
-                        position = -1 * position
-                        position = int(position / 88)
-                        position = 2 * position
-                        if x > average:
-                            position = position + 1
-                        print(position)
-                        if position < attacker.get_number_of_cards_at_planet(planet_id):
-                            print("Card present")
-                            pos_attacker = position
-                            x_for_drawing = x_req_1
-                            if x > average:
-                                x_for_drawing = average
-                            y_for_drawing = (int(position / 2) * (-88)) + 232
-                            pygame.draw.rect(game_screen, [255, 0, 0],
-                                             [x_for_drawing, y_for_drawing, 62, 88], 2)
-                            pygame.display.flip()
-                            run = False
-    if pos_attacker == -1:
+    pos_attacker = ClickDetection.prompt_pos_unit_at_planet(attacker, planet_id, game_screen, pygame.Color("red"))
+    pos_defender = ClickDetection.prompt_pos_unit_at_planet(defender, planet_id, game_screen, pygame.Color("blue"))
+    if pos_attacker == -1 or pos_defender == -1:
         return True
     print("position of unit:", pos_attacker)
-    run = True
     print("SUCCESS")
+
     if attacker.check_ready_pos(planet_id, pos_attacker):
         attacker.exhaust_given_pos(planet_id, pos_attacker)
-        # attacker.print_state_of_unit(planet_id, pos_attacker)
-        while run:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == MOUSEBUTTONDOWN:
-                    x, y = pygame.mouse.get_pos()
-                    if x_req_1 < x < x_req_2:
-                        if y < 320 and defender.get_number() == 2:
-                            print("Player two units")
-                            position = y
-                            position = position - 320
-                            position = -1 * position
-                            position = int(position / 88)
-                            position = 2 * position
-                            if x > average:
-                                position = position + 1
-                            print(position)
-                            if position < defender.get_number_of_cards_at_planet(planet_id):
-                                print("Card present")
-                                x_for_drawing = x_req_1
-                                if x > average:
-                                    x_for_drawing = average
-                                y_for_drawing = (int(position / 2) * (-88)) + 232
-                                pygame.draw.rect(game_screen, [0, 0, 255],
-                                                 [x_for_drawing, y_for_drawing, 62, 88], 2)
-                                pygame.display.flip()
-                                pos_defender = position
-                                run = False
-                        elif y > 385 and defender.get_number() == 1:
-                            print("Player one units")
-                            position = y
-                            position = position - 385
-                            position = int(position / 88)
-                            position = 2 * position
-                            if x > average:
-                                position = position + 1
-                            print(position)
-                            if position < defender.get_number_of_cards_at_planet(planet_id):
-                                print("Card present")
-                                x_for_drawing = x_req_1
-                                if x > average:
-                                    x_for_drawing = average
-                                y_for_drawing = (int(position / 2) * 88) + 385
-                                pygame.draw.rect(game_screen, [0, 0, 255],
-                                                 [x_for_drawing, y_for_drawing, 62, 88], 2)
-                                pygame.display.flip()
-                                pos_defender = position
-                                run = False
-        #if attacker.check_warlord_given_pos(planet_id, pos_attacker):
-        # option_retreat_warlord = input("Card is a Warlord. Retreat? (y/n)")
-        #    option_retreat_warlord = "y"
-        #    if option_retreat_warlord == "y":
-        #        attacker.retreat_unit(planet_id, pos_attacker)
-        #        return False
-        if pos_defender != -1:
-            defender.print_state_of_unit(planet_id, pos_defender)
-            unit_dead = pygame_unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender, game_screen)
-            defender.print_state_of_unit(planet_id, pos_defender)
-            if unit_dead == 1:
-                # defender.add_card_name_to_discard(defender_name)
-                if defender.check_if_warlord(planet_id, pos_defender):
-                    defender.bloody_warlord_given_pos(planet_id, pos_defender)
-                else:
-                    defender.remove_card_from_play(planet_id, pos_defender)
-                    defender.print_cards_at_planet(planet_id)
-                    defender.print_discard()
-            attacker.toggle_turn()
-            defender.toggle_turn()
-            draw_all(game_screen, attacker, defender)
-            return False
+        defender.print_state_of_unit(planet_id, pos_defender)
+        unit_dead = pygame_unit_attacks_unit(attacker, defender, planet_id, pos_attacker, pos_defender, game_screen)
+        defender.print_state_of_unit(planet_id, pos_defender)
+        if unit_dead == 1:
+            # defender.add_card_name_to_discard(defender_name)
+            if defender.check_if_warlord(planet_id, pos_defender):
+                defender.bloody_warlord_given_pos(planet_id, pos_defender)
+            else:
+                defender.remove_card_from_play(planet_id, pos_defender)
+                defender.print_cards_at_planet(planet_id)
+                defender.print_discard()
+        attacker.toggle_turn()
+        defender.toggle_turn()
+        draw_all(game_screen, attacker, defender)
+        return False
     else:
         print("Attacker not ready")
     # return to decide if player passed

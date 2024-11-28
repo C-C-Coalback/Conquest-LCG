@@ -74,7 +74,7 @@ def prompt_pos_planet():
                             return position2
     return -1
 
-def prompt_pos_unit_at_planet(player, planet_id):
+def prompt_pos_unit_at_planet(player, planet_id, game_screen = None, color1 = None):
     x_req_1 = (planet_id * 165) + 60
     x_req_2 = (planet_id * 165) + 185
     average = (planet_id * 165) + 122
@@ -85,6 +85,7 @@ def prompt_pos_unit_at_planet(player, planet_id):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
+                print(x, x_req_1, x_req_2, y)
                 if check_for_pass(x, y, player.get_number()) == 1:
                     return -1
                 if x_req_1 < x < x_req_2:
@@ -100,6 +101,13 @@ def prompt_pos_unit_at_planet(player, planet_id):
                         print(position)
                         if position < player.get_number_of_cards_at_planet(planet_id):
                             print("Card present")
+                            x_for_drawing = x_req_1
+                            if x > average:
+                                x_for_drawing = average
+                            y_for_drawing = (int(position / 2) * 88) + 385
+                            pygame.draw.rect(game_screen, color1,
+                                             [x_for_drawing, y_for_drawing, 62, 88], 2)
+                            pygame.display.flip()
                             return position
                     elif y < 320 and player.get_number() == 2:
                         print("Player two units")
@@ -113,4 +121,12 @@ def prompt_pos_unit_at_planet(player, planet_id):
                         print(position)
                         if position < player.get_number_of_cards_at_planet(planet_id):
                             print("Card present")
+                            x_for_drawing = x_req_1
+                            if x > average:
+                                x_for_drawing = average
+                            y_for_drawing = (int(position / 2) * -88) + 232
+                            print("Drawing", x_for_drawing, y_for_drawing)
+                            pygame.draw.rect(game_screen, color1,
+                                             [x_for_drawing, y_for_drawing, 62, 88], 2)
+                            pygame.display.flip()
                             return position
