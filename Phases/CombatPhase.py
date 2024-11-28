@@ -190,7 +190,7 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
     p_one.toggle_turn()
     p_two.toggle_turn()
 
-def resolve_planet_battle_effect(p_win, p_lose, planet_id):
+def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
     planet_name = p_win.get_planet_name_given_position(planet_id)
     print("Resolve battle ability:")
     print(planet_name)
@@ -200,6 +200,9 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id):
             p_win.add_resources(1)
     elif planet_name == "Iridial":
         print("Iridial ability")
+        pos_unit = ClickDetection.prompt_pos_unit_at_planet(p_win, planet_id, game_screen)
+        if pos_unit != -1:
+            p_win.remove_damage_from_pos(planet_id, pos_unit, 999)
     elif planet_name == "Plannum":
         print("Plannum ability")
     elif planet_name == "Tarrus":
@@ -253,14 +256,14 @@ def pygame_resolve_battle(p_one, p_two, planet_id, first_planet, game_screen):
     if player_one_check and not player_two_check:
         print(p_one.get_name_player(), "has units,", p_two.get_name_player(), "doesn't")
         print(p_two.get_name_player(), "wins the battle")
-        resolve_planet_battle_effect(p_one, p_two, planet_id)
+        resolve_planet_battle_effect(p_one, p_two, planet_id, game_screen)
         if first_planet:
             p_one.retreat_all_at_planet(planet_id)
             p_one.capture_planet(planet_id)
     elif not player_one_check and player_two_check:
         print(p_two.get_name_player(), "has units,", p_one.get_name_player(), "doesn't")
         print(p_two.get_name_player(), "wins the battle")
-        resolve_planet_battle_effect(p_two, p_one, planet_id)
+        resolve_planet_battle_effect(p_two, p_one, planet_id, game_screen)
         if first_planet:
             p_two.retreat_all_at_planet(planet_id)
             p_two.capture_planet(planet_id)

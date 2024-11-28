@@ -68,6 +68,11 @@ class UnitCard(Card):
     def get_by_base_brutal(self):
         return self.by_base_brutal
 
+    def remove_damage(self, amount):
+        self.damage = self.damage - amount
+        if self.damage < 0:
+            self.damage = 0
+
     def get_brutal(self):
         return self.brutal
 
