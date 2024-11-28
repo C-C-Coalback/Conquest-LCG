@@ -27,7 +27,7 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
     elif planet_name == "Carnath":
         carnath_ability(p_win, p_lose, game_screen)
     elif planet_name == "Elouith":
-        elouith_ability()
+        elouith_ability(p_win, p_lose, game_screen)
     elif planet_name == "Atrox_Prime" or planet_name == "Atrox Prime":
         atrox_prime_ability()
 
@@ -145,8 +145,17 @@ def carnath_ability(p_win, p_lose, game_screen):
     pos_planet = ClickDetection.prompt_pos_planet()
     resolve_planet_battle_effect(p_win, p_lose, pos_planet, game_screen)
 
-def elouith_ability():
+def elouith_ability(p_win, p_lose, game_screen):
     print("Elouith ability")
+    if p_win.get_number() == 1:
+        draw_all(game_screen, p_win, p_lose, "Elouith ability")
+    else:
+        draw_all(game_screen, p_lose, p_win, "Elouith ability")
+    card_names = p_win.top_n_cards(3)
+    print(card_names)
+    choice = ClickDetection.prompt_n_choices(p_win, game_screen, card_names)
+    p_win.draw_card_from_position_deck(choice)
+
 
 def atrox_prime_ability():
     print("Atrox Prime ability")

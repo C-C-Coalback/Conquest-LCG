@@ -134,6 +134,39 @@ def prompt_two_choices(player, game_screen, choices_list):
                 if check_for_pass(x, y, player.get_number()) == 1:
                     return -1
 
+def prompt_n_choices(player, game_screen, choices_list):
+    font = pygame.font.Font(None, 32)
+    box_array = []
+    txt_surface_array = []
+    color = pygame.Color("blue")
+    for i in range(len(choices_list)):
+        box_array.append("")
+        txt_surface_array.append("")
+    x_current = 1047
+    y_current = 214
+    y_increment = 40
+    for i in range(len(choices_list)):
+        box_array[i] = pygame.Rect(x_current, y_current, 150, 40)
+        y_current = y_current + y_increment
+        txt_surface_array[i] = font.render(choices_list[i], True, color)
+    for i in range(len(choices_list)):
+        pygame.draw.rect(game_screen, color, box_array[i], 2)
+        game_screen.blit(txt_surface_array[i], (box_array[i].x + 5, box_array[i].y + 5))
+    pygame.display.flip()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for i in range(len(choices_list)):
+                    if box_array[i].collidepoint(event.pos):
+                        return i
+                    x, y = pygame.mouse.get_pos()
+                    print(x, y)
+                    if check_for_pass(x, y, player.get_number()) == 1:
+                        return -1
+
 def prompt_pos_unit_anywhere_all_players(p_one, p_two, game_screen = None, color1 = None):
     while True:
         for event in pygame.event.get():

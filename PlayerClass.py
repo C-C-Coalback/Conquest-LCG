@@ -595,6 +595,19 @@ class Player:
             self.cards.append(self.deck[0])
             del self.deck[0]
 
+    def draw_card_from_position_deck(self, n):
+        if len(self.deck) < n:
+            pass
+        else:
+            self.cards.append(self.deck[n])
+            del self.deck[n]
+
+    def top_n_cards(self, number):
+        if len(self.deck) < number:
+            return self.deck
+        else:
+            return self.deck[0:number]
+
     def remove_card_from_hand(self, card_pos):
         del self.cards[card_pos]
 
