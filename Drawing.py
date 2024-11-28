@@ -72,7 +72,7 @@ def draw_current_round_and_phase(player, game_screen):
     pygame.draw.rect(game_screen, color, box, 2)
 
 
-def draw_current_turn(player, game_screen):
+def draw_current_turn(player, game_screen, helpful_text = ""):
     font = pygame.font.Font(None, 32)
     color = pygame.Color("gray")
     name_text = player.get_name_player()
@@ -92,10 +92,8 @@ def draw_current_turn(player, game_screen):
         "Action window"
     txt_surface = font.render(text, True, color)
     game_screen.blit(txt_surface, (box.x + 5, box.y + 95))
-
-
-
-
+    helpful_text_surface = font.render(helpful_text, True, color)
+    game_screen.blit(helpful_text_surface, (box.x + 5, box.y + 125))
 
 def draw_victory_display_both(game_screen, p_one, p_two):
     p_one.draw_victory_display(game_screen)
@@ -121,7 +119,7 @@ def draw_resource_number_both(game_screen, player_one, player_two):
     game_screen.blit(txt_surface_two, (144, 65))
 
 
-def draw_all(game_screen, p_one, p_two):
+def draw_all(game_screen, p_one, p_two, helpful_text = ""):
     imperial_image = pygame.image.load("ImperialAquila.jpg").convert()
     game_screen.blit(imperial_image, (0, 0))
     draw_mat(game_screen)
@@ -135,9 +133,9 @@ def draw_all(game_screen, p_one, p_two):
     draw_victory_display_both(game_screen, p_one, p_two)
     draw_current_round_and_phase(p_one, game_screen)
     if p_one.get_has_turn():
-        draw_current_turn(p_one, game_screen)
+        draw_current_turn(p_one, game_screen, helpful_text)
     else:
-        draw_current_turn(p_two, game_screen)
+        draw_current_turn(p_two, game_screen, helpful_text)
     pygame.display.flip()
 
 def draw_current_deck(game_screen,  current_deck):
