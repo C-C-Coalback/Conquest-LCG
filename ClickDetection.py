@@ -98,7 +98,9 @@ def prompt_pos_unit_any_planet(player, game_screen = None, color1 = None):
                             position = position + 1
                         planet_pos = x - 60
                         planet_pos = int(planet_pos / 165)
-                        return position, planet_pos
+                        if position < player.get_number_of_cards_at_planet(planet_pos):
+                            print("Card present")
+                            return position, planet_pos
                 elif y < 320 and player.get_number() == 2:
                     x_pos = x % 165
                     if 60 < x_pos < 185:
@@ -113,7 +115,9 @@ def prompt_pos_unit_any_planet(player, game_screen = None, color1 = None):
                             position = position + 1
                         planet_pos = x - 60
                         planet_pos = int(planet_pos / 165)
-                        return position, planet_pos
+                        if position < player.get_number_of_cards_at_planet(planet_pos):
+                            print("Card present")
+                            return position, planet_pos
 
 
 def prompt_pos_unit_at_planet(player, planet_id, game_screen = None, color1 = None):
