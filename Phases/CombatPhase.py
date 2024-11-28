@@ -194,7 +194,7 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
     planet_name = p_win.get_planet_name_given_position(planet_id)
     print("Resolve battle ability:")
     print(planet_name)
-    if planet_name == "Osus_IV":
+    if planet_name == "Osus_IV" or planet_name == "Osus IV":
         print("Osus IV ability")
         if p_lose.spend_resources(1) == 0:
             p_win.add_resources(1)
@@ -274,7 +274,7 @@ def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
         print("Carnath ability")
     elif planet_name == "Elouith":
         print("Elouith ability")
-    elif planet_name == "Atrox_Prime":
+    elif planet_name == "Atrox_Prime" or planet_name == "Atrox Prime":
         print("Atrox Prime ability")
 
 def resolve_battle(p_one, p_two, planet_id, first_planet):
