@@ -144,11 +144,12 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None, all_play
                 x, y = pygame.mouse.get_pos()
                 print(x, y)
                 if check_for_pass(x, y, player.get_number()) == 1:
+                    if all_players:
+                        return -1, -1, -1
                     return -1, -1
                 if y > 385 and (player.get_number() == 1 or all_players):
                     if y > 500:
                         position = determine_pos_hq(x, y, player)
-
                         if position != -1:
                             if color1 is not None:
                                 x_for_drawing = position * 80 + 300
@@ -156,6 +157,8 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None, all_play
                                 pygame.draw.rect(game_screen, color1,
                                                  [x_for_drawing, y_for_drawing, 62, 88], 2)
                                 pygame.display.flip()
+                            if all_players:
+                                return 1, position, -1
                             return position, -1
                     else:
                         x_pos = x % 165
@@ -180,6 +183,8 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None, all_play
                                     pygame.draw.rect(game_screen, color1,
                                                      [x_for_drawing, y_for_drawing, 62, 88], 2)
                                     pygame.display.flip()
+                                if all_players:
+                                    return 1, position, planet_pos
                                 return position, planet_pos
                 elif y < 320 and (player.get_number() == 2 or all_players):
                     if y < 212:
@@ -191,6 +196,8 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None, all_play
                                 pygame.draw.rect(game_screen, color1,
                                                  [x_for_drawing, y_for_drawing, 62, 88], 2)
                                 pygame.display.flip()
+                            if all_players:
+                                return 2, position, -1
                             return position, -1
                     else:
                         x_pos = x % 165
@@ -216,6 +223,8 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None, all_play
                                     pygame.draw.rect(game_screen, color1,
                                                      [x_for_drawing, y_for_drawing, 62, 88], 2)
                                     pygame.display.flip()
+                                if all_players:
+                                    return -1, position, planet_pos
                                 return position, planet_pos
 
 
