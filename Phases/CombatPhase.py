@@ -1,6 +1,6 @@
 import pygame
 
-import Phases.PlanetBattleAbilities
+from Phases.PlanetBattleAbilities import resolve_planet_battle_effect
 import ClickDetection
 from Drawing import draw_all
 
@@ -190,30 +190,6 @@ def pygame_combat_round(p_one, p_two, planet_id, game_screen):
     p_one.toggle_turn()
     p_two.toggle_turn()
 
-def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
-    planet_name = p_win.get_planet_name_given_position(planet_id)
-    print("Resolve battle ability:")
-    print(planet_name)
-    if planet_name == "Osus_IV" or planet_name == "Osus IV":
-        Phases.PlanetBattleAbilities.osus_iv_ability(p_win, p_lose)
-    elif planet_name == "Iridial":
-        Phases.PlanetBattleAbilities.iridial_ability(p_win, p_lose, game_screen)
-    elif planet_name == "Plannum":
-        Phases.PlanetBattleAbilities.plannum_ability(p_win, p_lose, game_screen)
-    elif planet_name == "Tarrus":
-        Phases.PlanetBattleAbilities.tarrus_ability(p_win, p_lose, game_screen)
-    elif planet_name == "Y'varn":
-        Phases.PlanetBattleAbilities.yvarn_ability(p_win, p_lose, game_screen)
-    elif planet_name == "Barlus":
-        Phases.PlanetBattleAbilities.barlus_ability(p_lose)
-    elif planet_name == "Ferrin":
-        Phases.PlanetBattleAbilities.ferrin_ability(p_win, p_lose, game_screen)
-    elif planet_name == "Carnath":
-        Phases.PlanetBattleAbilities.carnath_ability()
-    elif planet_name == "Elouith":
-        Phases.PlanetBattleAbilities.elouith_ability()
-    elif planet_name == "Atrox_Prime" or planet_name == "Atrox Prime":
-        Phases.PlanetBattleAbilities.atrox_prime_ability()
 
 def resolve_battle(p_one, p_two, planet_id, first_planet):
     player_one_check = p_one.check_if_units_present(planet_id)

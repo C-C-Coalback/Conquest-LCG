@@ -5,6 +5,32 @@ from ClickDetection import prompt_pos_unit_anywhere_all_players
 from Drawing import draw_all
 from FindCard import find_card
 
+
+def resolve_planet_battle_effect(p_win, p_lose, planet_id, game_screen):
+    planet_name = p_win.get_planet_name_given_position(planet_id)
+    print("Resolve battle ability:")
+    print(planet_name)
+    if planet_name == "Osus_IV" or planet_name == "Osus IV":
+        osus_iv_ability(p_win, p_lose)
+    elif planet_name == "Iridial":
+        iridial_ability(p_win, p_lose, game_screen)
+    elif planet_name == "Plannum":
+        plannum_ability(p_win, p_lose, game_screen)
+    elif planet_name == "Tarrus":
+        tarrus_ability(p_win, p_lose, game_screen)
+    elif planet_name == "Y'varn":
+        yvarn_ability(p_win, p_lose, game_screen)
+    elif planet_name == "Barlus":
+        barlus_ability(p_lose)
+    elif planet_name == "Ferrin":
+        ferrin_ability(p_win, p_lose, game_screen)
+    elif planet_name == "Carnath":
+        carnath_ability(p_win, p_lose, game_screen)
+    elif planet_name == "Elouith":
+        elouith_ability()
+    elif planet_name == "Atrox_Prime" or planet_name == "Atrox Prime":
+        atrox_prime_ability()
+
 def osus_iv_ability(p_win, p_lose):
     print("Osus IV ability")
     if p_lose.spend_resources(1) == 0:
@@ -115,8 +141,9 @@ def ferrin_ability(p_win, p_lose, game_screen):
             else:
                 p_lose.exhaust_card_in_hq()
 
-def carnath_ability():
-    print("Carnath ability")
+def carnath_ability(p_win, p_lose, game_screen):
+    pos_planet = ClickDetection.prompt_pos_planet()
+    resolve_planet_battle_effect(p_win, p_lose, pos_planet, game_screen)
 
 def elouith_ability():
     print("Elouith ability")
