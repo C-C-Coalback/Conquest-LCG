@@ -134,6 +134,94 @@ def prompt_two_choices(player, game_screen, choices_list):
                 if check_for_pass(x, y, player.get_number()) == 1:
                     return -1
 
+def prompt_pos_unit_anywhere_all_players(p_one, p_two, game_screen = None, color1 = None):
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                print(x, y)
+                if check_for_pass(x, y, p_one.get_number()) == 1 or check_for_pass(x, y, p_two):
+                    return -1, -1, -1
+                if y > 385:
+                    current_player = p_one
+                    if p_one.get_number() == 2:
+                        current_player = p_two
+                    if y > 500:
+                        position = determine_pos_hq(x, y, current_player)
+                        if position != -1:
+                            if color1 is not None:
+                                x_for_drawing = position * 80 + 300
+                                y_for_drawing = 500
+                                pygame.draw.rect(game_screen, color1,
+                                                 [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                pygame.display.flip()
+                            return 1, position, -1
+                    else:
+                        x_pos = x % 165
+                        if 60 < x_pos < 185:
+                            print("Player one units")
+                            print(x, y)
+                            position = y
+                            position = position - 385
+                            position = int(position / 88)
+                            position = 2 * position
+                            if x_pos > 122:
+                                position = position + 1
+                            planet_pos = x - 60
+                            planet_pos = int(planet_pos / 165)
+                            if position < current_player.get_number_of_cards_at_planet(planet_pos):
+                                print("Card present")
+                                if color1 is not None:
+                                    x_for_drawing = planet_pos * 165 + 60
+                                    if x_pos > 122:
+                                        x_for_drawing = x_for_drawing + 62
+                                    y_for_drawing = (int(position / 2) * 88) + 385
+                                    pygame.draw.rect(game_screen, color1,
+                                                     [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                    pygame.display.flip()
+                                return 1, position, planet_pos
+                elif y < 320:
+                    current_player = p_one
+                    if p_one.get_number() == 1:
+                        current_player = p_two
+                    if y < 212:
+                        position = determine_pos_hq(x, y, current_player)
+                        if position != -1:
+                            if color1 is not None:
+                                x_for_drawing = position * 80 + 300
+                                y_for_drawing = 125
+                                pygame.draw.rect(game_screen, color1,
+                                                 [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                pygame.display.flip()
+                            return 2, position, -1
+                    else:
+                        x_pos = x % 165
+                        if 60 < x_pos < 185:
+                            print("Player two units")
+                            print(x, y)
+                            position = y
+                            position = position - 320
+                            position = -1 * position
+                            position = int(position / 88)
+                            position = 2 * position
+                            if x_pos > 122:
+                                position = position + 1
+                            planet_pos = x - 60
+                            planet_pos = int(planet_pos / 165)
+                            if position < current_player.get_number_of_cards_at_planet(planet_pos):
+                                print("Card present")
+                                if color1 is not None:
+                                    x_for_drawing = planet_pos * 165 + 60
+                                    if x_pos > 122:
+                                        x_for_drawing = x_for_drawing + 62
+                                    y_for_drawing = (int(position / 2) * -88) + 232
+                                    pygame.draw.rect(game_screen, color1,
+                                                     [x_for_drawing, y_for_drawing, 62, 88], 2)
+                                    pygame.display.flip()
+                                return 2, position, planet_pos
 def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None):
     while True:
         for event in pygame.event.get():

@@ -259,6 +259,13 @@ class Player:
         self.headquarters.append(copy.deepcopy(self.cards_in_play[planet_id + 1][unit_id]))
         del self.cards_in_play[planet_id + 1][unit_id]
 
+    def rout_unit_from_planet(self, planet_id, unit_id):
+        self.exhaust_given_pos(planet_id, unit_id)
+        self.retreat_unit(planet_id, unit_id)
+
+    def exhaust_card_in_hq(self, unit_id):
+        self.headquarters[unit_id].exhaust_card()
+
     def pygame_retreat_combat_window(self, planet_id, game_screen):
         while True:
             unit_pos = ClickDetection.prompt_pos_unit_at_planet(self, planet_id, game_screen)

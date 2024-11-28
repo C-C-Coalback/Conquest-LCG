@@ -1,5 +1,7 @@
 import ClickDetection
 import pygame
+
+from ClickDetection import prompt_pos_unit_anywhere_all_players
 from Drawing import draw_all
 from FindCard import find_card
 
@@ -83,8 +85,35 @@ def yvarn_ability(p_win, p_lose, game_screen):
 def barlus_ability(p_lose):
     p_lose.random_discard_from_hand()
 
-def ferrin_ability():
+def ferrin_ability(p_win, p_lose, game_screen):
     print("Ferrin ability")
+    if p_win.get_number() == 1:
+        draw_all(game_screen, p_win, p_lose, "Ferrin ability")
+    else:
+        draw_all(game_screen, p_lose, p_win, "Ferrin ability")
+    p_no, unit_pos, planet_pos = prompt_pos_unit_anywhere_all_players(p_win, p_lose, game_screen)
+    if p_no == p_win.get_number():
+        if unit_pos != -1 and planet_pos != -1:
+            if p_win.get_cards_in_play()[planet_pos + 1][unit_pos].get_card_type() == "Warlord":
+                print("Unit is a Warlord, routing with Ferrin forbidden")
+            else:
+                p_win.rout_unit_from_planet(planet_pos, unit_pos)
+        elif unit_pos != -1 and planet_pos == -1:
+            if p_win.get_headquarters()[unit_pos] == "Warlord" or p_win.get_headquarters()[unit_pos] == "Support":
+                print("Card is Warlord / Support, routing with Ferrin forbidden")
+            else:
+                p_win.exhaust_card_in_hq()
+    else:
+        if unit_pos != -1 and planet_pos != -1:
+            if p_lose.get_cards_in_play()[planet_pos + 1][unit_pos].get_card_type() == "Warlord":
+                print("Unit is a Warlord, routing with Ferrin forbidden")
+            else:
+                p_lose.rout_unit_from_planet(planet_pos, unit_pos)
+        elif unit_pos != -1 and planet_pos == -1:
+            if p_lose.get_headquarters()[unit_pos] == "Warlord" or p_lose.get_headquarters()[unit_pos] == "Support":
+                print("Card is Warlord / Support, routing with Ferrin forbidden")
+            else:
+                p_lose.exhaust_card_in_hq()
 
 def carnath_ability():
     print("Carnath ability")
