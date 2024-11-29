@@ -21,7 +21,7 @@ def orks_cards_init():
                                                                "Deal 1 damage to that unit after it enters play.",
                                              "Tactic.",
                                              0, "Orks", "Signature", 1, False,
-                                             "Bigga_is_Betta"),
+                                             "Bigga_is_Betta", [True, 2, True]),
                        CardClasses.AttachmentCard("Cybork Body", "Attach to an army unit.\nDouble attached unit's HP.",
                                                   "Wargear. Bionics.", 1, "Orks", "Signature", 3, False,
                                                   "Cybork_Body"),
