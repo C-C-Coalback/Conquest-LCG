@@ -38,6 +38,9 @@ class Card:
     def get_traits(self):
         return self.traits
 
+    def check_for_a_trait(self, trait_to_find):
+        return trait_to_find in self.traits
+
     def get_image_name(self):
         return self.image_name()
 

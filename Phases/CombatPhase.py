@@ -17,7 +17,10 @@ def unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos):
 
 def pygame_unit_attacks_unit(att, defe, planet_id, att_pos, defe_pos, game_screen):
     attack_value = att.get_attack_given_pos(planet_id, att_pos)
-    damage_too_great = defe.pygame_assign_damage_to_pos(planet_id, defe_pos, attack_value, game_screen)
+    if att.get_cards_in_play()[planet_id + 1][att_pos].get_name() == "Tankbusta Bommaz":
+        if defe.get_cards_in_play()[planet_id + 1][defe_pos].check_for_a_trait("Vehicle."):
+            attack_value = 2 * attack_value
+    damage_too_great = defe.pygame_assign_damage_to_pos(planet_id, defe_pos, attack_value)
     if damage_too_great:
         print("Card must be discarded")
         #input("Hold attack")
