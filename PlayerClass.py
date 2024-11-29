@@ -495,12 +495,39 @@ class Player:
             self.cards_in_play[end_planet + 1].append(copy.deepcopy(self.cards_in_play[start_planet + 1][start_unit]))
             self.cards_in_play[start_planet + 1].remove(self.cards_in_play[start_planet + 1][start_unit])
 
+    def count_discounts(self, card_to_play):
+        base_cost = card_to_play.get_cost()
+        discounts = 0
+        for i in range(len(self.headquarters)):
+            if self.headquarters[i].get_applies_discounts():
+                discounts = discounts + self.headquarters[i].get_discount_amount()
+        print("Potential discount:", discounts)
+        return discounts
+
     def pygame_play_card(self, card_to_play):
         if FindCard.check_card_type(card_to_play, "Army"):
             planet_id = ClickDetection.prompt_pos_planet()
             if not self.planets_in_play[planet_id]:
                 return -1
-            if self.spend_resources(card_to_play.get_cost()) == 0:
+            card_cost = card_to_play.get_cost()
+            max_discounts = self.count_discounts(card_to_play)
+            applied_discounts = 0
+            if max_discounts != 0:
+                done_discounting = False
+                while not done_discounting:
+                    unit_pos, planet_pos = ClickDetection.prompt_pos_unit_anywhere(self)
+                    if unit_pos == -1 and planet_pos == -1:
+                        done_discounting = True
+                    elif unit_pos != -1 and planet_pos == -1:
+                        if self.headquarters[unit_pos].get_applies_discounts() and self.headquarters[unit_pos].get_ready():
+                            self.headquarters[unit_pos].exhaust_card()
+                            applied_discounts += self.headquarters[unit_pos].get_discount_amount()
+                    if applied_discounts == max_discounts:
+                        done_discounting = True
+            card_cost = card_cost - applied_discounts
+            if card_cost < 0:
+                card_cost = 0
+            if self.spend_resources(card_cost) == 0:
                 self.cards_in_play[planet_id + 1].append(copy.deepcopy(card_to_play))
                 self.cards.remove(card_to_play.get_name())
                 print("Played card")
