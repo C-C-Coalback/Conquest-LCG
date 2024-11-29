@@ -41,11 +41,29 @@ def draw_both_in_play(game_screen, p_one, p_two):
     p_one.pygame_print_cards_in_play(game_screen)
     p_two.pygame_print_cards_in_play(game_screen)
 
+def draw_action_button_player_one(game_screen):
+    font = pygame.font.Font(None, 32)
+    color = pygame.Color("blue")
+    text = "Action"
+    action_button = pygame.Rect(1100, 650, 100, 50)
+    txt_surface = font.render(text, True, color)
+    game_screen.blit(txt_surface, (action_button.x + 5, action_button.y + 5))
+    pygame.draw.rect(game_screen, color, action_button, 2)
+
+def draw_action_button_player_two(game_screen):
+    font = pygame.font.Font(None, 32)
+    color = pygame.Color("blue")
+    text = "Action"
+    action_button = pygame.Rect(0, 50, 100, 50)
+    txt_surface = font.render(text, True, color)
+    game_screen.blit(txt_surface, (action_button.x + 5, action_button.y + 5))
+    pygame.draw.rect(game_screen, color, action_button, 2)
+
 def draw_pass_button_player_one(game_screen):
     font = pygame.font.Font(None, 32)
     color = pygame.Color("red")
     text = "Pass"
-    pass_button = pygame.Rect(1100, 600, 50, 50)
+    pass_button = pygame.Rect(1100, 600, 100, 50)
     txt_surface = font.render(text, True, color)
     game_screen.blit(txt_surface, (pass_button.x + 5, pass_button.y + 5))
     pygame.draw.rect(game_screen, color, pass_button, 2)
@@ -54,7 +72,7 @@ def draw_pass_button_player_two(game_screen):
     font = pygame.font.Font(None, 32)
     color = pygame.Color("red")
     text = "Pass"
-    pass_button = pygame.Rect(50, 50, 50, 50)
+    pass_button = pygame.Rect(0, 0, 100, 50)
     txt_surface = font.render(text, True, color)
     game_screen.blit(txt_surface, (pass_button.x + 5, pass_button.y + 5))
     pygame.draw.rect(game_screen, color, pass_button, 2)
@@ -107,6 +125,10 @@ def draw_both_pass_button(game_screen):
     draw_pass_button_player_one(game_screen)
     draw_pass_button_player_two(game_screen)
 
+def draw_both_action_button(game_screen):
+    draw_action_button_player_one(game_screen)
+    draw_action_button_player_two(game_screen)
+
 def draw_resource_icon_both(game_screen):
     icon = pygame.image.load("Netrunner_credit.png").convert()
     game_screen.blit(icon, (1000, 600))
@@ -138,6 +160,7 @@ def draw_all(game_screen, p_one, p_two, helpful_text = ""):
     draw_both_hq(game_screen, p_one, p_two)
     draw_both_in_play(game_screen, p_one, p_two)
     draw_both_pass_button(game_screen)
+    draw_both_action_button(game_screen)
     draw_resource_icon_both(game_screen)
     draw_resource_number_both(game_screen, p_one, p_two)
     draw_discard_both(game_screen, p_one, p_two)
