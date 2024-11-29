@@ -4,7 +4,7 @@ class Card:
     def __init__(self, name, text, traits, cost, faction, loyalty, shields, card_type, unique, image_name,
                  applies_discounts=None):
         if applies_discounts is None:
-            applies_discounts = [False, 0]
+            applies_discounts = [False, 0, False]
         self.name = name
         self.text = text
         self.traits = traits
@@ -18,6 +18,7 @@ class Card:
         self.image_name = image_name
         self.applies_discounts = applies_discounts[0]
         self.discount_amount = applies_discounts[1]
+        self.discount_match_factions = applies_discounts[2]
 
     def get_name(self):
         return self.name
@@ -27,6 +28,9 @@ class Card:
 
     def get_discount_amount(self):
         return self.discount_amount
+
+    def get_discount_match_factions(self):
+        return self.discount_match_factions
 
     def get_text(self):
         return self.text

@@ -500,7 +500,11 @@ class Player:
         discounts = 0
         for i in range(len(self.headquarters)):
             if self.headquarters[i].get_applies_discounts() and self.headquarters[i].get_ready():
-                discounts = discounts + self.headquarters[i].get_discount_amount()
+                if self.headquarters[i].get_discount_match_factions():
+                    if self.headquarters[i].get_faction() == card_to_play.get_faction():
+                        discounts = discounts + self.headquarters[i].get_discount_amount()
+                else:
+                    discounts = discounts + self.headquarters[i].get_discount_amount()
         print("Potential discount:", discounts)
         return discounts
 
@@ -520,8 +524,13 @@ class Player:
                         done_discounting = True
                     elif unit_pos != -1 and planet_pos == -1:
                         if self.headquarters[unit_pos].get_applies_discounts() and self.headquarters[unit_pos].get_ready():
-                            self.headquarters[unit_pos].exhaust_card()
-                            applied_discounts += self.headquarters[unit_pos].get_discount_amount()
+                            if self.headquarters[unit_pos].get_discount_match_factions():
+                                if self.headquarters[unit_pos].get_faction() == card_to_play.get_faction():
+                                    self.headquarters[unit_pos].exhaust_card()
+                                    applied_discounts += self.headquarters[unit_pos].get_discount_amount()
+                            else:
+                                self.headquarters[unit_pos].exhaust_card()
+                                applied_discounts += self.headquarters[unit_pos].get_discount_amount()
                     if applied_discounts == max_discounts:
                         done_discounting = True
             card_cost = card_cost - applied_discounts

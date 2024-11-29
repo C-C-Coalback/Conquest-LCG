@@ -94,7 +94,7 @@ def chaos_cards_init():
                                                                        " a Chaos unit, exhaust this support to "
                                                                        "reduce that unit's cost by 1.",
                                                 "Location.", 1, "Chaos", "Common", True, "",
-                                                [True, 1]),
+                                                [True, 1, True]),
                         CardClasses.SupportCard("Murder Cogitator", "Reaction: After a or unit you control "
                                                                     "leaves play, exhaust this support to reveal the "
                                                                     "top card of your deck. If that card is a "
