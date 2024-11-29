@@ -2,7 +2,9 @@ import ClickDetection
 
 class Card:
     def __init__(self, name, text, traits, cost, faction, loyalty, shields, card_type, unique, image_name,
-                 applies_discounts = False):
+                 applies_discounts=None):
+        if applies_discounts is None:
+            applies_discounts = [False, 0]
         self.name = name
         self.text = text
         self.traits = traits
@@ -14,10 +16,17 @@ class Card:
         self.unique = unique
         self.ready = True
         self.image_name = image_name
-        self.applies_discounts = applies_discounts
+        self.applies_discounts = applies_discounts[0]
+        self.discount_amount = applies_discounts[1]
 
     def get_name(self):
         return self.name
+
+    def get_applies_discounts(self):
+        return self.applies_discounts
+
+    def get_discount_amount(self):
+        return self.discount_amount
 
     def get_text(self):
         return self.text
@@ -58,7 +67,7 @@ class Card:
 
 class UnitCard(Card):
     def __init__(self, name, text, traits, cost, faction, loyalty, card_type, attack, health, command,
-                 unique, image_name, brutal=False, applies_discounts = False):
+                 unique, image_name, brutal=False, applies_discounts = None):
         super().__init__(name, text, traits, cost, faction, loyalty, 0,
                          card_type, unique, image_name, applies_discounts)
         self.attack = attack
@@ -185,7 +194,7 @@ class UnitCard(Card):
 
 class WarlordCard(UnitCard):
     def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text,
-                 starting_resources, starting_cards, image_name, brutal=False, applies_discounts=False):
+                 starting_resources, starting_cards, image_name, brutal=False, applies_discounts=None):
         super().__init__(name, text, traits, -1, faction, "Signature", "Warlord", attack, health, 999,
                          True, image_name, brutal, applies_discounts)
         self.bloodied = False
@@ -241,7 +250,7 @@ class WarlordCard(UnitCard):
 
 class ArmyCard(UnitCard):
     def __init__(self, name, text, traits, cost, faction, loyalty, attack, health, command, unique,
-                 image_name, brutal=False, applies_discounts=False):
+                 image_name, brutal=False, applies_discounts=None):
         super().__init__(name, text, traits, cost, faction, loyalty, "Army", attack, health, command,
                          unique, image_name, brutal, applies_discounts)
 
@@ -260,7 +269,7 @@ class ArmyCard(UnitCard):
 
 class EventCard(Card):
     def __init__(self, name, text, traits, cost, faction, loyalty,
-                 shields, unique, image_name, applies_discounts=False):
+                 shields, unique, image_name, applies_discounts=None):
         super().__init__(name, text, traits, cost, faction, loyalty,
                          shields, "Event", unique, image_name, applies_discounts)
 
@@ -280,7 +289,7 @@ class EventCard(Card):
 
 class AttachmentCard(Card):
     def __init__(self, name, text, traits, cost, faction, loyalty,
-                 shields, unique, image_name, applies_discounts=False):
+                 shields, unique, image_name, applies_discounts=None):
         super().__init__(name, text, traits, cost, faction, loyalty,
                          shields, "Attachment", unique, image_name, applies_discounts)
 
@@ -299,7 +308,7 @@ class AttachmentCard(Card):
 
 
 class SupportCard(Card):
-    def __init__(self, name, text, traits, cost, faction, loyalty, unique, image_name, applies_discounts=False):
+    def __init__(self, name, text, traits, cost, faction, loyalty, unique, image_name, applies_discounts=None):
         super().__init__(name, text, traits, cost, faction, loyalty,
                          0, "Support", unique, image_name, applies_discounts)
 
@@ -318,7 +327,7 @@ class SupportCard(Card):
 
 
 class TokenCard(UnitCard):
-    def __init__(self, name, text, traits, faction, attack, health, image_name, applies_discounts=False):
+    def __init__(self, name, text, traits, faction, attack, health, image_name, applies_discounts=None):
         super().__init__(name, text, traits, -1, faction, "Common", "Token",
                          attack, health, 0, False, image_name, applies_discounts)
 
