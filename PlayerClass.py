@@ -505,7 +505,16 @@ class Player:
                         discounts = discounts + self.headquarters[i].get_discount_amount()
                 else:
                     discounts = discounts + self.headquarters[i].get_discount_amount()
-        print("Potential discount:", discounts)
+        i = 0
+        while i < len(self.cards):
+            card_object = FindCard.find_card(self.cards[i])
+            if card_object.get_applies_discounts():
+                if card_object.get_discount_match_factions():
+                    if card_object.get_faction() == card_to_play.get_faction():
+                        discounts = discounts + card_object.get_discount_amount()
+                else:
+                    discounts = discounts + card_object.get_discount_amount()
+            i += 1
         if planet_pos is None:
             pass
         else:
@@ -516,6 +525,7 @@ class Player:
                             discounts = discounts + self.cards_in_play[planet_pos + 1][i].get_discount_amount()
                     else:
                         discounts = discounts + self.cards_in_play[planet_pos + 1][i].get_discount_amount()
+        print("Potential discount:", discounts)
         return discounts
 
     def pygame_play_card(self, card_to_play):
