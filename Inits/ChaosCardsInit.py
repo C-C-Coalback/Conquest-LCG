@@ -93,7 +93,8 @@ def chaos_cards_init():
                         CardClasses.SupportCard("Fortress of Madness", "Limited.\nInterrupt: When you deploy"
                                                                        " a Chaos unit, exhaust this support to "
                                                                        "reduce that unit's cost by 1.",
-                                                "Location.", 1, "Chaos", "Common", True, ""),
+                                                "Location.", 1, "Chaos", "Common", True, "",
+                                                [True, 1]),
                         CardClasses.SupportCard("Murder Cogitator", "Reaction: After a or unit you control "
                                                                     "leaves play, exhaust this support to reveal the "
                                                                     "top card of your deck. If that card is a "

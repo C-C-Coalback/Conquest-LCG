@@ -499,7 +499,7 @@ class Player:
         base_cost = card_to_play.get_cost()
         discounts = 0
         for i in range(len(self.headquarters)):
-            if self.headquarters[i].get_applies_discounts():
+            if self.headquarters[i].get_applies_discounts() and self.headquarters[i].get_ready():
                 discounts = discounts + self.headquarters[i].get_discount_amount()
         print("Potential discount:", discounts)
         return discounts
