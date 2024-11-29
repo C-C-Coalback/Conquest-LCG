@@ -90,6 +90,21 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
                 defender.remove_card_from_play(planet_id, pos_defender)
                 defender.print_cards_at_planet(planet_id)
                 defender.print_discard()
+        if attacker.get_cards_in_play()[planet_id + 1][pos_attacker].get_name() == "Burna Boyz":
+            if attacker.get_number() == 1:
+                draw_all(game_screen, attacker, defender)
+            else:
+                draw_all(game_screen, defender, attacker)
+            pos_defender_sweep = ClickDetection.prompt_pos_unit_at_planet(defender, planet_id, game_screen, pygame.Color("blue"))
+            if pos_defender_sweep == -1:
+                pass
+            else:
+                unit_dead = defender.pygame_assign_damage_to_pos(planet_id, pos_defender_sweep, 1)
+                if unit_dead == 1:
+                    if defender.check_if_warlord(planet_id, pos_defender_sweep):
+                        defender.bloody_warlord_given_pos(planet_id, pos_defender_sweep)
+                    else:
+                        defender.remove_card_from_play(planet_id, pos_defender_sweep)
         attacker.toggle_turn()
         defender.toggle_turn()
         draw_all(game_screen, attacker, defender)
