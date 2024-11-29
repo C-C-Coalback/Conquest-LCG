@@ -112,8 +112,8 @@ class UnitCard(Card):
             return self.command + 3
         return self.command
 
-    def pygame_damage_card(self, player, amount, game_screen):
-        amount = self.pygame_shield_window(player, amount, game_screen)
+    def pygame_damage_card(self, player, amount):
+        amount = self.pygame_shield_window(player, amount)
         self.assign_damage(amount)
         if self.check_health():
             print("Card still standing")
@@ -122,7 +122,7 @@ class UnitCard(Card):
             print("Damage exceeds health")
             return 1
 
-    def pygame_shield_window(self, player, amount, game_screen):
+    def pygame_shield_window(self, player, amount):
         print(self.get_name(), "taking", amount, "damage.")
         print("GOT HERE")
         while True:

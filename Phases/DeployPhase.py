@@ -62,7 +62,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                              [x_for_drawing, y_for_drawing, 62, 88], 2)
                             pygame.display.flip()
                             object_holder = FindCard.find_card(p_two.get_cards()[position])
-                            if p_two.pygame_play_card(object_holder) == 0:
+                            if p_two.pygame_play_card(object_holder, p_one, game_screen) == 0:
                                 if not p_one_passed:
                                     p_one.toggle_turn()
                                     p_two.toggle_turn()
@@ -85,7 +85,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
                                              [x_for_drawing, y_for_drawing, 62, 88], 2)
                             pygame.display.flip()
                             object_holder = FindCard.find_card(p_one.get_cards()[position])
-                            if p_one.pygame_play_card(object_holder) == 0:
+                            if p_one.pygame_play_card(object_holder, p_two, game_screen) == 0:
                                 if not p_two_passed:
                                     p_one.toggle_turn()
                                     p_two.toggle_turn()

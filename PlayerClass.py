@@ -420,8 +420,8 @@ class Player:
     def remove_damage_from_pos_headquarters(self, unit_id, amount):
         self.headquarters[unit_id].remove_damage(amount)
 
-    def pygame_assign_damage_to_pos(self, planet_id, unit_id, damage, game_screen):
-        damage_too_great = self.cards_in_play[planet_id + 1][unit_id].pygame_damage_card(self, damage, game_screen)
+    def pygame_assign_damage_to_pos(self, planet_id, unit_id, damage):
+        damage_too_great = self.cards_in_play[planet_id + 1][unit_id].pygame_damage_card(self, damage)
         return damage_too_great
 
     def suffer_area_effect_at_planet(self, attacker, amount, planet_id, game_screen):
@@ -431,7 +431,7 @@ class Player:
                 draw_all(game_screen, self, attacker, "Atrox Prime ability")
             else:
                 draw_all(game_screen, attacker, self, "Atrox Prime ability")
-            damage_to_great = self.pygame_assign_damage_to_pos(planet_id, i, amount, game_screen)
+            damage_to_great = self.pygame_assign_damage_to_pos(planet_id, i, amount)
             if damage_to_great == 1:
                 if self.check_if_warlord(planet_id, i):
                     self.bloody_warlord_given_pos(planet_id, i)
@@ -528,7 +528,7 @@ class Player:
         print("Potential discount:", discounts)
         return discounts
 
-    def pygame_play_card(self, card_to_play):
+    def pygame_play_card(self, card_to_play, other_player, game_screen):
         if FindCard.check_card_type(card_to_play, "Army"):
             planet_id = ClickDetection.prompt_pos_planet()
             if not self.planets_in_play[planet_id]:
@@ -536,6 +536,7 @@ class Player:
             card_cost = card_to_play.get_cost()
             max_discounts = self.count_discounts(card_to_play, planet_id)
             applied_discounts = 0
+            damage_on_play = 0
             if max_discounts != 0:
                 done_discounting = False
                 for i in range(len(self.cards_in_play[planet_id + 1])):
@@ -544,6 +545,10 @@ class Player:
                 if applied_discounts == max_discounts:
                     done_discounting = True
                 while not done_discounting:
+                    if self.get_number() == 1:
+                        draw_all(game_screen, self, other_player)
+                    else:
+                        draw_all(game_screen, other_player, self)
                     unit_pos, planet_pos = ClickDetection.prompt_pos_unit_anywhere(self, hand_is_option=True)
                     if unit_pos == -1 and planet_pos == -1:
                         done_discounting = True
@@ -553,6 +558,8 @@ class Player:
                             if card_object.get_discount_match_factions():
                                 if card_object.get_faction() == card_to_play.get_faction():
                                     applied_discounts += card_object.get_discount_amount()
+                                    if card_object.get_name() == "Bigga is Betta":
+                                        damage_on_play += 1
                                     self.discard_card_from_hand(unit_pos)
                     elif unit_pos != -1 and planet_pos == -1:
                         if self.headquarters[unit_pos].get_applies_discounts() and self.headquarters[unit_pos].get_ready():
@@ -570,6 +577,16 @@ class Player:
                 card_cost = 0
             if self.spend_resources(card_cost) == 0:
                 self.cards_in_play[planet_id + 1].append(copy.deepcopy(card_to_play))
+                while damage_on_play > 0:
+                    played_unit_pos = len(self.cards_in_play[planet_id + 1]) - 1
+                    if self.get_number() == 1:
+                        draw_all(game_screen, self, other_player)
+                    else:
+                        draw_all(game_screen, other_player, self)
+                    unit_dead = self.pygame_assign_damage_to_pos(planet_id, played_unit_pos, 1)
+                    damage_on_play = damage_on_play - 1
+                    if unit_dead == 1:
+                        damage_on_play = 0
                 self.cards.remove(card_to_play.get_name())
                 print("Played card")
                 return 0
