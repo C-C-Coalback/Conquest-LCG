@@ -544,9 +544,16 @@ class Player:
                 if applied_discounts == max_discounts:
                     done_discounting = True
                 while not done_discounting:
-                    unit_pos, planet_pos = ClickDetection.prompt_pos_unit_anywhere(self)
+                    unit_pos, planet_pos = ClickDetection.prompt_pos_unit_anywhere(self, hand_is_option=True)
                     if unit_pos == -1 and planet_pos == -1:
                         done_discounting = True
+                    elif unit_pos != -1 and planet_pos == -2:
+                        card_object = FindCard.find_card(self.cards[unit_pos])
+                        if card_object.get_applies_discounts():
+                            if card_object.get_discount_match_factions():
+                                if card_object.get_faction() == card_to_play.get_faction():
+                                    applied_discounts += card_object.get_discount_amount()
+                                    self.discard_card_from_hand(unit_pos)
                     elif unit_pos != -1 and planet_pos == -1:
                         if self.headquarters[unit_pos].get_applies_discounts() and self.headquarters[unit_pos].get_ready():
                             if self.headquarters[unit_pos].get_discount_match_factions():

@@ -255,7 +255,9 @@ def prompt_pos_unit_anywhere_all_players(p_one, p_two, game_screen = None, color
                                                      [x_for_drawing, y_for_drawing, 62, 88], 2)
                                     pygame.display.flip()
                                 return 2, position, planet_pos
-def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None):
+
+
+def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None, hand_is_option = None):
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -268,6 +270,10 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None):
                     return -1, -1
                 if y > 385 and player.get_number() == 1:
                     if y > 500:
+                        if hand_is_option:
+                            hand_pos = determine_pos_hand(x, y, player)
+                            if hand_pos != -1:
+                                return hand_pos, -2
                         position = determine_pos_hq(x, y, player)
                         if position != -1:
                             if color1 is not None:
@@ -303,6 +309,10 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None):
                                 return position, planet_pos
                 elif y < 320 and player.get_number() == 2:
                     if y < 212:
+                        if hand_is_option:
+                            hand_pos = determine_pos_hand(x, y, player)
+                            if hand_pos != -1:
+                                return hand_pos, -2
                         position = determine_pos_hq(x, y, player)
                         if position != -1:
                             if color1 is not None:
