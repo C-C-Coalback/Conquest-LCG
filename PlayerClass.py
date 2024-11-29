@@ -196,6 +196,24 @@ class Player:
             game_screen.blit(card_image, (x, y))
             y = y + inc_y
 
+    def draw_discard(self, game_screen):
+        number_in_discard = len(self.discard)
+        if number_in_discard == 0:
+            return 1
+        card_string = self.discard[number_in_discard - 1]
+        for letter in card_string:
+            if letter == " ":
+                card_string = card_string.replace(letter, "_")
+        card_image_name = "ResizedImages/" + card_string + ".jpg"
+        x = 1091
+        y = 512
+        if self.number == 2:
+            x = 30
+            y = 123
+        card_image = pygame.image.load(card_image_name).convert()
+        game_screen.blit(card_image, (x, y))
+        return 0
+
     def print_cards_at_planet(self, planet_id):
         for j in range(len(self.cards_in_play[planet_id + 1])):
             print(self.cards_in_play[planet_id + 1][j].get_name())
@@ -496,7 +514,6 @@ class Player:
             self.cards_in_play[start_planet + 1].remove(self.cards_in_play[start_planet + 1][start_unit])
 
     def count_discounts(self, card_to_play, planet_pos=None):
-        base_cost = card_to_play.get_cost()
         discounts = 0
         for i in range(len(self.headquarters)):
             if self.headquarters[i].get_applies_discounts() and self.headquarters[i].get_ready():

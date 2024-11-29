@@ -99,6 +99,10 @@ def draw_victory_display_both(game_screen, p_one, p_two):
     p_one.draw_victory_display(game_screen)
     p_two.draw_victory_display(game_screen)
 
+def draw_discard_both(game_screen, p_one, p_two):
+    p_one.draw_discard(game_screen)
+    p_two.draw_discard(game_screen)
+
 def draw_both_pass_button(game_screen):
     draw_pass_button_player_one(game_screen)
     draw_pass_button_player_two(game_screen)
@@ -136,6 +140,7 @@ def draw_all(game_screen, p_one, p_two, helpful_text = ""):
     draw_both_pass_button(game_screen)
     draw_resource_icon_both(game_screen)
     draw_resource_number_both(game_screen, p_one, p_two)
+    draw_discard_both(game_screen, p_one, p_two)
     draw_victory_display_both(game_screen, p_one, p_two)
     draw_current_round_and_phase(p_one, game_screen)
     if p_one.get_has_turn():
