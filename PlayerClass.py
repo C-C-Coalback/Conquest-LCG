@@ -495,7 +495,7 @@ class Player:
             self.cards_in_play[end_planet + 1].append(copy.deepcopy(self.cards_in_play[start_planet + 1][start_unit]))
             self.cards_in_play[start_planet + 1].remove(self.cards_in_play[start_planet + 1][start_unit])
 
-    def count_discounts(self, card_to_play):
+    def count_discounts(self, card_to_play, planet_pos=None):
         base_cost = card_to_play.get_cost()
         discounts = 0
         for i in range(len(self.headquarters)):
@@ -506,6 +506,16 @@ class Player:
                 else:
                     discounts = discounts + self.headquarters[i].get_discount_amount()
         print("Potential discount:", discounts)
+        if planet_pos is None:
+            pass
+        else:
+            for i in range(len(self.cards_in_play[planet_pos + 1])):
+                if self.cards_in_play[planet_pos + 1][i].get_applies_discounts():
+                    if self.cards_in_play[planet_pos + 1][i].get_discount_match_factions():
+                        if self.cards_in_play[planet_pos + 1][i].get_faction() == card_to_play.get_faction():
+                            discounts = discounts + self.cards_in_play[planet_pos + 1][i].get_discount_amount()
+                    else:
+                        discounts = discounts + self.cards_in_play[planet_pos + 1][i].get_discount_amount()
         return discounts
 
     def pygame_play_card(self, card_to_play):
@@ -514,10 +524,15 @@ class Player:
             if not self.planets_in_play[planet_id]:
                 return -1
             card_cost = card_to_play.get_cost()
-            max_discounts = self.count_discounts(card_to_play)
+            max_discounts = self.count_discounts(card_to_play, planet_id)
             applied_discounts = 0
             if max_discounts != 0:
                 done_discounting = False
+                for i in range(len(self.cards_in_play[planet_id + 1])):
+                    if self.cards_in_play[planet_id + 1][i].get_applies_discounts():
+                        applied_discounts = applied_discounts + self.cards_in_play[planet_id + 1][i].get_discount_amount()
+                if applied_discounts == max_discounts:
+                    done_discounting = True
                 while not done_discounting:
                     unit_pos, planet_pos = ClickDetection.prompt_pos_unit_anywhere(self)
                     if unit_pos == -1 and planet_pos == -1:

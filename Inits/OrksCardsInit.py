@@ -43,7 +43,7 @@ def orks_cards_init():
                                             False, "Enraged_Ork", brutal=True),
                        CardClasses.ArmyCard("Crushface", "Interrupt: When you deploy another Orks unit at this planet, "
                                                          "reduce its cost by 1.", "Warrior. Nob.", 3, "Orks", "Loyal",
-                                            2, 3, 2, True, "Crushface"),
+                                            2, 3, 2, True, "Crushface", applies_discounts=[True, 1, True]),
                        CardClasses.ArmyCard("Bad Dok", "This unit gains 3 command icons while it is damaged.",
                                             "Oddboy. Nob.", 2,
                                             "Orks", "Common", 1, 4, 1, False, "Bad_Dok"),
