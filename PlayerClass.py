@@ -593,6 +593,9 @@ class Player:
             if card_cost < 0:
                 card_cost = 0
             if self.spend_resources(card_cost) == 0:
+                if card_to_play.get_name() == "Weirdboy Maniak":
+                    self.suffer_area_effect_at_planet(other_player, 1, planet_id, game_screen)
+                    other_player.suffer_area_effect_at_planet(self, 1, planet_id, game_screen)
                 self.cards_in_play[planet_id + 1].append(copy.deepcopy(card_to_play))
                 while damage_on_play > 0:
                     played_unit_pos = len(self.cards_in_play[planet_id + 1]) - 1
