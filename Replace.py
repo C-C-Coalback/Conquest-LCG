@@ -41,6 +41,7 @@ def resize_files():
         name, ext = os.path.splitext(base_name)
         damage_token_names.append(name)
         img = Image.open(token)
+        img = img.convert("RGB")
         img = img.resize((int(30), int(30)))
         resized_damage_images.append(img)
 
@@ -54,6 +55,7 @@ def resize_files():
         name, ext = os.path.splitext(base_name)
         filenames.append(name)
         img = Image.open(filename)
+        img = img.convert("RGB")
         image_list.append(img)
 
     for image in image_list:
@@ -68,6 +70,7 @@ def resize_files():
         name, ext = os.path.splitext(base_name)
         filenames.append(name)
         img = Image.open(planet_filename)
+        img = img.convert("RGB")
         planet_image_list.append(img)
 
     for image in planet_image_list:

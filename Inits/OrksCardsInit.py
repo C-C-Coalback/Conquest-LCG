@@ -64,14 +64,15 @@ def orks_cards_init():
                                                            "Each unit you control gets "
                                                            "+2 ATK until the end of the battle.",
                                              "Power.", 3, "Orks", "Loyal", 2, False,
-                                             "Battle_Cry", action_in_hand=True),
+                                             "Battle_Cry", action_in_hand=True, allowed_phases_in_hand="Combat"),
                        CardClasses.EventCard("Snotling Attack", "Deploy Action: Put 4 Snotlings tokens "
                                                                 "into play divided among any number of planets.",
                                              "Tactic.",
                                              2, "Orks", "Common", 1, False,
-                                             "Snotling_Attack"),
+                                             "Snotling_Attack", action_in_hand=True, allowed_phases_in_hand="Deploy"),
                        CardClasses.EventCard("Squig Bombin'", "Action: Destroy a target support card.", "Tactic.",
-                                             2, "Orks", "Common", 1, False, "Squig_Bombin'"),
+                                             2, "Orks", "Common", 1, False, "Squig_Bombin'", action_in_hand=True,
+                                             allowed_phases_in_hand="All"),
                        CardClasses.AttachmentCard("Rokkit Launcha",
                                                   "Attach to an army unit.Attached unit gains Ranged.",
                                                   "Wargear. Weapon.", 1, "Orks", "Common", 1, False,

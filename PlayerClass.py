@@ -5,6 +5,8 @@ import ClickDetection
 import FindCard
 import pygame
 
+import CardClasses
+
 from Drawing import draw_all
 from Inits import PlanetCardsInit
 
@@ -622,6 +624,23 @@ class Player:
                 return 0
             print("Insufficient resources")
             return -1
+        elif FindCard.check_card_type(card_to_play, "Event"):
+            if card_to_play.get_has_action_while_in_hand():
+                allowed_phases = card_to_play.get_allowed_phases_while_in_hand()
+                if allowed_phases == "All" or allowed_phases == "Deploy":
+                    if self.spend_resources((card_to_play.get_cost())) == 0:
+                        self.add_card_name_to_discard(card_to_play.get_name())
+                        self.cards.remove(card_to_play.get_name())
+                        if card_to_play.get_name() == "Snotling Attack":
+                            snotling = CardClasses.TokenCard("Snotlings", "", "Runt.", "Orks", 1, 1, "NO IMAGE")
+                            for i in range(4):
+                                if self.get_number() == 1:
+                                    draw_all(game_screen, self, other_player)
+                                else:
+                                    draw_all(game_screen, other_player, self)
+                                planet_pos = ClickDetection.prompt_pos_planet()
+                                self.cards_in_play[planet_pos + 1].append(copy.deepcopy(snotling))
+                        return 0
         print("not an army/support card")
         return -1
 
