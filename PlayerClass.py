@@ -640,9 +640,35 @@ class Player:
                                     draw_all(game_screen, other_player, self)
                                 planet_pos = ClickDetection.prompt_pos_planet()
                                 self.cards_in_play[planet_pos + 1].append(copy.deepcopy(snotling))
+                        if card_to_play.get_name() == "Squig Bombin'":
+                            if self.get_number() == 1:
+                                draw_all(game_screen, self, other_player)
+                                player_no, unit_pos, planet_pos = \
+                                    ClickDetection.prompt_pos_unit_anywhere_all_players(self, other_player)
+                            else:
+                                draw_all(game_screen, other_player, self)
+                                player_no, unit_pos, planet_pos = \
+                                    ClickDetection.prompt_pos_unit_anywhere_all_players(other_player, self)
+                            if planet_pos == -1 and unit_pos != -1:
+                                if self.get_number() == player_no:
+
+                                    self.destroy_card_in_hq(unit_pos, "Support")
+                                else:
+                                    other_player.destroy_card_in_hq(unit_pos, "Support")
                         return 0
         print("not an army/support card")
         return -1
+
+    def destroy_card_in_hq(self, card_pos, card_type=None):
+        if card_type is None:
+            self.add_card_name_to_discard(self.headquarters[card_pos].get_name())
+            del self.headquarters[card_pos]
+            return 0
+        if card_type == self.headquarters[card_pos].get_card_type():
+            self.add_card_name_to_discard(self.headquarters[card_pos].get_name())
+            del self.headquarters[card_pos]
+            return 0
+        return 1
 
     def play_unit_without_cost(self, card_to_play, forced_hq = False):
         if FindCard.check_card_type(card_to_play, "Army"):
