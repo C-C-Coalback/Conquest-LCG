@@ -64,7 +64,7 @@ def orks_cards_init():
                                                            "Each unit you control gets "
                                                            "+2 ATK until the end of the battle.",
                                              "Power.", 3, "Orks", "Loyal", 2, False,
-                                             "Battle_Cry"),
+                                             "Battle_Cry", action_in_hand=True),
                        CardClasses.EventCard("Snotling Attack", "Deploy Action: Put 4 Snotlings tokens "
                                                                 "into play divided among any number of planets.",
                                              "Tactic.",

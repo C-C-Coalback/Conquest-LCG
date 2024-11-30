@@ -2,7 +2,7 @@ import ClickDetection
 
 class Card:
     def __init__(self, name, text, traits, cost, faction, loyalty, shields, card_type, unique, image_name,
-                 applies_discounts=None):
+                 applies_discounts=None, action_in_hand=False):
         if applies_discounts is None:
             applies_discounts = [False, 0, False]
         self.name = name
@@ -19,6 +19,7 @@ class Card:
         self.applies_discounts = applies_discounts[0]
         self.discount_amount = applies_discounts[1]
         self.discount_match_factions = applies_discounts[2]
+        self.has_action_while_in_hand = action_in_hand
 
     def get_name(self):
         return self.name
@@ -74,9 +75,9 @@ class Card:
 
 class UnitCard(Card):
     def __init__(self, name, text, traits, cost, faction, loyalty, card_type, attack, health, command,
-                 unique, image_name, brutal=False, applies_discounts = None):
+                 unique, image_name, brutal=False, applies_discounts=None, action_in_hand=False):
         super().__init__(name, text, traits, cost, faction, loyalty, 0,
-                         card_type, unique, image_name, applies_discounts)
+                         card_type, unique, image_name, applies_discounts, action_in_hand)
         self.attack = attack
         self.health = health
         self.damage = 0
@@ -201,9 +202,10 @@ class UnitCard(Card):
 
 class WarlordCard(UnitCard):
     def __init__(self, name, text, traits, faction, attack, health, bloodied_attack, bloodied_health, bloodied_text,
-                 starting_resources, starting_cards, image_name, brutal=False, applies_discounts=None):
+                 starting_resources, starting_cards, image_name, brutal=False, applies_discounts=None
+                 , action_in_hand=False):
         super().__init__(name, text, traits, -1, faction, "Signature", "Warlord", attack, health, 999,
-                         True, image_name, brutal, applies_discounts)
+                         True, image_name, brutal, applies_discounts, action_in_hand)
         self.bloodied = False
         self.bloodied_attack = bloodied_attack
         self.bloodied_health = bloodied_health
@@ -257,9 +259,9 @@ class WarlordCard(UnitCard):
 
 class ArmyCard(UnitCard):
     def __init__(self, name, text, traits, cost, faction, loyalty, attack, health, command, unique,
-                 image_name, brutal=False, applies_discounts=None):
+                 image_name, brutal=False, applies_discounts=None, action_in_hand=False):
         super().__init__(name, text, traits, cost, faction, loyalty, "Army", attack, health, command,
-                         unique, image_name, brutal, applies_discounts)
+                         unique, image_name, brutal, applies_discounts, action_in_hand)
 
     def print_info(self):
         if self.unique:
@@ -276,9 +278,9 @@ class ArmyCard(UnitCard):
 
 class EventCard(Card):
     def __init__(self, name, text, traits, cost, faction, loyalty,
-                 shields, unique, image_name, applies_discounts=None):
+                 shields, unique, image_name, applies_discounts=None, action_in_hand=False):
         super().__init__(name, text, traits, cost, faction, loyalty,
-                         shields, "Event", unique, image_name, applies_discounts)
+                         shields, "Event", unique, image_name, applies_discounts, action_in_hand)
 
     def print_info(self):
         if self.unique:
@@ -296,9 +298,9 @@ class EventCard(Card):
 
 class AttachmentCard(Card):
     def __init__(self, name, text, traits, cost, faction, loyalty,
-                 shields, unique, image_name, applies_discounts=None):
+                 shields, unique, image_name, applies_discounts=None, action_in_hand=False):
         super().__init__(name, text, traits, cost, faction, loyalty,
-                         shields, "Attachment", unique, image_name, applies_discounts)
+                         shields, "Attachment", unique, image_name, applies_discounts, action_in_hand)
 
     def print_info(self):
         if self.unique:
@@ -315,9 +317,10 @@ class AttachmentCard(Card):
 
 
 class SupportCard(Card):
-    def __init__(self, name, text, traits, cost, faction, loyalty, unique, image_name, applies_discounts=None):
+    def __init__(self, name, text, traits, cost, faction, loyalty, unique, image_name, applies_discounts=None
+                 , action_in_hand=False):
         super().__init__(name, text, traits, cost, faction, loyalty,
-                         0, "Support", unique, image_name, applies_discounts)
+                         0, "Support", unique, image_name, applies_discounts, action_in_hand)
 
     def print_info(self):
         if self.unique:
@@ -336,7 +339,7 @@ class SupportCard(Card):
 class TokenCard(UnitCard):
     def __init__(self, name, text, traits, faction, attack, health, image_name, applies_discounts=None):
         super().__init__(name, text, traits, -1, faction, "Common", "Token",
-                         attack, health, 0, False, image_name, applies_discounts)
+                         attack, health, 0, False, image_name, applies_discounts, action_in_hand=False)
 
     def print_info(self):
         print("Name:", self.name)
