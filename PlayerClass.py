@@ -639,7 +639,9 @@ class Player:
                                 else:
                                     draw_all(game_screen, other_player, self)
                                 planet_pos = ClickDetection.prompt_pos_planet()
-                                self.cards_in_play[planet_pos + 1].append(copy.deepcopy(snotling))
+                                print(planet_pos)
+                                if planet_pos != -1:
+                                    self.cards_in_play[planet_pos + 1].append(copy.deepcopy(snotling))
                         if card_to_play.get_name() == "Squig Bombin'":
                             if self.get_number() == 1:
                                 draw_all(game_screen, self, other_player)
@@ -651,7 +653,6 @@ class Player:
                                     ClickDetection.prompt_pos_unit_anywhere_all_players(other_player, self)
                             if planet_pos == -1 and unit_pos != -1:
                                 if self.get_number() == player_no:
-
                                     self.destroy_card_in_hq(unit_pos, "Support")
                                 else:
                                     other_player.destroy_card_in_hq(unit_pos, "Support")
