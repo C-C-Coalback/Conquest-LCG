@@ -139,7 +139,7 @@ def ferrin_ability(p_win, p_lose, game_screen):
             if p_lose.get_headquarters()[unit_pos] == "Warlord" or p_lose.get_headquarters()[unit_pos] == "Support":
                 print("Card is Warlord / Support, routing with Ferrin forbidden")
             else:
-                p_lose.exhaust_card_in_hq()
+                p_lose.exhaust_card_in_hq(unit_pos)
 
 def carnath_ability(p_win, p_lose, game_screen):
     print("Carnath ability")

@@ -1,4 +1,5 @@
 from PassCommand import check_for_pass
+from ActionChecker import check_for_action
 import pygame
 import sys
 
@@ -425,6 +426,8 @@ def prompt_pos_unit_at_planet(player, planet_id, game_screen = None, color1 = No
                 print(x, x_req_1, x_req_2, y)
                 if check_for_pass(x, y, player.get_number()) == 1:
                     return -1
+                if check_for_action(x, y, player.get_number()) == 1:
+                    return -2
                 if x_req_1 < x < x_req_2:
                     if y > 385 and player.get_number() == 1:
                         print("Player one units")

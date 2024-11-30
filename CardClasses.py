@@ -92,9 +92,20 @@ class UnitCard(Card):
         self.command = command
         self.by_base_brutal = brutal
         self.brutal = brutal
+        self.extra_attack_until_end_of_battle = 0
 
     def get_by_base_brutal(self):
         return self.by_base_brutal
+
+    def get_extra_attack_until_end_of_battle(self):
+        return self.extra_attack_until_end_of_battle
+
+    def increase_extra_attack_until_end_of_battle(self, amount):
+        self.extra_attack_until_end_of_battle += amount
+
+    def reset_extra_attack_until_end_of_battle(self):
+        self.extra_attack_until_end_of_battle = 0
+
 
     def remove_damage(self, amount):
         self.damage = self.damage - amount

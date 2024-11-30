@@ -1,5 +1,6 @@
 import pygame
 
+import FindCard
 from Phases.PlanetBattleAbilities import resolve_planet_battle_effect
 import ClickDetection
 from Drawing import draw_all
@@ -69,6 +70,14 @@ def combat_turn(attacker, defender, planet_id):
 def pygame_combat_turn(attacker, defender, planet_id, game_screen):
     print(attacker.get_name_player(), '\'s turn to attack', sep='')
     pos_attacker = ClickDetection.prompt_pos_unit_at_planet(attacker, planet_id, game_screen, pygame.Color("red"))
+    if pos_attacker == -2:
+        pos_unit, pos_planet = ClickDetection.prompt_pos_unit_anywhere(attacker, game_screen, hand_is_option=True)
+        if pos_planet == -2:
+            card_name_in_hand = attacker.get_cards()[pos_unit]
+            card_object = FindCard.find_card(card_name_in_hand)
+            if card_object.get_has_action_while_in_hand():
+                attacker.pygame_play_card(card_object, defender, game_screen)
+        return pygame_combat_turn(attacker, defender, planet_id, game_screen)
     if pos_attacker == -1:
         return True
     pos_defender = ClickDetection.prompt_pos_unit_at_planet(defender, planet_id, game_screen, pygame.Color("blue"))
@@ -261,6 +270,8 @@ def pygame_resolve_battle(p_one, p_two, planet_id, first_planet, game_screen):
     if first_planet:
         p_one.toggle_planet_in_play(planet_id)
         p_two.toggle_planet_in_play(planet_id)
+    p_one.reset_all_extra_attack_until_end_of_battle()
+    p_two.reset_all_extra_attack_until_end_of_battle()
 
 
 def check_for_battle(p_one, p_two, planet_id, first_planet):

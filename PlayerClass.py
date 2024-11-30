@@ -423,6 +423,7 @@ class Player:
         if self.cards_in_play[planet_id + 1][unit_id].get_brutal():
             attack_value = attack_value + self.cards_in_play[planet_id + 1][unit_id].get_damage()
         self.cards_in_play[planet_id + 1][unit_id].reset_brutal()
+        attack_value += self.cards_in_play[planet_id + 1][unit_id].get_extra_attack_until_end_of_battle()
         return attack_value
 
     def get_shields_given_pos(self, pos_in_hand):
@@ -627,7 +628,7 @@ class Player:
         elif FindCard.check_card_type(card_to_play, "Event"):
             if card_to_play.get_has_action_while_in_hand():
                 allowed_phases = card_to_play.get_allowed_phases_while_in_hand()
-                if allowed_phases == "All" or allowed_phases == "Deploy":
+                if allowed_phases == "All" or allowed_phases == self.phase:
                     if self.spend_resources((card_to_play.get_cost())) == 0:
                         self.add_card_name_to_discard(card_to_play.get_name())
                         self.cards.remove(card_to_play.get_name())
@@ -642,7 +643,7 @@ class Player:
                                 print(planet_pos)
                                 if planet_pos != -1:
                                     self.cards_in_play[planet_pos + 1].append(copy.deepcopy(snotling))
-                        if card_to_play.get_name() == "Squig Bombin'":
+                        elif card_to_play.get_name() == "Squig Bombin'":
                             if self.get_number() == 1:
                                 draw_all(game_screen, self, other_player)
                                 player_no, unit_pos, planet_pos = \
@@ -656,9 +657,28 @@ class Player:
                                     self.destroy_card_in_hq(unit_pos, "Support")
                                 else:
                                     other_player.destroy_card_in_hq(unit_pos, "Support")
+                        elif card_to_play.get_name() == "Battle Cry":
+                            print("Apply +2 ATK to all units")
+                            for planet_pos in range(7):
+                                for unit_pos in range(len(self.cards_in_play[planet_pos + 1])):
+                                    self.cards_in_play[planet_pos + 1][unit_pos].\
+                                        increase_extra_attack_until_end_of_battle(2)
+                        if self.get_number() == 1:
+                            draw_all(game_screen, self, other_player)
+                        else:
+                            draw_all(game_screen, other_player, self)
                         return 0
         print("not an army/support card")
         return -1
+
+    def reset_all_extra_attack_until_end_of_battle(self):
+        for planet_pos in range(7):
+            for unit_pos in range(len(self.cards_in_play[planet_pos + 1])):
+                self.cards_in_play[planet_pos + 1][unit_pos]. \
+                    reset_extra_attack_until_end_of_battle()
+        for card_pos in range(len(self.headquarters)):
+            if self.headquarters[card_pos].get_card_type() != "Support":
+                self.headquarters[card_pos].reset_extra_attack_until_end_of_battle()
 
     def destroy_card_in_hq(self, card_pos, card_type=None):
         if card_type is None:
