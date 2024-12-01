@@ -16,7 +16,8 @@ def orks_cards_init():
                                                "Combat Action: Exhaust this support to move 1 damage from a "
                                                "target unit you control to another target unit "
                                                "at the same planet.", "Location.", 2, "Orks", "Signature",
-                                               False, "Kraktoof_Hall"),
+                                               False, "Kraktoof_Hall", action_in_play=True,
+                                               allowed_phases_in_play="Combat"),
                        CardClasses.EventCard("Bigga is Betta", "Interrupt: When you deploy an Orks unit, "
                                                                "reduce its cost by 2. "
                                                                "Deal 1 damage to that unit after it enters play.",

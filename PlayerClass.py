@@ -441,8 +441,8 @@ class Player:
     def remove_damage_from_pos_headquarters(self, unit_id, amount):
         self.headquarters[unit_id].remove_damage(amount)
 
-    def pygame_assign_damage_to_pos(self, planet_id, unit_id, damage):
-        damage_too_great = self.cards_in_play[planet_id + 1][unit_id].pygame_damage_card(self, damage)
+    def pygame_assign_damage_to_pos(self, planet_id, unit_id, damage, can_shield=True):
+        damage_too_great = self.cards_in_play[planet_id + 1][unit_id].pygame_damage_card(self, damage, can_shield)
         return damage_too_great
 
     def suffer_area_effect_at_planet(self, attacker, amount, planet_id, game_screen):

@@ -82,7 +82,26 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
             if card_object.get_has_action_while_in_hand():
                 attacker.pygame_play_card(card_object, defender, game_screen)
         elif pos_planet == -1:
-            print("HQ selected, not implemented yet")
+            card_chosen = attacker.get_headquarters()[pos_unit]
+            print("CHOSE CARD:", card_chosen.get_name())
+            if card_chosen.get_has_action_while_in_play():
+                if card_chosen.get_allowed_phases_while_in_play() == "Combat" or\
+                        card_chosen.get_allowed_phases_while_in_play() == "All":
+                    if card_chosen.get_name() == "Kraktoof Hall":
+                        if card_chosen.get_ready():
+                            pos_target1, pos_planet_action = ClickDetection.prompt_pos_unit_anywhere(
+                                attacker, game_screen, color1=pygame.Color("red"))
+                            if pos_planet_action != -1:
+                                player_no, pos_target2, pos_planet_action_2 = ClickDetection.\
+                                    prompt_pos_unit_anywhere_all_players(attacker, defender, game_screen)
+                                if pos_planet_action_2 == pos_planet_action:
+                                    attacker.remove_damage_from_pos(pos_planet_action, pos_target1, 1)
+                                    defender.pygame_assign_damage_to_pos(pos_planet_action, pos_target2, 1, can_shield=False)
+                                    attacker.exhaust_card_in_hq(pos_unit)
+                                    if attacker.get_number() == 1:
+                                        draw_all(game_screen, attacker, defender)
+                                    else:
+                                        draw_all(game_screen, defender, attacker)
         else:
             card_chosen = attacker.get_cards_in_play()[pos_planet + 1][pos_unit]
             if card_chosen.get_name() == "Nazdreg's Flash Gitz":
