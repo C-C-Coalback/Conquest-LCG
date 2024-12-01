@@ -10,7 +10,8 @@ def orks_cards_init():
                                             "Combat Action: Deal this unit 1 damage to ready it. "
                                             "(Limit once per phase.)",
                                             "Nob. Warrior.", 3, "Orks", "Signature", 2, 4, 1, False,
-                                            "Nazdreg's_Flash_Gitz"),
+                                            "Nazdreg's_Flash_Gitz",
+                                            action_in_play=True, allowed_phases_in_play="Combat"),
                        CardClasses.SupportCard("Kraktoof Hall",
                                                "Combat Action: Exhaust this support to move 1 damage from a "
                                                "target unit you control to another target unit "

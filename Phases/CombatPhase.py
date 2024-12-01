@@ -69,6 +69,10 @@ def combat_turn(attacker, defender, planet_id):
 
 def pygame_combat_turn(attacker, defender, planet_id, game_screen):
     print(attacker.get_name_player(), '\'s turn to attack', sep='')
+    if attacker.get_number() == 1:
+        draw_all(game_screen, attacker, defender)
+    else:
+        draw_all(game_screen, defender, attacker)
     pos_attacker = ClickDetection.prompt_pos_unit_at_planet(attacker, planet_id, game_screen, pygame.Color("red"))
     if pos_attacker == -2:
         pos_unit, pos_planet = ClickDetection.prompt_pos_unit_anywhere(attacker, game_screen, hand_is_option=True)
@@ -77,6 +81,15 @@ def pygame_combat_turn(attacker, defender, planet_id, game_screen):
             card_object = FindCard.find_card(card_name_in_hand)
             if card_object.get_has_action_while_in_hand():
                 attacker.pygame_play_card(card_object, defender, game_screen)
+        elif pos_planet == -1:
+            print("HQ selected, not implemented yet")
+        else:
+            card_chosen = attacker.get_cards_in_play()[pos_planet + 1][pos_unit]
+            if card_chosen.get_name() == "Nazdreg's Flash Gitz":
+                if not card_chosen.get_ready() and not card_chosen.get_once_per_phase_used():
+                    unit_dead = attacker.pygame_assign_damage_to_pos(pos_planet, pos_unit, 1)
+                    if not unit_dead:
+                        attacker.ready_given_pos(pos_planet, pos_unit)
         return pygame_combat_turn(attacker, defender, planet_id, game_screen)
     if pos_attacker == -1:
         return True
