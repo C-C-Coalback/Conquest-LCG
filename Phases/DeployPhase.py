@@ -37,6 +37,7 @@ def pygame_deploy_phase(round_number, p_one, p_two, game_screen):
     draw_all(game_screen, p_one, p_two)
     run = True
     while (not p_one_passed or not p_two_passed) and run:
+        _ = pygame.time.wait(17)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

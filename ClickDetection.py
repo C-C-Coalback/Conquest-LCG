@@ -6,6 +6,7 @@ import sys
 def prompt_pos_hand(player):
     run = True
     while run:
+        _ = pygame.time.wait(17)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -86,6 +87,7 @@ def determine_pos_hq(x, y, player):
 def prompt_pos_planet():
     planet_chosen = False
     while not planet_chosen:
+        _ = pygame.time.wait(17)
         for event2 in pygame.event.get():
             if event2.type == pygame.QUIT:
                 pygame.quit()
@@ -121,6 +123,7 @@ def prompt_two_choices(player, game_screen, choices_list):
     pygame.draw.rect(game_screen, color, box2, 2)
     pygame.display.flip()
     while True:
+        _ = pygame.time.wait(17)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -155,6 +158,7 @@ def prompt_n_choices(player, game_screen, choices_list):
         game_screen.blit(txt_surface_array[i], (box_array[i].x + 5, box_array[i].y + 5))
     pygame.display.flip()
     while True:
+        _ = pygame.time.wait(17)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -170,6 +174,7 @@ def prompt_n_choices(player, game_screen, choices_list):
 
 def prompt_pos_unit_anywhere_all_players(p_one, p_two, game_screen = None, color1 = None):
     while True:
+        _ = pygame.time.wait(17)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -260,6 +265,7 @@ def prompt_pos_unit_anywhere_all_players(p_one, p_two, game_screen = None, color
 
 def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None, hand_is_option = None):
     while True:
+        _ = pygame.time.wait(17)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -352,6 +358,7 @@ def prompt_pos_unit_anywhere(player, game_screen = None, color1 = None, hand_is_
 
 def prompt_pos_unit_any_planet(player, game_screen = None, color1 = None):
     while True:
+        _ = pygame.time.wait(17)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -417,6 +424,7 @@ def prompt_pos_unit_at_planet(player, planet_id, game_screen = None, color1 = No
     x_req_2 = (planet_id * 165) + 185
     average = (planet_id * 165) + 122
     while True:
+        _ = pygame.time.wait(17)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

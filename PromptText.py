@@ -18,6 +18,7 @@ def prompt_text(input_window, info_text):
     print(split_text, helpful_text, warning_text)
     input_box = pygame.Rect(500, 300, 140, 32)
     while True:
+        _ = pygame.time.wait(17)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

@@ -205,6 +205,7 @@ def draw_current_deck(game_screen,  current_deck):
     pygame.display.flip()
     status = True
     while status:
+        _ = pygame.time.wait(17)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

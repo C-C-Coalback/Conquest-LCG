@@ -170,6 +170,7 @@ elif holder == "g":
                     print("D pressed, init deck-building procedure")
                     DeckHandling.pygame_create_deck(window)
                     status = False
+        _ = pygame.time.wait(17)
     pygame.quit()
 elif holder == "r":
     Replace.resize_files()
