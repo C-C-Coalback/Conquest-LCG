@@ -10,6 +10,7 @@ import CardClasses
 from Drawing import draw_all
 from Inits import PlanetCardsInit
 
+
 class Player:
     def __init__(self, name, number):
         self.number = number
@@ -30,11 +31,11 @@ class Player:
         self.cards_in_play = [[] for _ in range(8)]
         self.images_on_screen = [[] for _ in range(11)]
         self.position_images = [[] for _ in range(11)]
-        #i_o_s[0-6] = "Cards at Planets"
-        #i_o_s[7] = "Hand"
-        #i_o_s[8] = "HQ"
-        #i_o_s[9] = "Top Discard"
-        #i_o_s[10] = "Victory Display"
+        # i_o_s[0-6] = "Cards at Planets"
+        # i_o_s[7] = "Hand"
+        # i_o_s[8] = "HQ"
+        # i_o_s[9] = "Top Discard"
+        # i_o_s[10] = "Victory Display"
 
     def get_phase(self):
         return self.phase
@@ -180,7 +181,6 @@ class Player:
                     x_current_planet = x_first_planet + 165 * i
                     y_current_planet = y_current_planet + y_increment
 
-
     def draw_victory_display(self, game_screen):
         x = 30
         y = 505
@@ -297,21 +297,6 @@ class Player:
                 self.retreat_unit(planet_id, unit_pos)
                 return False
 
-    def retreat_combat_window(self, planet_id):
-        done_retreating = False
-        while not done_retreating:
-            retreat_a_unit = input(self.get_name_player() + " Retreat unit? (y/n)")
-            if retreat_a_unit == "n":
-                done_retreating = True
-            elif retreat_a_unit == "y":
-                unit_name = input("Enter name of unit to retreat with")
-                unit_pos = self.search_card_at_planet(unit_name, planet_id)
-                if unit_pos == -1:
-                    print("Unit not found")
-                else:
-                    self.exhaust_given_pos(planet_id, unit_pos)
-                    self.retreat_unit(planet_id, unit_pos)
-
     def retreat_all_at_planet(self, planet_id):
         while self.cards_in_play[planet_id + 1]:
             self.retreat_unit(planet_id, 0)
@@ -332,7 +317,6 @@ class Player:
                         self.retreat_unit(i, j)
                         j = j - 1
                     j = j + 1
-
 
     def print_victory_display(self):
         print("Cards in victory display:")
@@ -431,10 +415,6 @@ class Player:
         card_object = FindCard.find_card(shield_card_name)
         return card_object.get_shields()
 
-    def assign_damage_to_pos(self, planet_id, unit_id, damage):
-        damage_too_great = self.cards_in_play[planet_id + 1][unit_id].damage_card(self, damage)
-        return damage_too_great
-
     def remove_damage_from_pos(self, planet_id, unit_id, amount):
         self.cards_in_play[planet_id + 1][unit_id].remove_damage(amount)
 
@@ -446,6 +426,8 @@ class Player:
         return damage_too_great
 
     def suffer_area_effect_at_planet(self, attacker, amount, planet_id, game_screen):
+        if planet_id == -1:
+            return None
         i = 0
         while i < len(self.cards_in_play[planet_id + 1]):
             if self.number == 1:
@@ -460,7 +442,6 @@ class Player:
                     self.remove_card_from_play(planet_id, i)
                 i = i - 1
             i = i + 1
-
 
     def check_if_warlord(self, planet_id, unit_id):
         if self.cards_in_play[planet_id + 1][unit_id].get_card_type() == "Warlord":
@@ -709,60 +690,6 @@ class Player:
         print("Not a unit")
         return -1
 
-    def play_card(self, card_to_play, planet_id):
-        if not self.planets_in_play[planet_id - 1]:
-            return -1
-        if FindCard.check_card_type(card_to_play, "Army"):
-            if self.spend_resources(card_to_play.get_cost()) == 0:
-                self.cards_in_play[planet_id].append(copy.deepcopy(card_to_play))
-                self.cards.remove(card_to_play.get_name())
-                print("Played card")
-                return 0
-            else:
-                print("Insufficient resources")
-                return -1
-        elif FindCard.check_card_type(card_to_play, "Support"):
-            if self.spend_resources((card_to_play.get_cost())) == 0:
-                self.add_to_hq(card_to_play)
-                self.cards.remove(card_to_play.get_name())
-                print("Played card to HQ")
-                for i in range(len(self.get_headquarters())):
-                    print(self.get_headquarters()[i].get_name())
-                return 0
-            else:
-                print("Insufficient resources")
-                return -1
-        else:
-            print("Not an army/support card")
-            return -1
-
-    def deploy_turn(self):
-        play_card = input(self.get_name_player() + " play card? 'y' or 'p' to play, 'pass' to pass")
-        if play_card == "p" or play_card == "y":
-            card_name = input("Enter card name to play:")
-            card_position = self.find_card_in_hand(card_name)
-            if card_position == -1:
-                print("Card not found in hand.")
-                return self.deploy_turn()
-            else:
-                planet_name = input("Enter planet name to play card at:")
-                pos = self.search_planets_in_game(planet_name)
-                if pos == -1:
-                    print("Planet not found.")
-                    return self.deploy_turn()
-                else:
-                    print("Planet found.")
-                    print("Attempting to play card.")
-                    object_holder = FindCard.find_card(self.get_cards()[card_position])
-                    self.play_card(object_holder, pos + 1)
-                    self.print_cards_in_play()
-                    return False
-        elif play_card == "pass":
-            return True
-        else:
-            print("Command unrecognised.")
-            return self.deploy_turn()
-
     def remove_card_from_play(self, planet_num, card_pos):
         # card_object = self.cards_in_play[planet_num + 1][card_pos]
         # self.discard_object(card_object)
@@ -807,7 +734,6 @@ class Player:
     def random_discard_from_hand(self):
         card_pos = random.randrange(len(self.cards))
         self.discard_card_from_hand(card_pos)
-        
 
     def print_hand(self):
         print("Cards in hand:")

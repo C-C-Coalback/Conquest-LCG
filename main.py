@@ -61,12 +61,6 @@ def create_planets(planet_array_objects):
     return planets_in_play_return
 
 
-def game_round(round_number, p_one, p_two):
-    DeployPhase.deploy_phase(round_number, p_one, p_two)
-    CommandPhase.command_phase(round_number, p_one, p_two)
-    CombatPhase.combat_phase(round_number, p_one, p_two)
-    HeadquartersPhase.hq_phase(round_number, p_one, p_two)
-
 
 def pygame_round(round_number, p_one, p_two, game_screen):
     DeployPhase.pygame_deploy_phase(round_number, p_one, p_two, game_screen)
@@ -75,22 +69,7 @@ def pygame_round(round_number, p_one, p_two, game_screen):
     HeadquartersPhase.pygame_hq_phase(round_number, p_one, p_two, game_screen)
 
 
-def play_game(p_one, p_two):
-    deck_s = FindDeck.find_deck()
-    FindDeck.load_deck(deck_s, p_one)
-    p_one.shuffle_deck()
-    deck_s = FindDeck.find_deck()
-    FindDeck.load_deck(deck_s, p_two)
-    p_two.shuffle_deck()
-    planets_in_play_list = create_planets(planet_array)
-    player_one.init_planets_in_game(planets_in_play_list)
-    player_two.init_planets_in_game(planets_in_play_list)
-    init_player(p_one)
-    init_player(p_two)
-    game_round(1, p_one, p_two)
-    for i in range(2,7,2):
-        game_round(i, p_two, p_one)
-        game_round(i + 1, p_one, p_two)
+
 
 
 def play_pygame(p_one, p_two, game_screen):
@@ -127,19 +106,7 @@ def init_player(player):
 
 
 holder = input("Enter: ")
-if holder == "c":
-    DeckHandling.create_deck()
-elif holder == "l":
-    player_one = PlayerClass.Player('Abe', 1)
-    deck_string = FindDeck.find_deck()
-    FindDeck.load_deck(deck_string, player_one)
-    player_one.shuffle_deck()
-    player_one.print_deck()
-elif holder == "p":
-    player_one = PlayerClass.Player('Abe', 1)
-    player_two = PlayerClass.Player('Bob', 2)
-    play_game(player_one, player_two)
-elif holder == "g":
+if holder == "g":
     pygame.init()
     bounds = (1200, 700)
     window = pygame.display.set_mode(bounds)
